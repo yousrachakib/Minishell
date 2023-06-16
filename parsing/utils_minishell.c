@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/16 20:01:21 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/16 20:51:26 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ int check_quotes(char *input)
 int check_special(char c)
 {
     if (c == '<' || c == '>' || c == '|')
+        return (1);
+    return (0);
+}
+int special_char_only(char *input)
+{
+    int i;
+    
+    i = 0;
+    if (check_special(input[0]))
+        return (1);
+    while (input[i])
+        i++;
+    if (check_special(input[i - 1]))
         return (1);
     return (0);
 }

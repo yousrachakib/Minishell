@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/16 20:01:56 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/16 20:54:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ void syntaxerror(char *input)
     if (check_quotes(input))
     {
         printf("syntaxError : verify quotations\n");
-        free(input);
         return ;
     }
     if (pipe_errors(input))
     {
-        printf("syntaxError : verify pipe\n");
-        free(input);
+        printf("syntax error near unexpected token `|'\n");
         return ;
+    }
+    if (special_char_only(input))
+    {
+        printf("syntax error near unexpected token `newline'\n");
+        return ;       
     }
 }
 
@@ -38,6 +41,7 @@ void ft_readline(char *input)
         if (input[0] != '\0')
             add_history(input);
         syntaxerror(input);
+        free(input);
     }
 }
 
