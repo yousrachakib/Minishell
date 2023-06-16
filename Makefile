@@ -1,8 +1,8 @@
 CC = cc 
 FLAGS = -Wall -Wextra -Werror -lreadline
 NAME = minishell
-SRC = main.c \
-	utils_minishell.c \
+SRC = parsing/main.c \
+	parsing/utils_minishell.c \
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

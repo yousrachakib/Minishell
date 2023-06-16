@@ -6,11 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/16 20:51:26 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/16 22:12:22 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int is_whitespace(char c)
 {
@@ -41,7 +41,7 @@ int check_quotes(char *input)
 }
 int check_special(char c)
 {
-    if (c == '<' || c == '>' || c == '|')
+    if (c == '<' || c == '>')
         return (1);
     return (0);
 }
@@ -50,11 +50,11 @@ int special_char_only(char *input)
     int i;
     
     i = 0;
-    if (check_special(input[0]))
+    if (check_special(input[0])) // handlimg single special char
         return (1);
     while (input[i])
         i++;
-    if (check_special(input[i - 1]))
+    if (check_special(input[i - 1])) // handling special char at the end
         return (1);
     return (0);
 }
@@ -72,7 +72,7 @@ int pipe_errors(char *input)
     {
         if (check_special(input[i]) && check_special(input[i + 1]) && input[i + 2] == '|') // (<< |)( >> |)
 			return (1);
-        if (check_special(input[i] && input[i + 1] == '|')) // (< |)( > |)
+        if (check_special(input[i]) && input[i + 1] == '|')// (< |)( > |)
 			return (1);
 		if (check_special(input[i]) && check_special(input[i + 1]) && check_special(input[i + 2]) && check_special(input[i + 3])) // (>> >>) (<< <<)
 			return (1);
