@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/15 19:29:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:52:37 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,10 @@ typedef struct s_info
     char *input;
 }  t_info;
 
+void ft_readline(char *input);
+int check_quotes(char *input);
+void syntaxerror(char *input);
+int is_whitespace(char c);
+int check_special(char c);
+int pipe_errors(char *input);
 #endif
