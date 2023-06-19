@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 18:09:06 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:51:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,26 @@ void	syntaxerror(char *input)
 	}
 }
 
-void ft_readline(char *input)
+void	ft_readline(char *input)
 {
 	int		i;
 	char	**newinput;
 	t_cmd	*command;
 
-	i = 0;
 	while (1)
 	{
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			break; //handling EOF control+D
+			break ;
 		if (input[0] != '\0')
 			add_history(input);
 		protect_inquote(input);
 		init_struct(command);
 		newinput = ft_split(input, '|');
+		i = 0;
 		while (newinput[i])
 		{
 			addback_node(&command, create_node(newinput[i]));
-			printf("---->>%s\n", create_node(newinput[i])->input);
 			i++;
 		}
 		// syntaxerror(input);
@@ -65,8 +64,9 @@ void ft_readline(char *input)
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	char *input;
+	char	*input;
+
 	ft_readline(input);
 }

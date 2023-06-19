@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 18:08:37 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:38:58 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 t_cmd	*create_node(char *splited_input)
 {
-	t_cmd	**node;
+	t_cmd	*node;
 
-	(*node) = malloc(sizeof(t_cmd));
-	if (*node)
+	node = malloc(sizeof(t_cmd));
+	if (!node)
 		return (NULL);
-	(*node)->input = splited_input;
-	(*node)->fd_input = 0;
-	(*node)->fd_output = 1;
-	(*node)->next = NULL;
-	return (*node);
+	node->input = splited_input;
+	node->fd_input = 0;
+	node->fd_output = 1;
+	node->next = NULL;
+	return (node);
 }
 
 t_cmd	*last_node(t_cmd	*node)
