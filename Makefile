@@ -3,6 +3,9 @@ FLAGS = -Wall -Wextra -Werror -lreadline
 NAME = minishell
 SRC = parsing/main.c \
 	parsing/utils_minishell.c \
+	parsing/split.c \
+	parsing/creat_commandlist.c \
+	parsing/syntaxerror.c
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 
