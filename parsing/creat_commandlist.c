@@ -6,13 +6,13 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 19:38:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:54:30 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_cmd	*create_node(char *splited_input)
+t_cmd	*create_node(char **splited_input)
 {
 	t_cmd	*node;
 
@@ -26,13 +26,6 @@ t_cmd	*create_node(char *splited_input)
 	return (node);
 }
 
-t_cmd	*last_node(t_cmd	*node)
-{
-	while (node->next)
-		node = node->next;
-	return (node);
-}
-
 void	addback_node(t_cmd **head, t_cmd *newnode)
 {
 	t_cmd	*temp;
@@ -43,5 +36,7 @@ void	addback_node(t_cmd **head, t_cmd *newnode)
 		*head = newnode;
 		return ;
 	}
-	last_node(temp)->next = newnode;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = newnode;
 }

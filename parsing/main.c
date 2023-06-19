@@ -6,18 +6,12 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 19:51:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:02:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-void	init_struct(t_cmd	*command)
-{
-	command->input = NULL;
-	command->fd_input = 0;
-	command->fd_output = 0;
-	command->next = NULL;
-}
+
 void	syntaxerror(char *input)
 {
 	if (check_quotes(input))
@@ -41,7 +35,8 @@ void	ft_readline(char *input)
 {
 	int		i;
 	char	**newinput;
-	t_cmd	*command;
+	char	**temp_input;
+	t_cmd	*command =	 NULL;
 
 	while (1)
 	{
@@ -51,15 +46,26 @@ void	ft_readline(char *input)
 		if (input[0] != '\0')
 			add_history(input);
 		protect_inquote(input);
-		init_struct(command);
 		newinput = ft_split(input, '|');
 		i = 0;
 		while (newinput[i])
 		{
-			addback_node(&command, create_node(newinput[i]));
+			temp_input = ft_split(newinput[i], ' ');
+			addback_node(&command, create_node(temp_input));
 			i++;
 		}
-		// syntaxerror(input);
+		while (command)
+		{
+			i = 0;
+			while (command->input[i])
+			{
+				printf("******>>%s\n", command->input[i]);
+				i++;
+			}
+			puts(" ");
+			command = command->next;
+		}
+		syntaxerror(input);
 		free(input);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 17:56:59 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:54:40 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_cmd
 {
-	char			*input;
+	char			**input;
 	int				fd_input;
 	int				fd_output;
 	struct s_cmd	*next;
@@ -36,7 +36,7 @@ int		pipe_errors(char *input);
 int		special_char_only(char *input);
 char	**ft_split(char const *s, char c);
 void	protect_inquote(char *input);
-t_cmd	*create_node(char *splited_input);
+t_cmd	*create_node(char **splited_input);
 t_cmd	*last_node(t_cmd	*node);
 void	addback_node(t_cmd **head, t_cmd *newnode);
 #endif
