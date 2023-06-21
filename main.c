@@ -6,7 +6,7 @@
 /*   By: mmesbahi <mmesbahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:58:08 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/21 20:30:46 by mmesbahi         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:34:48 by mmesbahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int main(int ac, char **av, char **env)
     while (1) 
     {
         // Display the prompt and read user input
-        input = readline("$> ");
+        input = readline("Minishell$> ");
         if (input == NULL) // Handle end-of-file (Ctrl+D) condition
             break;
         data->line = ft_split(input, "     ");
         // Add the user input to the history
         if (input[0] != '\0')
             add_history(input);
-        parsing(data->line, command);
+        // parsing(data->line, command);
         excecution(data->env, &data, env);
         while (data->line[i])
             free(data->line[i++]);
