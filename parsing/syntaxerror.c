@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:42:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/21 12:24:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:06:54 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,17 @@ void	protect_inquote(char *input)
 
 void	reset_inquotevalues(char	*command)
 {
-	int len = ft_strlen(command);
-	int i = 0;
-	int inquote = 0;
-
-	while (i < len)
-	{
-		if (command[i] == '\'' || command[i] == '\"')
-			inquote = !inquote;
-		if (inquote)
-		{
-			if (command[i] < 0)
-				command[i] *= -1;
-			if (command[i] == '\'' || command[i] == '\"')
-				i += 1;
-		}
-		i++;
-	}
+    int    i;
+    int len = ft_strlen(command);
+    if (!command[0] || !command)
+        return ;
+    i = 1;
+    while (i < (len - 1))
+    {
+        if (command[i])
+        {
+            command[i] *= -1;
+        }
+        i++;
+    }
 }
-
