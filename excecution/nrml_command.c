@@ -16,7 +16,7 @@ void    nrml_commands(t_env *env, t_data **data, char **envp)
 		}
 		tmp = tmp->next;
 	}
-	tmm = ft_split(path, ':');
+	tmm = ft_split(path, ":");
 
 	int i = 0;
 	char *s;

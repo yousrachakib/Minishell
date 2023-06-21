@@ -6,7 +6,7 @@
 /*   By: mmesbahi <mmesbahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:06:17 by mmesbahi          #+#    #+#             */
-/*   Updated: 2023/06/09 15:38:18 by mmesbahi         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:20:05 by mmesbahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int ac, char **av, char **env)
     while (1)
     { 
         input = readline ("minishell -> ");
-        data->line = ft_split(input, ' ');
+        data->line = ft_split(input, " ");
         excecution(data->env, &data, env);
         i = 0;
         while (data->line[i])

@@ -49,7 +49,24 @@ void	ft_lstadd_backexport(t_export **lst, t_export *new)
 		}
 	}
 }
+char **split_nodes(char *s, char c)
+{
+	char **tmp = malloc(sizeof(char *) * 3);
+	int i = 0;
+	while (s[i] && s[i] != c)
+		i++;
+	tmp[0] = strdup(ft_substr(s,0,i));
+	// if (tmp[1] == NULL)
+	// {
+	// 	tmp[1] = strdup ("");
+	// 	tmp[2] = NULL;
+	// 	return (tmp);
+	// }
+	tmp[1] = strdup(ft_substr(s,i + 1, ft_strlen(s)));
+	tmp[2] = NULL;
 
+	return (tmp); 
+}
 void	check_and_add(t_export *env, char **line)
 {
 	int		i;

@@ -1,19 +1,19 @@
 #include "../minishell.h"
 
-void	store_cmd(t_data *data, char *input)
-{
-	int	i;
+// void	store_cmd(t_data *data, char *input)
+// {
+// 	int	i;
 
-	i = 0;
-	data->cmd->cmd = malloc(sizeof(char *) * 5);
-	data->cmd->cmd = ft_split(input, ' ');
-	i = 0;
-	while (data->cmd->cmd[i])
-	{
-		printf("%s\n", data->cmd->cmd[i]);
-		i++;
-	}
-}
+// 	i = 0;
+// 	data->cmd->cmd = malloc(sizeof(char *) * 5);
+// 	data->cmd->cmd = ft_split(input, " ");
+// 	i = 0;
+// 	// while (data->cmd->cmd[i])
+// 	// {
+// 	// 	printf("%s\n", data->cmd->cmd[i]);
+// 	// 	i++;
+// 	// }
+// }
 
 void	sort_list(t_export **head)
 {
@@ -48,31 +48,6 @@ void	sort_list(t_export **head)
 			current = current->next;
 		}
 	}
-}
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*s3;
-	int		i;
-	int		j;
-
-	if (!s1 || !s2)
-		return (NULL);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	s3 = (char *)malloc(i + j + 1);
-	if (s3 == NULL)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[i])
-	{
-		s3[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-		s3[i++] = s2[j++];
-	s3[i] = '\0';
-	return (s3);
 }
 
 void	excecution(t_env *env, t_data **data, char **envp)

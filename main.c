@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmesbahi <mmesbahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:58:08 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/14 17:30:40 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:27:43 by mmesbahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,33 @@ t_arg *init_arg(t_arg *argument)
     argument->next = NULL;
     return (tmp);
 }
-int main() 
+int main(int ac, char **av, char **env) 
 {
     t_cmd   *command;
+    t_data *data;
     char *input;
     char **res;
+    int i = 0;
+
+    data = malloc(sizeof(t_data) * 1);
+    data->env = malloc (sizeof(t_env));
+    data->export = malloc(sizeof(t_export));
+    parse_env(env, &data);
     while (1) 
     {
         // Display the prompt and read user input
         input = readline("$> ");
         if (input == NULL) // Handle end-of-file (Ctrl+D) condition
             break;
-        res = ft_split(input, "     ");
+        data->line = ft_split(input, "     ");
         // Add the user input to the history
         if (input[0] != '\0')
             add_history(input);
-        parsing(res, command);
+        // parsing(data->line, command);
+        excecution(data->env, &data, env);
+        while (data->line[i])
+            free(data->line[i++]);
+        free(data->line);
     }
     return (0);
 }
