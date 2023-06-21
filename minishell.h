@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 20:54:40 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:29:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+int	ft_strlen(char *str);
 void	ft_readline(char *input);
 int		check_quotes(char *input);
 void	syntaxerror(char *input);
@@ -35,8 +36,9 @@ int		check_special(char c);
 int		pipe_errors(char *input);
 int		special_char_only(char *input);
 char	**ft_split(char const *s, char c);
-void	protect_inquote(char *input);
 t_cmd	*create_node(char **splited_input);
 t_cmd	*last_node(t_cmd	*node);
 void	addback_node(t_cmd **head, t_cmd *newnode);
+void	reset_inquotevalues(char	*command);
+void	protect_inquote(char *input);
 #endif

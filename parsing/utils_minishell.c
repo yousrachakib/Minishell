@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 17:21:20 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:02:57 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,51 @@ int is_whitespace(char c)
 	return (0);
 }
 
-int	check_quotes(char *input)
+int check_quotes(char *input)
 {
-	int	i;
-	int	singlequote;
-	int	doublequote;
+    int i;
+    int singlequote;
+    int doublequote;
+    int ignore;
 
-	i = 0;
-	singlequote = 0;
-	doublequote = 0;
-	while (input[i])
-	{
-		if (input[i] == '\'')
-			singlequote++;
-		if (input[i] == '\"')
-			doublequote++;
-		i++;
-	}
-	if ((singlequote % 2) != 0 || (doublequote % 2) != 0)
-		return (1);
-	return (0);
+    i = 0;
+    singlequote = 0;
+    doublequote = 0;
+    ignore = 0;
+    while (input[i])
+    {
+        if (!ignore)
+        {
+            if (input[i] == '\'')
+            {
+                singlequote++;
+                ignore = 1;
+            }
+            else if (input[i] == '\"')
+            {
+                doublequote++;
+                ignore = 1;
+            }
+        }
+        else
+        {
+            if (input[i] == '\'')
+            {
+                singlequote++;
+                ignore = 0;
+            }
+            else if (input[i] == '\"')
+            {
+                doublequote++;
+                ignore = 0;
+            }
+        }
+        i++;
+    }
+    if (singlequote % 2 != 0 || doublequote % 2 != 0)
+        return (1);
+
+    return (0);
 }
 
 int	check_special(char c)

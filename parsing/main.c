@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/19 21:02:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:30:04 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	ft_readline(char *input)
 	int		i;
 	char	**newinput;
 	char	**temp_input;
-	t_cmd	*command =	 NULL;
+	t_cmd	*command;
 
+	command = NULL;
 	while (1)
 	{
 		input = readline("cuteshell$> ");
@@ -46,6 +47,7 @@ void	ft_readline(char *input)
 		if (input[0] != '\0')
 			add_history(input);
 		protect_inquote(input);
+		printf("before value : %s\n", input);
 		newinput = ft_split(input, '|');
 		i = 0;
 		while (newinput[i])
@@ -54,18 +56,18 @@ void	ft_readline(char *input)
 			addback_node(&command, create_node(temp_input));
 			i++;
 		}
-		while (command)
-		{
-			i = 0;
-			while (command->input[i])
-			{
-				printf("******>>%s\n", command->input[i]);
-				i++;
-			}
-			puts(" ");
-			command = command->next;
-		}
-		syntaxerror(input);
+		// while (command)
+		// {
+		// 	i = 0;
+		// 	while (command->input[i])
+		// 	{
+		// 		reset_inquotevalues(command->input[i]);
+		// 		printf("after value : %s\n", input);
+		// 		i++;
+		// 	}
+		// 	command = command->next;
+		// }
+		// syntaxerror(input);
 		free(input);
 	}
 }
