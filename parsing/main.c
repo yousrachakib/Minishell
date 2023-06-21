@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/21 12:49:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:22:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ void	ft_readline(char *input)
 			while (command->input[i])
 			{
 				reset_inquotevalues(command->input[i]);
+				printf("after value : %s\n", command->input[i]);
 				i++;
 			}
 			command = command->next;
 		}
-		// syntaxerror(input);
+		syntaxerror(input);
 		free(input);
 	}
 }

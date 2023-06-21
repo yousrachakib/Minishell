@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/20 20:02:57 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:29:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,45 +24,22 @@ int check_quotes(char *input)
     int i;
     int singlequote;
     int doublequote;
-    int ignore;
 
     i = 0;
     singlequote = 0;
     doublequote = 0;
-    ignore = 0;
     while (input[i])
     {
-        if (!ignore)
-        {
-            if (input[i] == '\'')
-            {
-                singlequote++;
-                ignore = 1;
-            }
-            else if (input[i] == '\"')
-            {
-                doublequote++;
-                ignore = 1;
-            }
-        }
-        else
-        {
-            if (input[i] == '\'')
-            {
-                singlequote++;
-                ignore = 0;
-            }
-            else if (input[i] == '\"')
-            {
-                doublequote++;
-                ignore = 0;
-            }
-        }
+        if (input[i] == '\'')
+            singlequote++;
+        else if (input[i] == '\"')
+            doublequote++;
         i++;
     }
-    if (singlequote % 2 != 0 || doublequote % 2 != 0)
+    if (input[0] == '\"' && ((doublequote % 2) != 0))
         return (1);
-
+    if (input[0] == '\'' && ((singlequote % 2) != 0))
+        return (1);
     return (0);
 }
 
