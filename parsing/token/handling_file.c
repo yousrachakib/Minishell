@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 17:32:17 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:11:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	handle_singleq(char *input, int *i, t_cmd **head)
 			j++;
 	}
 	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1);
-	reset_inquotevalues(res);
+	// reset_inquotevalues(res);
 	if (!res)
 		return ;
 	node = create_node(res, t_singlequote);
@@ -84,7 +84,7 @@ void	handle_doubleq(char *input, int *i, t_cmd **head)
 			j++;
 	}
 	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1);
-	reset_inquotevalues(res);
+	// reset_inquotevalues(res);
 	if (!res)
 		return ;
 	node = create_node(res, t_doublequote);
