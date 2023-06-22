@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 15:54:09 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:11:51 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ void	ft_readline(char *input)
 		command = tokenizer(input);
 		while ((*command))
 		{
-			printf("****>> %s",(*command)->input);
+			printf("****>> %s\n",(*command)->input);
 			(*command) = (*command)->next;
 		}
-		// syntaxerror(input);
 		free(input);
 	}
 }

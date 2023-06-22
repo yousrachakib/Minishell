@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 15:51:27 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:23:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ t_cmd **tokenizer(char *input)
 			whitespace_case(input ,&i);
 		else if (input[i] && check_special(input[i]))
 			separators_case(input, &i, command_list);
+		else if (input[i] && input[i] == '\"' || input[i] == '\'')
+			quotation_case(input, &i, command_list);
+		else
+			word_case(input, &i, command_list);
 	}
 	return (command_list);
 }

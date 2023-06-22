@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 15:26:56 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/22 17:32:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	syntaxerror(char *input);
 int		is_whitespace(char c);
 int		check_special(char c);
 int		special_char_only(char *input);
-char	**ft_split(char const *s, char c);
+char	*ft_substr(char *input,int start,int len);
 t_cmd	*create_node(char *splited_input, t_type type);
 t_cmd	*last_node(t_cmd	*node);
 void	addback_node(t_cmd **head, t_cmd *newnode);
@@ -54,5 +54,7 @@ void	reset_inquotevalues(char	*command);
 void	protect_inquote(char *input);
 void	separators_case(char *input, int *i, t_cmd **head);
 void	whitespace_case(char *input, int *i);
+void	quotation_case(char *input, int *i, t_cmd **head);
+void	word_case(char *input, int *i, t_cmd **head);
 t_cmd 	**tokenizer(char *input);
 #endif

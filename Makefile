@@ -2,6 +2,7 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
 NAME = minishell
 SRC = parsing/main.c \
+	parsing/utils_minishell.c \
 	parsing/token/creat_commandlist.c \
 	parsing/syntaxerror.c \
 	parsing/token/tokenizer.c \
