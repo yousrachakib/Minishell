@@ -6,37 +6,35 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/21 13:22:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:54:09 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	syntaxerror(char *input)
-{
-	if (check_quotes(input))
-	{
-		printf("syntaxError : verify quotations\n");
-		return ;
-	}
-	if (pipe_errors(input))
-	{
-		printf("syntax error\n");
-		return ;
-	}
-	if (special_char_only(input))
-	{
-		printf("syntax error\n");
-		return ;
-	}
-}
+// void	syntaxerror(char *input)
+// {
+// 	if (check_quotes(input))
+// 	{
+// 		printf("syntaxError : verify quotations\n");
+// 		return ;
+// 	}
+// 	if (pipe_errors(input))
+// 	{
+// 		printf("syntax error\n");
+// 		return ;
+// 	}
+// 	if (special_char_only(input))
+// 	{
+// 		printf("syntax error\n");
+// 		return ;
+// 	}
+// }
 
 void	ft_readline(char *input)
 {
 	int		i;
-	char	**newinput;
-	char	**temp_input;
-	t_cmd	*command;
+	t_cmd	**command;
 
 	command = NULL;
 	while (1)
@@ -47,27 +45,13 @@ void	ft_readline(char *input)
 		if (input[0] != '\0')
 			add_history(input);
 		protect_inquote(input);
-		printf("before value : %s\n", input);
-		newinput = ft_split(input, '|');
-		i = 0;
-		while (newinput[i])
+		command = tokenizer(input);
+		while ((*command))
 		{
-			temp_input = ft_split(newinput[i], ' ');
-			addback_node(&command, create_node(temp_input));
-			i++;
+			printf("****>> %s",(*command)->input);
+			(*command) = (*command)->next;
 		}
-		while (command)
-		{
-			i = 0;
-			while (command->input[i])
-			{
-				reset_inquotevalues(command->input[i]);
-				printf("after value : %s\n", command->input[i]);
-				i++;
-			}
-			command = command->next;
-		}
-		syntaxerror(input);
+		// syntaxerror(input);
 		free(input);
 	}
 }
@@ -75,6 +59,5 @@ void	ft_readline(char *input)
 int	main(int ac, char **av)
 {
 	char	*input;
-
 	ft_readline(input);
 }
