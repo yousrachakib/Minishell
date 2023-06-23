@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 18:13:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:35:19 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,21 @@ void	ft_readline(char *input)
 			break ;
 		if (input[0] != '\0')
 			add_history(input);
-		if (check_quotes(input))
-		{
-			printf("syntaxError : verify quotations\n");
-			return ;
-		}
+		// if (check_quotes(input))
+		// {
+		// 	printf("syntaxError : verify quotations\n");
+		// 	return ;
+		// }
 		// protect_inquote(input);
 		command = tokenizer(input);
+		if (!command)
+			continue;
 		while ((*command))
 		{
 			printf("****>> %s\n",(*command)->input);
 			(*command) = (*command)->next;
 		}
+		command = NULL;
 		free(input);
 	}
 }
@@ -64,4 +67,5 @@ int	main(int ac, char **av)
 {
 	char	*input;
 	ft_readline(input);
+	return (0);
 }

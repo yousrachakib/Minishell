@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 18:11:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:33:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,18 @@ void	separators_case(char *input, int *i, t_cmd **head)
 	(*i)++;
 }
 
-void	handle_singleq(char *input, int *i, t_cmd **head)
+int	handle_singleq(char *input, int *i, t_cmd **head)
 {
 	t_cmd	*node;
 	int		j;
 	char	*res;
 
 	j = *i;
+	if (check_quotes(input+(*i)))
+	{
+		printf("syntaxError : verify quotations\n");
+		return (1);
+	}
 	if (input[j] == '\'')
 	{
 		j++;
@@ -64,19 +69,25 @@ void	handle_singleq(char *input, int *i, t_cmd **head)
 	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1);
 	// reset_inquotevalues(res);
 	if (!res)
-		return ;
+		return (1);
 	node = create_node(res, t_singlequote);
 	(*i) += j - (*i) + 1;
 	addback_node(head, node);
+	return (0);
 }
 
-void	handle_doubleq(char *input, int *i, t_cmd **head)
+int	handle_doubleq(char *input, int *i, t_cmd **head)
 {
 	t_cmd	*node;
 	int		j;
 	char	*res;
 
 	j = *i;
+	if (check_quotes(input+(*i)))
+	{
+		printf("syntaxError : verify quotations\n");
+		return (1);
+	}
 	if (input[j] == '\"')
 	{
 		j++;
@@ -86,18 +97,26 @@ void	handle_doubleq(char *input, int *i, t_cmd **head)
 	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1);
 	// reset_inquotevalues(res);
 	if (!res)
-		return ;
+		return (1);
 	node = create_node(res, t_doublequote);
 	(*i) += j - (*i) + 1;
 	addback_node(head, node);
+	return (0);
 }
 
-void	quotation_case(char *input, int *i, t_cmd **head)
+int	quotation_case(char *input, int *i, t_cmd **head)
 {
 	if (input[*i] == '\'')
-		handle_singleq(input, i, head);
+	{
+		if (handle_singleq(input, i, head) == 1)
+			return (1);
+	}
 	else if (input[*i] == '\"')
-		handle_doubleq(input, i, head);
+	{
+		if (handle_doubleq(input, i, head) == 1)
+			return (1);
+	}
+	return (0);
 }
 
 void	word_case(char *input, int *i, t_cmd **head)
