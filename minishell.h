@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/23 17:30:48 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:24:31 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_cmd
 int	ft_strlen(char *str);
 void	ft_readline(char *input);
 int		check_quotes(char *input);
-void	syntaxerror(char *input);
+int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
 int		check_special(char c);
 int		special_char_only(char *input);

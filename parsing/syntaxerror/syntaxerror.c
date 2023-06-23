@@ -6,11 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:42:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 17:19:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:04:07 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	ft_strlen(char *str)
 {

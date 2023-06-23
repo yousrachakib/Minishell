@@ -6,30 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/23 17:35:19 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/23 20:26:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// void	syntaxerror(char *input)
-// {
-// 	if (check_quotes(input))
-// 	{
-// 		printf("syntaxError : verify quotations\n");
-// 		return ;
-// 	}
-// 	if (pipe_errors(input))
-// 	{
-// 		printf("syntax error\n");
-// 		return ;
-// 	}
-// 	if (special_char_only(input))
-// 	{
-// 		printf("syntax error\n");
-// 		return ;
-// 	}
-// }
 
 void	ft_readline(char *input)
 {
@@ -44,20 +25,17 @@ void	ft_readline(char *input)
 			break ;
 		if (input[0] != '\0')
 			add_history(input);
-		// if (check_quotes(input))
-		// {
-		// 	printf("syntaxError : verify quotations\n");
-		// 	return ;
-		// }
-		// protect_inquote(input);
 		command = tokenizer(input);
 		if (!command)
+			continue;
+		if (syntaxerror(command) == 1)
 			continue;
 		while ((*command))
 		{
 			printf("****>> %s\n",(*command)->input);
 			(*command) = (*command)->next;
 		}
+		
 		command = NULL;
 		free(input);
 	}
