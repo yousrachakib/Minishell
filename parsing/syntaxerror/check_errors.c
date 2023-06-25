@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:04:29 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/25 17:51:28 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:03:06 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ int	pipe_error_firstcase(t_cmd *list)
 	return (0);
 }
 
+int redirection_error(t_cmd *list)
+{
+	t_cmd *temp;
+
+	temp = list;
+	if (temp->next->type == t_word || temp->next->type == t_singlequote \
+		 || temp->next->type == t_doublequote)
+		return (0);
+	else
+		printf("syntax error near unexpected token\n");
+	return (1);
+}
+
 int	syntaxerror(t_cmd **list)
 {
 	t_cmd *temp;
@@ -74,10 +87,14 @@ int	syntaxerror(t_cmd **list)
 	{
 		if (temp->type == t_pipe || temp->type == t_input || temp->type == t_output \
 		|| temp->type == output_apnd || temp->type == here_doc)
-			if (begin_end_oflist(temp) == 1)
+			if (begin_end_oflist(temp))
 				return (1);
 		if (temp->type == t_pipe)
 			if (pipe_error_firstcase(temp) || pipe_error_secondcase(temp))
+				return (1);
+		if (temp->type == t_input || temp->type == t_output || temp->type == here_doc \
+			|| temp->type == output_apnd)
+			if (redirection_error(temp))
 				return (1);
 		temp = temp->next;	
 	}
