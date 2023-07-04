@@ -4,6 +4,7 @@ NAME = minishell
 SRC = parsing/main.c \
 	parsing/utils_minishell.c \
 	parsing/syntaxerror/check_errors.c \
+	parsing/syntaxerror/print_errorfunctions.c \
 	parsing/syntaxerror/syntaxerror.c \
 	parsing/token/creat_commandlist.c \
 	parsing/token/tokenizer.c \

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/25 16:21:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:52:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum s_type
 	t_output,
 	output_apnd,
 	here_doc,
-} t_type;
+}	t_type;
 
 typedef struct s_cmd
 {
@@ -39,6 +39,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
 void	ft_readline(char *input);
 int		check_quotes(char *input);

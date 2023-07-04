@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/25 17:50:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:18:34 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_readline(char *input)
 	{
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			break ;
-		if (input[0] != '\0')
+			break ; // ctrl + D
+		if (input[0] != '\0') // working history
 			add_history(input);
 		command = tokenizer(input);
 		if (!command)
@@ -35,7 +35,6 @@ void	ft_readline(char *input)
 			printf("****>> %s\n",(*command)->input);
 			(*command) = (*command)->next;
 		}
-		
 		command = NULL;
 		free(input);
 	}

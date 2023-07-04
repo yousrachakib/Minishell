@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:04:29 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/25 18:03:06 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:55:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int	begin_end_oflist(t_cmd *list)
 	{
 		if (temp->next == NULL)
 		{
-			printf("syntax error near unexpected token\n");
+			ft_putstr_fd("syntax error near unexpected token\n", 2); //exit status
 			return (1);
 		}
 		temp = temp->next;
 	}
 	temp = list;
-	if (temp->type == t_pipe)
+	if (temp->type == t_pipe || temp->type == t_input || temp->type == t_output \
+		|| temp->type == output_apnd || temp->type == here_doc)
 	{
 		if (temp->previous == NULL)
 		{
-			printf("syntax error near unexpected token\n");
+			ft_putstr_fd("syntax error near unexpected token\n", 2); //exit status
 			return (1);
 		}
 		temp = temp->next;
@@ -49,7 +50,7 @@ int	pipe_error_secondcase(t_cmd *list)
 		temp->previous->type == t_doublequote )
 		return (0);
 	else
-		printf("syntax error near unexpected token\n");
+		ft_putstr_fd("syntax error near unexpected token\n", 2); // exit status
 	return (1);
 }
 int	pipe_error_firstcase(t_cmd *list)
@@ -59,7 +60,7 @@ int	pipe_error_firstcase(t_cmd *list)
 	temp = list;
 	if (temp->next->type == t_pipe)
 	{
-		printf("syntax error near unexpected token\n");
+		ft_putstr_fd("syntax error near unexpected token\n", 2); //exit status
 		return (1);
 	}
 	return (0);
@@ -74,7 +75,7 @@ int redirection_error(t_cmd *list)
 		 || temp->next->type == t_doublequote)
 		return (0);
 	else
-		printf("syntax error near unexpected token\n");
+		ft_putstr_fd("syntax error near unexpected token\n", 2); //exit status
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/23 17:31:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:31:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_cmd **tokenizer(char *input)
 	while (input[i])
 	{
 		if (input[i] && is_whitespace(input[i]))
-			whitespace_case(input ,&i);
+			whitespace_case(input ,&i); // skiping whitespaces
 		else if (input[i] && check_special(input[i]))
 			separators_case(input, &i, command_list);
 		else if (input[i] && input[i] == '\"' || input[i] == '\'')
