@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 15:18:34 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:27:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,17 @@ void	ft_readline(char *input)
 	}
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	char	*input;
+	int i = 0;
+	char *res;
+	while (env[i])
+	{
+		// res = retrieve_key(env[i]);
+		printf("-->%s\n", env[i]);
+		i++;
+	}
 	ft_readline(input);
 	return (0);
 }

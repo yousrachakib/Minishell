@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 15:52:10 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:25:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*previous;
+	struct s_env	*next;
+}	t_env;
+
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
 void	ft_readline(char *input);
@@ -58,4 +66,9 @@ void	whitespace_case(char *input, int *i);
 int		quotation_case(char *input, int *i, t_cmd **head);
 void	word_case(char *input, int *i, t_cmd **head);
 t_cmd 	**tokenizer(char *input);
+t_env	*create_envnode(char *key, char *value);
+void	addback_envnode(t_env **head, t_env *newnode);
+char *retrieve_key(char *line);
+char	*ft_strchr(char *s, int c);
+char	*ft_strncpy(char *dest, char *src,int n);
 #endif

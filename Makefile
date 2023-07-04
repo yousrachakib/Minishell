@@ -8,7 +8,10 @@ SRC = parsing/main.c \
 	parsing/syntaxerror/syntaxerror.c \
 	parsing/token/creat_commandlist.c \
 	parsing/token/tokenizer.c \
-	parsing/token/handling_file.c
+	parsing/token/handling_file.c \
+	parsing/environment/env_list.c \
+	parsing/libftfunctions/ft_strchr.c \
+	parsing/libftfunctions/strncpy.c \
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 
