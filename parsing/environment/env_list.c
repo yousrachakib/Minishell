@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 18:26:56 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:30:46 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	addback_envnode(t_env **head, t_env *newnode)
 	newnode->previous = temp;
 }
 
-char    *retrieve_key(char *line)
+char    *get_key(char *line)
 {
     int line_len;
     char *equal_sign;
@@ -59,4 +59,41 @@ char    *retrieve_key(char *line)
     ft_strncpy(key, line, key_len);
     key[key_len] = '\0';
     return (key);
+}
+
+#include <stdlib.h>
+#include <string.h>
+
+char *get_value(char *line) 
+{
+    int line_len;
+	char *equal_sign;
+	int key_len;
+	char *key;
+	char *value;
+	char *value_duplicate;
+	char *newline;
+
+	line_len = ft_strlen(line);
+    equal_sign = ft_strchr(line, '=');
+    if (!equal_sign)
+        return NULL;
+    key_len = equal_sign - line;
+    key = malloc(key_len + 1);
+    if (!key)
+        return NULL;
+    ft_strncpy(key, line, key_len);
+    key[key_len] = '\0';
+    value = equal_sign + 1;
+    value_duplicate = ft_strdup(value);
+    if (!value_duplicate) 
+	{
+        free(key);
+        return NULL;
+    }
+    newline = ft_strchr(value_duplicate, '\n');
+    if (newline)
+        *newline = '\0';
+    free(key);
+    return (value_duplicate);
 }
