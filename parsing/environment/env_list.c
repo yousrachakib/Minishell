@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 19:30:46 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:57:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	addback_envnode(t_env **head, t_env *newnode)
 	newnode->previous = temp;
 }
 
-char    *get_key(char *line)
+char    *retrieve_key(char *line)
 {
     int line_len;
     char *equal_sign;
@@ -61,10 +61,7 @@ char    *get_key(char *line)
     return (key);
 }
 
-#include <stdlib.h>
-#include <string.h>
-
-char *get_value(char *line) 
+char *retrieve_value(char *line) 
 {
     int line_len;
 	char *equal_sign;

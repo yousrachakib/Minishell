@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 19:30:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:58:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ void	word_case(char *input, int *i, t_cmd **head);
 t_cmd 	**tokenizer(char *input);
 t_env	*create_envnode(char *key, char *value);
 void	addback_envnode(t_env **head, t_env *newnode);
-char *get_key(char *line);
+char *retrieve_key(char *line);
 char	*ft_strchr(char *s, int c);
 char	*ft_strncpy(char *dest, char *src,int n);
+char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
-char *get_value(char *line);
+
 #endif
