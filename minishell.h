@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 19:58:48 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:55:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ char	*ft_strchr(char *s, int c);
 char	*ft_strncpy(char *dest, char *src,int n);
 char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
+void    creat_env_struct(char **environment, t_env **final_list);
+void init_env(t_env *environment);
 
 #endif

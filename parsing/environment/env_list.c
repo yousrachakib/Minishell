@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 19:57:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:26:17 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	*create_envnode(char *key, char *value)
 {
 	t_env	*node;
-
+    
 	node = malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
@@ -23,6 +23,7 @@ t_env	*create_envnode(char *key, char *value)
 	node->value = value;
 	node->next = NULL;
 	node->previous = NULL;
+    puts("hi1");
 	return (node);
 }
 void	addback_envnode(t_env **head, t_env *newnode)
@@ -34,8 +35,9 @@ void	addback_envnode(t_env **head, t_env *newnode)
 	{
 		*head = newnode;
 		return ;
+    puts("hi55");
 	}
-	while (temp->next)
+	while (temp)
 		temp = temp->next;
 	temp->next = newnode;
 	newnode->previous = temp;
@@ -58,6 +60,7 @@ char    *retrieve_key(char *line)
         return NULL;
     ft_strncpy(key, line, key_len);
     key[key_len] = '\0';
+    puts("hi3");
     return (key);
 }
 
@@ -92,5 +95,6 @@ char *retrieve_value(char *line)
     if (newline)
         *newline = '\0';
     free(key);
+    puts("hi4");
     return (value_duplicate);
 }

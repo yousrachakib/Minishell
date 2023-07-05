@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 19:57:24 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:55:32 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,12 @@ int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	int i = 0;
-	char *value;
-	char *key;
-	while (env[i])
-	{
-		key = retrieve_key(env[i]);
-		value = retrieve_value(env[i]);
-		printf("**>%s\n", key);
-		printf("------>%s\n", value);
-		i++;
-	}
+	t_env *command;
+	// command = NULL;
+	
+	command = malloc(sizeof(t_env));
+	init_env(command);
+	creat_env_struct(env, &command);
 	ft_readline(input);
 	return (0);
 }

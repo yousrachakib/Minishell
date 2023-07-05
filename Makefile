@@ -10,6 +10,7 @@ SRC = parsing/main.c \
 	parsing/token/tokenizer.c \
 	parsing/token/handling_file.c \
 	parsing/environment/env_list.c \
+	parsing/environment/creat_fill.c \
 	parsing/libftfunctions/ft_strchr.c \
 	parsing/libftfunctions/strncpy.c \
 
