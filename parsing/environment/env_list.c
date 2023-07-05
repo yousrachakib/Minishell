@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/05 17:26:17 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/05 17:43:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_env	*create_envnode(char *key, char *value)
 	node->value = value;
 	node->next = NULL;
 	node->previous = NULL;
-    puts("hi1");
 	return (node);
 }
 void	addback_envnode(t_env **head, t_env *newnode)
@@ -31,13 +30,12 @@ void	addback_envnode(t_env **head, t_env *newnode)
 	t_env	*temp;
 
 	temp = *head;
-	if (!*head)
+	if (!(*head))
 	{
 		*head = newnode;
 		return ;
-    puts("hi55");
 	}
-	while (temp)
+	while (temp->next)
 		temp = temp->next;
 	temp->next = newnode;
 	newnode->previous = temp;
