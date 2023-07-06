@@ -11,8 +11,10 @@ SRC = parsing/main.c \
 	parsing/token/handling_file.c \
 	parsing/environment/env_list.c \
 	parsing/environment/creat_fill.c \
+	parsing/environment/expand_envvariables.c \
 	parsing/libftfunctions/ft_strchr.c \
 	parsing/libftfunctions/strncpy.c \
+	parsing/libftfunctions/ft_strcmp.c \
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

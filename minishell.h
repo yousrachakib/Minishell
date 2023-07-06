@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/05 17:45:10 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:53:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_env
 
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
-void	ft_readline(char *input);
+void	ft_readline(char *input, t_cmd	**command, t_env *final_list);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
@@ -74,5 +74,6 @@ char	*ft_strncpy(char *dest, char *src,int n);
 char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
 void    creat_env_struct(char **environment, t_env **final_list);
-
+int		ft_strcmp(char *str1,char *str2);
+void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
 #endif

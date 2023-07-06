@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/05 17:43:10 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:19:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_env	*create_envnode(char *key, char *value)
 	node->previous = NULL;
 	return (node);
 }
+
 void	addback_envnode(t_env **head, t_env *newnode)
 {
 	t_env	*temp;
@@ -58,7 +59,6 @@ char    *retrieve_key(char *line)
         return NULL;
     ft_strncpy(key, line, key_len);
     key[key_len] = '\0';
-    puts("hi3");
     return (key);
 }
 
@@ -74,8 +74,6 @@ char *retrieve_value(char *line)
 
 	line_len = ft_strlen(line);
     equal_sign = ft_strchr(line, '=');
-    if (!equal_sign)
-        return NULL;
     key_len = equal_sign - line;
     key = malloc(key_len + 1);
     if (!key)
@@ -93,6 +91,5 @@ char *retrieve_value(char *line)
     if (newline)
         *newline = '\0';
     free(key);
-    puts("hi4");
     return (value_duplicate);
 }
