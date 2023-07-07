@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/06 15:54:10 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/07 22:04:58 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list)
 		command = tokenizer(input);
 		if (!command)
 			continue;
-		if (syntaxerror(command) == 1)
+		if (syntaxerror(command) == 1) 
 			continue;
 		check_and_expand(final_list,(*command));
 		while ((*command))
@@ -41,6 +41,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	int i = 0;
+	status_exit = 0;
 	t_env *final_list;
 	t_cmd *command;
 

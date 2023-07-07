@@ -15,6 +15,7 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_strchr.c \
 	parsing/libftfunctions/strncpy.c \
 	parsing/libftfunctions/ft_strcmp.c \
+	parsing/libftfunctions/ft_itoa.c \
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/06 15:58:59 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 00:21:28 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
                 if (!ft_strcmp(currentenv->key, keytosearch))
                 {
                     currentcmd->input = currentenv->value;
-                    printf("expanded very well : %s \n", currentcmd->input);
                     break;
                 }
                 currentenv = currentenv->next;
             }
         }
+		if (input[0] == '$' && input[1] == '?')
+		{
+			ft_putstr_fd(ft_itoa(status_exit), 1);
+		}
         currentcmd = currentcmd->next;
     }
 }

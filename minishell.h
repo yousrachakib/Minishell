@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/06 15:53:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 00:20:37 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+int	status_exit;
 
 typedef enum s_type
 {
@@ -76,4 +78,5 @@ char	*ft_strdup(char *s1);
 void    creat_env_struct(char **environment, t_env **final_list);
 int		ft_strcmp(char *str1,char *str2);
 void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
+char	*ft_itoa(int n);
 #endif
