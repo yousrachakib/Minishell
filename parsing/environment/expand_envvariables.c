@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 00:21:28 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:56:28 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     while (currentcmd)
     {
         input = currentcmd->input;
-        if (input[0] == '$')
+        if (input[0] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
         {
             keytosearch = &input[1];
             currentenv = envlist;

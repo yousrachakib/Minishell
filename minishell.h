@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 00:20:37 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:51:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum s_type
 typedef struct s_cmd
 {
 	char			*input;
+	int				flag_var;
 	t_type	type;
 	struct s_cmd	*previous;
 	struct s_cmd	*next;

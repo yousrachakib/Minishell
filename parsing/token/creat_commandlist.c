@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/22 15:40:20 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:52:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmd	*create_node(char *splited_input, t_type type)
 		return (NULL);
 	node->input = splited_input;
 	node->type = type;
+	node->flag_var = 0;
 	node->next = NULL;
 	node->previous = NULL;
 	return (node);

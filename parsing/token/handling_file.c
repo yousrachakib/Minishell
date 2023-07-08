@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/04 15:31:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:53:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	handle_singleq(char *input, int *i, t_cmd **head)
 	if (!res)
 		return (1);
 	node = create_node(res, t_singlequote);
+	node->flag_var = 1;
 	(*i) += j - (*i) + 1;
 	addback_node(head, node);
 	return (0);
@@ -97,6 +98,7 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	if (!res)
 		return (1);
 	node = create_node(res, t_doublequote);
+	node->flag_var = 2;
 	(*i) += j - (*i) + 1;
 	addback_node(head, node);
 	return (0);
