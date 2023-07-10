@@ -6,16 +6,22 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 20:53:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/08 23:00:16 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	whitespace_case(char *input, int *i)
+void	whitespace_case(char *input, int *i, t_cmd	**head)
 {
+	t_cmd *node;
+
+	node = NULL;
 	while (input[*i] && is_whitespace(input[*i]))
 		(*i)++;
+	node = create_node(" ", t_space);
+	addback_node(head,node);
+	
 }
 void	separators_case(char *input, int *i, t_cmd **head)
 {

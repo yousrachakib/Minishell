@@ -14,8 +14,11 @@ SRC = parsing/main.c \
 	parsing/environment/expand_envvariables.c \
 	parsing/libftfunctions/ft_strchr.c \
 	parsing/libftfunctions/strncpy.c \
+	parsing/libftfunctions/ft_isalphanumeric.c \
 	parsing/libftfunctions/ft_strcmp.c \
 	parsing/libftfunctions/ft_itoa.c \
+	parsing/redirection/redirection.c \
+
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

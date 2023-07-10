@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 20:56:28 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:24:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,23 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     t_env *currentenv;
     char *input;
     char *keytosearch;
+	int i;
+	int end;
+	int start;
 
     currentcmd = commandlist;
+	i = 0;
     while (currentcmd)
     {
         input = currentcmd->input;
-        if (input[0] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
+        if (input[i] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
         {
-            keytosearch = &input[1];
+			i = i + 1;
+			start = i;
+			while (ft_isalnum(input[i]) && !(is_whitespace(input[i])))
+				i++;
+			end = i - 1;
+			keytosearch = ft_substr(input, start, end);
             currentenv = envlist;
             while (currentenv)
             {
@@ -37,10 +46,11 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
                 currentenv = currentenv->next;
             }
         }
-		if (input[0] == '$' && input[1] == '?')
+		if (input[i] == '$' && input[i + 1] == '?')
 		{
 			ft_putstr_fd(ft_itoa(status_exit), 1);
 		}
         currentcmd = currentcmd->next;
+		i++;
     }
 }

@@ -6,13 +6,14 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 20:51:48 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:43:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -23,6 +24,7 @@ int	status_exit;
 
 typedef enum s_type
 {
+	t_space,
 	t_word,
 	t_pipe,
 	t_input,
@@ -50,6 +52,8 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+
+
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
 void	ft_readline(char *input, t_cmd	**command, t_env *final_list);
@@ -57,7 +61,6 @@ int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
 int		check_special(char c);
-int		special_char_only(char *input);
 char	*ft_substr(char *input,int start,int len);
 t_cmd	*create_node(char *splited_input, t_type type);
 t_cmd	*last_node(t_cmd	*node);
@@ -65,7 +68,7 @@ void	addback_node(t_cmd **head, t_cmd *newnode);
 void	reset_inquotevalues(char	*command);
 void	protect_inquote(char *input);
 void	separators_case(char *input, int *i, t_cmd **head);
-void	whitespace_case(char *input, int *i);
+void	whitespace_case(char *input, int *i, t_cmd	**head);
 int		quotation_case(char *input, int *i, t_cmd **head);
 void	word_case(char *input, int *i, t_cmd **head);
 t_cmd 	**tokenizer(char *input);
@@ -80,4 +83,7 @@ void    creat_env_struct(char **environment, t_env **final_list);
 int		ft_strcmp(char *str1,char *str2);
 void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
 char	*ft_itoa(int n);
+void findredirection(t_cmd	*finallist);
+int	ft_isalnum(int c);
+
 #endif

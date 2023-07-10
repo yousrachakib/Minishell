@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/07 22:04:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/09 21:59:04 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list)
 		if (syntaxerror(command) == 1) 
 			continue;
 		check_and_expand(final_list,(*command));
+		// findredirection((*command));
 		while ((*command))
 		{
 			printf("****>> %s\n",(*command)->input);
