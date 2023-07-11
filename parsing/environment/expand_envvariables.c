@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/10 21:24:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:08:56 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     while (currentcmd)
     {
         input = currentcmd->input;
+        while (is_whitespace(input[i]))
+            i++;
         if (input[i] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
         {
 			i = i + 1;
 			start = i;
-			while (ft_isalnum(input[i]) && !(is_whitespace(input[i])))
+			while (ft_isalnum(input[i]))
 				i++;
 			end = i - 1;
-			keytosearch = ft_substr(input, start, end);
+			keytosearch = ft_substr(input, start, (end - start + 1));
             currentenv = envlist;
             while (currentenv)
             {
@@ -43,6 +45,8 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
                     currentcmd->input = currentenv->value;
                     break;
                 }
+                // else
+                //     currentcmd->input = '\0';
                 currentenv = currentenv->next;
             }
         }
