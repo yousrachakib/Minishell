@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmesbahi <mmesbahi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 07:47:21 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/21 20:24:29 by mmesbahi         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:33:57 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,11 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	sort_list(t_export **head);
 char **split_nodes(char *s, char c);
 
+//****************************************************************************//
+//                              execution                                    //
+//****************************************************************************//
 
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
+int		ft_echo(char **cmd);
 #endif
