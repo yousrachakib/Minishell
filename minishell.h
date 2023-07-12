@@ -5,46 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 07:47:21 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/14 11:45:42 by yochakib         ###   ########.fr       */
+/*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
+/*   Updated: 2023/07/10 19:43:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-typedef struct s_arg
+int	status_exit;
+
+typedef enum s_type
 {
-    char *argument;
-    struct s_arg *head;
-    struct s_arg *next;
-}  t_arg;
+	t_space,
+	t_word,
+	t_pipe,
+	t_input,
+	t_singlequote,
+	t_doublequote,
+	t_output,
+	output_apnd,
+	here_doc,
+}	t_type;
 
 typedef struct s_cmd
 {
-    char    *cmd;
-    char    *option; //check '-'
-    t_arg *arg; // in case of argument
-    char *stin; // >
-    char *stout; // <
-    char *stin2; // <<
-    char *stout2; // >>
-    struct s_cmd   *head; // pipe | 
-    struct s_cmd   *next; // pipe case
-}   t_cmd;
+	char			*input;
+	int				flag_var;
+	t_type	type;
+	struct s_cmd	*previous;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*previous;
+	struct s_env	*next;
+}	t_env;
 
 
-char	**ft_split(char const *s, char *c);
-void	*freeme(char **p);
-void	*ft_memcpy(void *dst, const void *src, size_t len);
-t_cmd *init_cmd(t_cmd *command);
-t_arg *init_arg(t_arg *argument);
-void parsing(char **res,t_cmd *command);
+
+void	ft_putstr_fd(char *str, int fd);
+int	ft_strlen(char *str);
+void	ft_readline(char *input, t_cmd	**command, t_env *final_list);
+int		check_quotes(char *input);
+int		syntaxerror(t_cmd **list);
+int		is_whitespace(char c);
+int		check_special(char c);
+char	*ft_substr(char *input,int start,int len);
+t_cmd	*create_node(char *splited_input, t_type type);
+t_cmd	*last_node(t_cmd	*node);
+void	addback_node(t_cmd **head, t_cmd *newnode);
+void	reset_inquotevalues(char	*command);
+void	protect_inquote(char *input);
+void	separators_case(char *input, int *i, t_cmd **head);
+void	whitespace_case(char *input, int *i, t_cmd	**head);
+int		quotation_case(char *input, int *i, t_cmd **head);
+void	word_case(char *input, int *i, t_cmd **head);
+t_cmd 	**tokenizer(char *input);
+t_env	*create_envnode(char *key, char *value);
+void	addback_envnode(t_env **head, t_env *newnode);
+char *retrieve_key(char *line);
+char	*ft_strchr(char *s, int c);
+char	*ft_strncpy(char *dest, char *src,int n);
+char *retrieve_value(char *line);
+char	*ft_strdup(char *s1);
+void    creat_env_struct(char **environment, t_env **final_list);
+int		ft_strcmp(char *str1,char *str2);
+void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
+char	*ft_itoa(int n);
+void findredirection(t_cmd	*finallist);
+int	ft_isalnum(int c);
 
 #endif

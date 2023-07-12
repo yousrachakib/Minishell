@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_minishell.c                                  :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 10:40:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/14 10:45:47 by yochakib         ###   ########.fr       */
+/*   Created: 2023/07/05 18:43:00 by yochakib          #+#    #+#             */
+/*   Updated: 2023/07/05 18:45:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-t_cmd	*create_node(t_cmd	*node)
+int	ft_strcmp(char *str1,char *str2)
 {
-	node = malloc(sizeof(t_cmd));
-	if (!node)
-		return (NULL);
-	return (node);
-}
+	int	i;
 
-void	addback_node(t_cmd **head, t_cmd *newnode)
-{
-	t_cmd	*tmp;
-
-	tmp = *head;
-	if (!*head)
+	i = 0;
+	while (str1[i] != '\0' || str2[i] != '\0')
 	{
-		*head = newnode;
-		return ;
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
 	}
-	while (tmp)
-		tmp = tmp->next;
-	tmp->next = newnode;
-	newnode->next = *head;
+	return (0);
 }
