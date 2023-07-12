@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/12 19:15:09 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:47:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     currentcmd = commandlist;
 	i = 0;
     j = 0;
-    k = 0;
     while (currentcmd)
     {
         input = currentcmd->input;
-        temp = malloc(100000);
+        temp = malloc(1000000);
         while(input[i])
         {
+        k = 0;
             while (input[i] && input[i] != '$')
                 temp[j++] = input[i++];
             if (input[i] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
@@ -58,10 +58,10 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
                 }
             i -= 1;
             }
-            // if (input[i] == '$' && input[i + 1] == '?')
-            // {
-            //     ft_putstr_fd(ft_itoa(status_exit), 1);
-            // }
+            if (input[i] == '$' && input[i + 1] == '?')
+            {
+                ft_putstr_fd(ft_itoa(status_exit), 1);
+            }
             i++;
         }
         temp[j] = '\0';
@@ -69,7 +69,6 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
         free(temp);
         i = 0;
         j = 0;
-        k = 0;
         currentcmd = currentcmd->next;
     }
 }
