@@ -1,14 +1,24 @@
 CC = cc 
-FLAGS = -Wall -Wextra -Werror -lreadline
+FLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
 NAME = minishell
-SRC = main.c \
-	ft_split.c \
-	utils_minishell.c \
-	parsing.c \
-	excecution/parse_env.c  \
-	excecution/excecution_utils.c excecution/pwd.c excecution/nrml_command.c \
-	excecution/cd.c excecution/export.c excecution/unset.c \
-	excecution/echo.c excecution/utils.c 
+SRC = parsing/main.c \
+	parsing/utils_minishell.c \
+	parsing/syntaxerror/check_errors.c \
+	parsing/syntaxerror/print_errorfunctions.c \
+	parsing/syntaxerror/syntaxerror.c \
+	parsing/token/creat_commandlist.c \
+	parsing/token/tokenizer.c \
+	parsing/token/handling_file.c \
+	parsing/environment/env_list.c \
+	parsing/environment/creat_fill.c \
+	parsing/environment/expand_envvariables.c \
+	parsing/libftfunctions/ft_strchr.c \
+	parsing/libftfunctions/strncpy.c \
+	parsing/libftfunctions/ft_isalphanumeric.c \
+	parsing/libftfunctions/ft_strcmp.c \
+	parsing/libftfunctions/ft_itoa.c \
+	parsing/redirection/redirection.c 
+
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 
