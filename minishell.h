@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/13 21:38:42 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:23:23 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdarg.h>
 
 int	status_exit;
 
@@ -97,4 +98,6 @@ int		ft_echo(char **cmd);
 int		ft_isalpha(int arg);
 int		ft_isdigit(int arg);
 int		ft_exit(char **cmd);
+int		ft_atoi(char *str);
+int		ft_printf(const char *str, ...);
 #endif

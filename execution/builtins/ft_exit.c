@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:50:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/16 16:12:20 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:21:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 int ft_exit(char **cmd)
 {
-	int i;
-	int j = 1;
-	if(!cmd[1])
-		exit(127);/* indiquer une erreur de commande introuvable.*/
-	while (cmd[j])
+	int i = 0;
+	int j = 2;
+	if(!cmd[2])
+		exit(0);/* indiquer une erreur de commande introuvable.*/
+	while(cmd[2][i])
 	{
-		i = 0;
-		while(cmd[j][i])
+		if(ft_isalpha(cmd[2][i]))
 		{
-			if(cmd[j][i] && ft_isalpha(cmd[j][i]))
-			{
-				printf("%s : %s : %s", cmd[0], cmd[j], "numeric argument required");
-					exit(255);/*utilisée pour indiquer d'erreur*/
-			}
-			i++;
-		}
-		if(!cmd[j])
-			exit(127);
-		else
-			printf("%s : %s " , cmd[0] ,"too many arguments\n");
+			ft_printf("%e : %e : %e : %e", cmd[0], cmd[1], cmd[2], "numeric argument required");
 				exit(255);/*utilisée pour indiquer d'erreur*/
-		j++;
+		}
+		i++;
+	}
+	if(!cmd[3])
+		exit(ft_atoi(cmd[1]));
+	else 
+	{
+		ft_printf("%e : %e : %e" , cmd[0] , cmd[1],"too many arguments");
+		return (1);/*utilisée pour indiquer d'erreur*/
 	}
 	return(0);
 }
+
 int main (int ac, char **av)
 {
 	ft_exit(av);

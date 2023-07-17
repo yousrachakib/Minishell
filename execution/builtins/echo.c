@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/13 20:24:24 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:59:30 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 int ft_check_ln(char *str)
 {
-	if(str[0] == '-' && str[1] == 'n' && str[2] == '\0')
-		return(1);
-	else if(str[0] == '-' && (str[1] != 'n' || str[2] != '\0'))
-		return (0);
-	else
-		return(0);
+	int i = 0;
+	
+	if(str[i] == '-' && str[i + 1] == 'n')
+	{
+		i++;
+		while (str[i] && str[i] == 'n')
+			i++;
+		if(str[i] == '\0')
+				return(1);
+		else if(str[i] != 'n')
+			return(0);
+	}
+	return(0);
 }
 
 int ft_echo(char **cmd)
@@ -30,15 +37,12 @@ int ft_echo(char **cmd)
 	while(cmd[i] && ft_check_ln(cmd[i]) == 1)
 	{
 		i++;
-		if(!ft_check_ln(cmd[i]) && cmd[i])
-		{
+		if(cmd[i] && !ft_check_ln(cmd[i]))
 			ft_putstr_fd(cmd[i] , 1);
-			if(cmd[i][0])
-				ft_putstr_fd(" " , 1);
-		}
+		if(cmd[i][0])
+			ft_putstr_fd(" " , 1);
+		i++;
 	}
-	
-	i = 1;
 	if(cmd[i] && !ft_check_ln(cmd[i]) && cmd)
 	{
 		while (cmd[i])
@@ -53,7 +57,7 @@ int ft_echo(char **cmd)
 	return(0);
 }
 
-int main (int ac, char **av)
+int main (int ac, char **av )
 {
 	ft_echo(av);
 }
