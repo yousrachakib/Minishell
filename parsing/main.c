@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/12 22:12:37 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/19 14:03:37 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list)
 		{
 			printf("****>> %s\n",(*command)->input);
 			(*command) = (*command)->next;
+			// ft_echo()
 		}
 		command = NULL;
 		free(input);
@@ -49,12 +50,12 @@ int	main(int ac, char **av, char **env)
 	command = NULL;
 	final_list = NULL;
 	creat_env_struct(env, &final_list);
-	ft_readline(input, &command, final_list);
 	// while(final_list)
     // {
-    //     printf("-->>%s\n", final_list->key);
-    //     printf("*****>>%s\n", final_list->value);
+    //     printf("%s=%s\n", final_list->key, final_list->value);
+    //     // printf("||*****>>%s\n", );
     //     final_list = final_list->next;
-    // }
+    // } 
+	ft_readline(input, &command, final_list);
 	return (0);
 }

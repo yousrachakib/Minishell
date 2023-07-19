@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/17 16:23:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:54:23 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,16 @@ int	ft_isalnum(int c);
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/
+
+typedef struct s_spl
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	int		index;
+	int		count;
+	char	**ptr;
+}	t_spl;
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 int		ft_echo(char **cmd);
@@ -100,4 +110,10 @@ int		ft_isdigit(int arg);
 int		ft_exit(char **cmd);
 int		ft_atoi(char *str);
 int		ft_printf(const char *str, ...);
+int		ft_strncmp(const char *first, const char *second, size_t len);
+void	ft_pwd(void);
+char	*ft_strjoin(char  *s1, char  *s2);
+char	**ft_split(char const *s, char c);
+void	**ft_free(char **s);
+int		ft_env (char **env , char *cmd);
 #endif
