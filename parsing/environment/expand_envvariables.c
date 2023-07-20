@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/12 21:47:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:15:27 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     j = 0;
     while (currentcmd)
     {
-        input = currentcmd->input;
+        input = ft_strdup(currentcmd->input);
         temp = malloc(1000000);
         while(input[i])
         {
