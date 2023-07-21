@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 21:39:50 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:33:43 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_shellcmd
 	char			**command;
 	int				fd_in;
 	int				fd_out;
-	struct s_cmd	*next;
+	struct s_shellcmd	*next;
 }	t_shellcmd;
 
 typedef struct s_cmd
@@ -64,7 +64,7 @@ typedef struct s_env
 
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
-void	ft_readline(char *input, t_cmd	**command, t_env *final_list);
+void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
@@ -96,5 +96,8 @@ int	ft_isalnum(int c);
 char *ft_strjoin(char *s1, char *s2);
 char *join_commands(t_cmd *commandlist);
 char	**ft_split(char *s, char c);
+void	protect_dumbquote(char *input);
+t_shellcmd	*create_shellnode(char **command);
+void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode);
 
 #endif
