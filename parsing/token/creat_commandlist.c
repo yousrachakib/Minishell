@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 20:52:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/21 21:15:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ t_cmd	*create_node(char *splited_input, t_type type)
 	node->previous = NULL;
 	return (node);
 }
+// t_shellcmd	*create_shellnode(char *command)
+// {
+// 	t_shellcmd	*node;
+    
+// 	node = malloc(sizeof(t_shellcmd));
+// 	if (!node)
+// 		return (NULL);
+// 	node->key = key;
+// 	node->value = value;
+// 	node->next = NULL;
+// 	node->previous = NULL;
+// 	return (node);
+// }
 
 void	addback_node(t_cmd **head, t_cmd *newnode)
 {

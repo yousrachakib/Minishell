@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 22:57:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/21 22:01:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_cmd **tokenizer(char *input)
 
 	i = 0;
 	command_list = malloc(sizeof(t_cmd *));
+	if (!command_list)
+		return (NULL);
 	*command_list = NULL;
 	while (input[i])
 	{

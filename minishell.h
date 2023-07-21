@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/10 19:43:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/21 21:39:50 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef enum s_type
 	output_apnd,
 	here_doc,
 }	t_type;
+
+typedef struct s_shellcmd
+{
+	char			**command;
+	int				fd_in;
+	int				fd_out;
+	struct s_cmd	*next;
+}	t_shellcmd;
 
 typedef struct s_cmd
 {
@@ -85,5 +93,8 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
 char	*ft_itoa(int n);
 void findredirection(t_cmd	*finallist);
 int	ft_isalnum(int c);
+char *ft_strjoin(char *s1, char *s2);
+char *join_commands(t_cmd *commandlist);
+char	**ft_split(char *s, char c);
 
 #endif
