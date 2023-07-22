@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 19:27:55 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/19 18:32:59 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:05:27 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static	char	**fill_str(t_spl *spl, char *s, char c)
 	return (spl->ptr);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	t_spl	spl;
 

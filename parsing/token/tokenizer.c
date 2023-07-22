@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 22:57:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:16:21 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_cmd **tokenizer(char *input)
 {
 	t_cmd	**command_list;
 	int 	i;
-	int 	start;
+	int 	start; 
 	int 	end;
 
 	i = 0;

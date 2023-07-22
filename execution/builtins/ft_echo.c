@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/19 13:58:43 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/21 18:20:32 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ void ft_print_new_ln(char **cmd , int flag)
 
 int ft_echo(char **cmd)
 {
-	int i = 1;
+	int i = 2;
 	int flag = 0;
+	
 	if(!cmd[i])
 		printf("\n");
-	while(cmd[i] != (void *)0 && ft_check_ln(cmd[i]) == 1)
+	while(cmd[i] != NULL && ft_check_ln(cmd[i]) == 1)
 	{
 		i++;
 		flag = 1;
@@ -67,11 +68,11 @@ int ft_echo(char **cmd)
 		}
 	}
 	ft_print_new_ln(&cmd[i] , flag);
-	return(0);
+	exit(1);
 }
 
 // int main (int ac, char **av , char **env )
 // {
-// 	printf("%s\n" , env[8]);
+// 	// printf("%s\n" , env[8]);
 // 	ft_echo(av);
 // }
