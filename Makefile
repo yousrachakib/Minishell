@@ -32,7 +32,9 @@ SRC = parsing/main.c \
 	execution/builtins/ft_echo.c\
 	execution/ft_check_path.c\
 	execution/builtins/ft_cd.c\
-	execution/builtins/change_pwd.c
+	execution/builtins/change_pwd.c\
+	execution/builtins/ft_unset.c\
+	execution/builtins/ft_export.c
 
 	
 OBJ = $(SRC:.c=.o)

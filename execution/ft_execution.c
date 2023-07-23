@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/22 21:20:55 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/23 13:39:14 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,17 @@ int ft_chercher_builtins(char *cmd ,t_env *env)
 }
 int ft_exec_builtins(char **cmd , t_env *env)
 {
-	
 	if(!ft_strncmp(cmd[1] , "echo" , 5))
 		ft_echo(cmd);
 	if(!ft_strncmp(cmd[0] , "cd" , 3))
 		ft_cd(cmd ,env);
-	// if(ft_strncmp(*cmd[0] , "export" , 7))
-	// 	ft_export(cmd);
-	// if(ft_strncmp(*cmd[0] , "unset" , 6))
-	// 	ft_unset(cmd);
+	if(!ft_strncmp(cmd[1] , "export" , 7))
+		ft_export(cmd, env);
+	if(!ft_strncmp(cmd[1] , "unset" , 5))
+	{
+		ft_unset(cmd, env);
+		ft_env(env, cmd[2]);
+	}
 	if(!ft_strncmp(cmd[1] , "pwd" , 5))
 		ft_pwd();
 	if(!ft_strncmp(cmd[1] , "env" , 5))
