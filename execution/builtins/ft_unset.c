@@ -6,25 +6,26 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/23 11:49:15 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/24 13:44:51 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void ft_unset(char **cmd, t_env *env)
+void ft_unset(char *cmd, t_env *env)
 {
 	t_env *current = env;
+	
 	while (current)
 	{
-		if(cmd && ft_strncmp(cmd[2] , env->key, ft_strlen(cmd[2])) == 0)
+		if(ft_strncmp(cmd , current->key, ft_strlen(cmd) - 1) == 0)
 		{
-			free(env->key);
-			free(env->value);
+			free(current->key);
+			free(current->value);
 			if(current->previous != NULL)
 				current->previous->next = current->next;
 			else
-				env = current->next;
+				current = current->next;
 			if(current->next != NULL)
 				current->next->previous = current->previous;
 			free(current);

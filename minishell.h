@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/23 18:05:32 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:13:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <stdarg.h>
 # include <sys/errno.h>
+# include <errno.h>
 
 int	status_exit;
 
@@ -127,8 +128,12 @@ char	*ft_path(char **spl, char *cmd);
 void	ft_cd(char **cmd , t_env *env);
 void	change_pwd(char **cmd , t_env *env);
 void	ft_oldpwd(t_env *env , char *str);
-void	ft_unset(char **cmd, t_env *env);
+void	ft_unset(char *cmd, t_env *env);
 void	ft_export(char **cmd,t_env *env);
 int		ft_check_cmd(char *str);
 void	add_cmd(t_env *env , char **cmd , int i , char **key);
+void	ajouter_keyvaleur(t_env *env ,t_env *courrant ,char **cmd, char **key);
+t_env	cree_node(char *key, char *value);
+void	ft_add_liste(t_env *head, t_env *new_node);
+
 #endif

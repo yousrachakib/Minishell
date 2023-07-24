@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/23 13:39:14 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/24 20:32:19 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,19 @@ int ft_exec_builtins(char **cmd , t_env *env)
 {
 	if(!ft_strncmp(cmd[1] , "echo" , 5))
 		ft_echo(cmd);
-	if(!ft_strncmp(cmd[0] , "cd" , 3))
+	if(!ft_strncmp(cmd[1] , "cd" , 3))
+	{
 		ft_cd(cmd ,env);
+		ft_pwd();
+	}
 	if(!ft_strncmp(cmd[1] , "export" , 7))
-		ft_export(cmd, env);
+	{
+		ft_export(cmd, env); //problem add liste pas terminer
+		ft_env(env, cmd[2]);
+	}
 	if(!ft_strncmp(cmd[1] , "unset" , 5))
 	{
-		ft_unset(cmd, env);
+		ft_unset(cmd[2], env);
 		ft_env(env, cmd[2]);
 	}
 	if(!ft_strncmp(cmd[1] , "pwd" , 5))
@@ -53,17 +59,19 @@ int ft_exec_builtins(char **cmd , t_env *env)
 	if(!ft_strncmp(cmd[1] , "env" , 5))
 		ft_env(env , cmd[2]); 
 	if(!ft_strncmp(cmd[1] , "exit" , 5))
-		ft_exit(cmd);
+		ft_exit(cmd);   
 	return(0);
 }
 void ft_execution (char **cmd , t_env *env)
 {
 	int i = 0;
-	char *m ;
+	char *m;
+	if(!cmd[1])
+		return ;
 	if(cmd && ft_chercher_builtins(cmd[1], env))
 	{
 		ft_exec_builtins(cmd , env);
 	}
-	// ft_exec_path(cmd[1], env);
+	ft_exec_path(cmd[1], env);
 	return ;
 }

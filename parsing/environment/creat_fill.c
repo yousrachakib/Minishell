@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/19 13:49:37 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:05:01 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,4 @@ void    creat_env_struct(char **environment, t_env **final_list)
         addback_envnode(final_list, list);
         i++;
     }
-}   
+}
