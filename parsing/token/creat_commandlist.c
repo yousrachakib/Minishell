@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 22:51:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 12:21:58 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_shellcmd	*create_shellnode(char **command)
 		return (NULL);
 	while(command[i])
 		i++;
-	node->command = malloc(i + 1 * sizeof(char *));
+	node->command = malloc((i + 1) * sizeof(char **));
+	node->command[i] = NULL;
 	i = 0;
 	while (command[i])
 	{
@@ -52,7 +53,6 @@ void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode)
 	t_shellcmd	*temp;
 
 	temp = *head;
-	int i = 0;
 	if (!*head)
 	{
 		*head = newnode;

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:42:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 22:07:03 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:40:57 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
+    if (!str)
+        return (0);
 	while (str[i])
 		i++;
 	return (i);
