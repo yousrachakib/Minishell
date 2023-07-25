@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/25 11:46:07 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:53:03 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int ft_check_cmd(char *str)
 // }
 void ft_export(char **cmd,t_env *env)
 {
-	t_env *cour = env;
+	// t_env *cour = env;
 	int i = 2;
 	char **key;
 	if(!cmd[2])
@@ -87,10 +87,10 @@ void ft_export(char **cmd,t_env *env)
 		{
 			key = malloc(sizeof(char) * 3);
 			key[2] = NULL;
-			if(ft_strncmp(cmd[2], env->key,ft_strlen(cmd[2])))
-				modifier_env(key,env,cmd);
-			else
+			if(modifier_env(key,env,cmd) != 0)
 				add_cmd(env, cmd, i, key);
+			else
+				modifier_env(key,env,cmd);
 		}
 		i++;
 	}
@@ -146,21 +146,28 @@ void add_cmd(t_env *env , char **cmd , int i , char **key)
 		key[1] = "";
 	ajouter_keyvaleur(env ,courrant, cmd, key);
 }
-void modifier_env(char **key, t_env *env, char **cmd)
+int modifier_env(char **key, t_env *env, char **cmd)
 {
+	int flag = 0;
 	int j = 0;
 	t_env *current;
 	current = env;
 	while(cmd[2][j] != '=' && cmd[2][j] !='\0')
 		j++;
+	key[0] = ft_substr(cmd[2], 0 , j);
 	if(cmd[2][j] == '=')
-		key[0] = ft_substr(cmd[2], j +1, (ft_strlen(cmd[2]) - j));
+		key[1] = ft_substr(cmd[2], j +1, (ft_strlen(cmd[2]) - j));
 	j = 0;
 	while (current)
 	{
-		if(ft_strncmp(cmd[2],env->key, ft_strlen(cmd[2])))
-			env->value = key[0];
+		if(!ft_strncmp(key[0],current->key, ft_strlen(key[0])))
+		{
+			current->value = key[1];
+			flag = 1;
+		}
 		current = current->next;
 	}
-	
+	if(flag)
+		return(0);
+	return(1);
 }
