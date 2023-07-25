@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:42:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/06/23 20:04:07 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:40:57 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
+    if (!str)
+        return (0);
 	while (str[i])
 		i++;
 	return (i);
@@ -44,6 +46,18 @@ void	protect_inquote(char *input)
                 input[i++] *= -1;
         }
         i++;
+    }
+}
+void	protect_dumbquote(char *input)
+{
+    int    i;
+
+    if (!input[0] || !input)
+        return ;
+    i = 0;
+    while (input[i])
+    {
+        input[i++] *= -1;
     }
 }
 

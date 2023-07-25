@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 22:57:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:42:40 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ char	*ft_strdup(char *s1)
 	int		len;
 
 	i = 0;
+	if (!s1)
+		return (NULL);
 	len = ft_strlen(s1);
-	ptr =malloc(sizeof(char) * len + 1);
+	ptr = malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
 	while (i < len)
@@ -29,6 +31,7 @@ char	*ft_strdup(char *s1)
 		i++;
 	}
 	ptr[i] = '\0';
+	// printf("ptr dup : %s\n", ptr);
 	return (ptr);
 }
 
@@ -71,11 +74,11 @@ t_cmd **tokenizer(char *input)
 {
 	t_cmd	**command_list;
 	int 	i;
-	int 	start;
-	int 	end;
 
 	i = 0;
 	command_list = malloc(sizeof(t_cmd *));
+	if (!command_list)
+		return (NULL);
 	*command_list = NULL;
 	while (input[i])
 	{
@@ -83,7 +86,7 @@ t_cmd **tokenizer(char *input)
 			whitespace_case(input ,&i, command_list);
 		else if (input[i] && check_special(input[i]))
 			separators_case(input, &i, command_list);
-		else if (input[i] && input[i] == '\"' || input[i] == '\'')
+		else if (input[i] && (input[i] == '\"' || input[i] == '\''))
 		{
 			if (quotation_case(input, &i, command_list) == 1)
 				return (NULL);
