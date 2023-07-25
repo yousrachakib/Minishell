@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/25 16:34:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:12:17 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	main(int ac, char **av, char **env)
 	// finallist = malloc(sizeof(t_shellcmd));
 	finallist = NULL;
 	command = NULL;
-	env_list = NULL;
 	input = NULL;
 	creat_env_struct(env, &env_list);
+	ft_execution(av, env_list);
 	ft_readline(input, &command, env_list, &finallist);
 	// while(finallist)
     // {

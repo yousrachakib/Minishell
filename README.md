@@ -11,3 +11,4 @@ Shells may be used interactively or non-interactively. In interactive mode, they
 A shell allows execution of GNU commands, both synchronously and asynchronously. The shell waits for synchronous commands to complete before accepting more input; 
 asynchronous commands continue to execute in parallel with the shell while it reads and executes additional commands. The redirection constructs permit fine-grained control of the input and output of those commands. 
 Moreover, the shell allows control over the contents of commands’ environments.
+z

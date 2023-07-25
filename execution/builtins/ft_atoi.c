@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_fill.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/24 18:05:01 by mben-sal         ###   ########.fr       */
+/*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
+/*   Updated: 2023/07/17 16:03:04 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    creat_env_struct(char **environment, t_env **final_list)
+int	ft_atoi(char *str)
 {
-    t_env *list;
-    int i;
+	int	i;
+	int	sign;
+	int	res;
 
-    i = 0;
-    list = NULL;
-    while(environment[i])
-    {
-        list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
-        addback_envnode(final_list, list);
-        i++;
-    }
+	i = 0;
+	sign = 1;
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		res = res * 10;
+		res = res + str[i] - 48;
+		i++;
+	}
+	return (res * sign);
 }
