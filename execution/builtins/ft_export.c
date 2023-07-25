@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/24 20:30:58 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:46:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ int ft_check_cmd(char *str)
 	}
 	return(1);
 }
+// void ft_check_key(char **cmd, t_env *env)
+// {
+// 	t_env *current;
+// 	current = env;
+// 	char *temp;
+// 	while(current)
+// 	{
+// 		if(ft_strncmp(cmd[2], env->key,ft_strlen(cmd[2]))==0)
+// 		{
+// 			printf("cmd ====> cmd[2] %s" , cmd[2]);
+// 			// env->value = 
+// 		}
+// 		current = current->next;
+// 	}
+// }
 void ft_export(char **cmd,t_env *env)
 {
 	t_env *cour = env;
@@ -59,10 +74,11 @@ void ft_export(char **cmd,t_env *env)
 		print_env(env);
 		exit(1);
 	}
+	// ft_check_key(cmd, env);
 	while(cmd[i])
 	{
 		
-		if(ft_check_cmd(cmd[i]) == 0)
+		if(ft_check_cmd(cmd[i]) == 0)  
 		{
 			ft_printf("%e: %e: %e: %e" ,cmd[0] , cmd[1] , cmd[2], "not a valid identifier");
 			exit(1);
@@ -71,7 +87,10 @@ void ft_export(char **cmd,t_env *env)
 		{
 			key = malloc(sizeof(char) * 3);
 			key[2] = NULL;
-			add_cmd(env, cmd, i, key);
+			if(ft_strncmp(cmd[2], env->key,ft_strlen(cmd[2])))
+				modifier_env(key,env,cmd);
+			else
+				add_cmd(env, cmd, i, key);
 		}
 		i++;
 	}
@@ -126,4 +145,22 @@ void add_cmd(t_env *env , char **cmd , int i , char **key)
 	else 
 		key[1] = "";
 	ajouter_keyvaleur(env ,courrant, cmd, key);
+}
+void modifier_env(char **key, t_env *env, char **cmd)
+{
+	int j = 0;
+	t_env *current;
+	current = env;
+	while(cmd[2][j] != '=' && cmd[2][j] !='\0')
+		j++;
+	if(cmd[2][j] == '=')
+		key[0] = ft_substr(cmd[2], j +1, (ft_strlen(cmd[2]) - j));
+	j = 0;
+	while (current)
+	{
+		if(ft_strncmp(cmd[2],env->key, ft_strlen(cmd[2])))
+			env->value = key[0];
+		current = current->next;
+	}
+	
 }

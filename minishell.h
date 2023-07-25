@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/24 16:13:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:24:03 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ void	add_cmd(t_env *env , char **cmd , int i , char **key);
 void	ajouter_keyvaleur(t_env *env ,t_env *courrant ,char **cmd, char **key);
 t_env	cree_node(char *key, char *value);
 void	ft_add_liste(t_env *head, t_env *new_node);
+void	modifier_env(char **key, t_env *env, char **cmd);
 
 #endif
