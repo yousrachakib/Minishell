@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/24 17:28:04 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:13:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void ft_exec_path(char *cmd, t_env *env)
 	char **spl;
 	char *s;
 	char **exec_arg;
-	pid_t pid = fork();
+	// pid_t pid = fork();
 	if(!str)
 	{
 		ft_printf("minishell: command not found: %e\n", cmd);
@@ -56,7 +56,7 @@ void ft_exec_path(char *cmd, t_env *env)
 char *ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
-	char	**str;
+	// char	**str;
   
 	if (ft_strncmp(cmd, "/", 1) == 0)
 	{

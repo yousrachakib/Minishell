@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 00:18:39 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/08 00:18:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:51:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	*ft_itoa(int n)
 	{
 		len = ft_count(n);
 		ptr = malloc(sizeof(char) * len + 1);
+		if (!ptr)
+			return (0);
 		ft_copy(ptr, n, len);
 		return (ptr);
 	}

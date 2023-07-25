@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:50:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/21 19:03:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:13:08 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int ft_exit(char **cmd)
 {
 	int i = 0;
-	int j = 2;
+	// int j = 2;
 	if(!cmd[2])
 		exit(0);/* indiquer une erreur de commande introuvable.*/
 	while(cmd[2][i])

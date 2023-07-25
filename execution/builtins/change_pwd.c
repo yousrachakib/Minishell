@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/22 21:11:58 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:13:40 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_oldpwd(t_env *env , char *str)
 
 void change_pwd(char **cmd , t_env *env)
 {
-
+	(void)cmd;
 	char *str;
 	char pwd[1024];
 	

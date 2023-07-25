@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:31:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/23 12:00:14 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:13:01 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int ft_env (t_env *env , char *cmd)
 {
-	int i = 0;
+	(void)cmd;
+	// int i = 0;
 	// char **str = env;
 	
 	// if(cmd)

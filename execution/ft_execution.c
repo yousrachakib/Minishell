@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/25 14:36:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:12:44 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int ft_exec_builtins(char **cmd , t_env *env)
 }
 void ft_execution (char **cmd , t_env *env)
 {
-	int i = 0;
-	char *m;
 	if(!cmd[1])
 		return ;
 	if(cmd && ft_chercher_builtins(cmd[1], env))
