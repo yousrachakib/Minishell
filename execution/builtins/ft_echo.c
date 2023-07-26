@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/21 18:20:32 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:42:53 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,30 @@ void ft_print_new_ln(char **cmd , int flag)
 	}
 }
 
-int ft_echo(char **cmd)
+int ft_echo(t_shellcmd *cmd)
 {
-	int i = 2;
+	int i = 1;
 	int flag = 0;
 	
-	if(!cmd[i])
+	if(!cmd->command[i])
 		printf("\n");
-	while(cmd[i] != NULL && ft_check_ln(cmd[i]) == 1)
+	while(cmd->command[i] != NULL && ft_check_ln(cmd->command[i]) == 1)
 	{
 		i++;
 		flag = 1;
 	}
-	if(flag == 1 && cmd[i] && !ft_check_ln(cmd[i]) && cmd)
+	if(flag == 1 && cmd->command[i] && !ft_check_ln(cmd->command[i]) && cmd)
 	{
-		while (cmd[i])
+		while (cmd->command[i])
 		{
-			if(cmd[i] != NULL) 
-				ft_putstr_fd(cmd[i] , 1);
+			if(cmd->command[i] != NULL) 
+				ft_putstr_fd(cmd->command[i] , 1);
 			ft_putstr_fd(" " , 1);
 			i++;
 		}
 	}
-	ft_print_new_ln(&cmd[i] , flag);
-	exit(1);
+	ft_print_new_ln(&cmd->command[i] , flag);
+	return(0);
 }
 
 // int main (int ac, char **av , char **env )

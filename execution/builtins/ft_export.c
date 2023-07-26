@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/25 14:53:03 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:04:04 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,39 +49,22 @@ int ft_check_cmd(char *str)
 	}
 	return(1);
 }
-// void ft_check_key(char **cmd, t_env *env)
-// {
-// 	t_env *current;
-// 	current = env;
-// 	char *temp;
-// 	while(current)
-// 	{
-// 		if(ft_strncmp(cmd[2], env->key,ft_strlen(cmd[2]))==0)
-// 		{
-// 			printf("cmd ====> cmd[2] %s" , cmd[2]);
-// 			// env->value = 
-// 		}
-// 		current = current->next;
-// 	}
-// }
-void ft_export(char **cmd,t_env *env)
+
+void ft_export(t_shellcmd *cmd,t_env *env)
 {
-	// t_env *cour = env;
-	int i = 2;
+	int i = 1;
 	char **key;
-	if(!cmd[2])
+	if(!cmd->command[1])
 	{
 		print_env(env);
-		exit(1);
+		return ;
 	}
-	// ft_check_key(cmd, env);
-	while(cmd[i])
+	while(cmd->command[i])
 	{
-		
-		if(ft_check_cmd(cmd[i]) == 0)  
+		if(ft_check_cmd(cmd->command[i]) == 0)  
 		{
-			ft_printf("%e: %e: %e: %e" ,cmd[0] , cmd[1] , cmd[2], "not a valid identifier");
-			exit(1);
+			ft_printf("%e: %e: %e\n" ,cmd->command[0] , cmd->command[1] , "not a valid identifier");
+			return ;
 		}
 		else
 		{
@@ -95,11 +78,11 @@ void ft_export(char **cmd,t_env *env)
 		i++;
 	}
 }
-void ajouter_keyvaleur(t_env *env, t_env *courrant , char **cmd, char **key)
+void ajouter_keyvaleur(t_env *env, t_env *courrant , t_shellcmd *cmd, char **key)
 {
 	while(courrant)
 	{
-		if(ft_strncmp(courrant->key, cmd[0], ft_strlen(cmd[0])) == 0)
+		if(ft_strncmp(courrant->key, cmd->command[1], ft_strlen(cmd->command[1])) == 0)
 			break;
 		courrant = courrant->next;
 	}
@@ -112,51 +95,32 @@ void ajouter_keyvaleur(t_env *env, t_env *courrant , char **cmd, char **key)
 	}
 }
 
-// void ft_add_liste(t_env *head, t_env *new_node)
-// {
-// 	if (*head == NULL)
-// 	{
-// 		*head = new_node;
-// 	}
-// 	else
-// 	{
-// 		t_env *last = *head;
-// 		while (last->next != NULL)
-// 		{
-// 			last = last->next;
-// 		}
-// 		last->next = new_node;
-// 		new_node->previous = last;
-// 	}
-// }
-
-
-void add_cmd(t_env *env , char **cmd , int i , char **key)
+void add_cmd(t_env *env , t_shellcmd *cmd , int i , char **key)
 {
 	t_env *courrant;
 
 	courrant = env;
 	int j = 0;
-	while(cmd[i][j] != '=' && cmd[i][j] !='\0')
+	while(cmd->command[i][j] != '=' && cmd->command[i][j] !='\0')
 		j++;
-	key[0] = ft_substr(cmd[i], 0 , j);
-	if(cmd[i][j] == '=')
-		key[1] = ft_substr(cmd[i], j + 1 , (ft_strlen(cmd[i]) - j));
+	key[0] = ft_substr(cmd->command[i], 0 , j);
+	if(cmd->command[i][j] == '=')
+		key[1] = ft_substr(cmd->command[i], j + 1 , (ft_strlen(cmd->command[i]) - j));
 	else 
 		key[1] = "";
 	ajouter_keyvaleur(env ,courrant, cmd, key);
 }
-int modifier_env(char **key, t_env *env, char **cmd)
+int modifier_env(char **key, t_env *env, t_shellcmd *cmd)
 {
 	int flag = 0;
 	int j = 0;
 	t_env *current;
 	current = env;
-	while(cmd[2][j] != '=' && cmd[2][j] !='\0')
+	while(cmd->command[1][j]!= '=' && cmd->command[1][j] !='\0')
 		j++;
-	key[0] = ft_substr(cmd[2], 0 , j);
-	if(cmd[2][j] == '=')
-		key[1] = ft_substr(cmd[2], j +1, (ft_strlen(cmd[2]) - j));
+	key[0] = ft_substr(cmd->command[1], 0 , j);
+	if(cmd->command[1][j] == '=')
+		key[1] = ft_substr(cmd->command[1], j + 1, (ft_strlen(cmd->command[1]) - j));
 	j = 0;
 	while (current)
 	{

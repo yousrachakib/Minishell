@@ -6,33 +6,33 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/24 13:44:51 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:40:01 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void ft_unset(char *cmd, t_env *env)
+void ft_unset(t_shellcmd *cmd , t_env *env)
 {
-	t_env *current = env;
+	// t_env *current = env;
 	
-	while (current)
+	while (env)
 	{
-		if(ft_strncmp(cmd , current->key, ft_strlen(cmd) - 1) == 0)
+		if(ft_strncmp(cmd->command[1] , env->key, ft_strlen(cmd->command[1]) - 1) == 0)
 		{
-			free(current->key);
-			free(current->value);
-			if(current->previous != NULL)
-				current->previous->next = current->next;
+			free(env->key);
+			free(env->value);
+			if(env->previous != NULL)
+				env->previous->next = env->next;
 			else
-				current = current->next;
-			if(current->next != NULL)
-				current->next->previous = current->previous;
-			free(current);
+				env = env->next;
+			if(env->next != NULL)
+				env->next->previous = env->previous;
+			free(env);
 			return;
 		}
 		else
-			current = current->next;
+			env = env->next;
 	}
 }
 // void	ft_unset(t_var *var)
