@@ -21,7 +21,7 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_strjoin.c \
 	parsing/libftfunctions/ft_split.c \
 	parsing/redirection/redirection.c \
-	parsing/redirection/utils.c \
+
 
 
 OBJ = $(SRC:.c=.o)

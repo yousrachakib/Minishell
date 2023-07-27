@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/27 15:33:32 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:29:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ t_shellcmd    *findredirection(t_cmd   *command)
     {
         if (command->type == here_doc || command->type == t_input || command->type == t_output || command->type == output_apnd)
         {
-            t_cmd *now = command;
+            t_cmd *current = command;
             if (command->next->type == t_space)
-            command = command->next;
-           
-            if (now->type == t_input)
+                command = command->next;
+            if (current->type == t_input)
             {
                 if ( finallist->fd_in != 0 )
                     close(finallist->fd_in);
@@ -42,7 +41,7 @@ t_shellcmd    *findredirection(t_cmd   *command)
                     //error
                 }
             }
-            if (now->type == t_output)
+            if (current->type == t_output)
             { 
                 if ( finallist->fd_out != 1)
                     close(finallist->fd_out);
@@ -52,7 +51,7 @@ t_shellcmd    *findredirection(t_cmd   *command)
                     //error
                 }
             }
-            if (now->type == output_apnd)
+            if (current->type == output_apnd)
             {
                 if ( finallist->fd_out != 1)
                     close(finallist->fd_out);
@@ -77,7 +76,6 @@ t_shellcmd    *findredirection(t_cmd   *command)
         }
         else if (command->type != t_space)
         {
-            puts(command->input);
             finallist->command[i] = ft_strdup(command->input);
             i++;
         }
