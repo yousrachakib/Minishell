@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/26 19:17:59 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:35:19 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,25 @@ char	*git_path(t_env *env)
 	return (NULL);
 }
 
-void ft_exec_path(char *cmd, t_env *shellenv , char **env)
+void ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env)
 {
 	char *str = git_path(shellenv);
 	char **spl;
 	char *s;
 	char **exec_arg;
-	pid_t pid = fork();
+	int i = 0;
+	spl = ft_split(str, ':');
+	exec_arg = ft_split(cmd->command[0], ' ');
+	s = ft_check_path(spl, cmd->command[i]);
+	printf("{%s}\n", s);
 	if(!str)
 	{
 		ft_printf("minishell: command not found: %e\n", cmd);
 		exit(1);
 	}
-	spl = ft_split(str, ':');
-	exec_arg = ft_split(cmd ,' ');
-	s = ft_check_path(spl, cmd);
-	if(s != NULL)
+	if (s != NULL)
 	{
+		pid_t pid = fork();
 		if(pid == -1)
 		{
 			ft_printf("minishell: %e\n", "Erreur lors de fork()");
@@ -48,9 +50,11 @@ void ft_exec_path(char *cmd, t_env *shellenv , char **env)
 		}
 		else if (pid == 0)
 			execve(s,exec_arg,env);
-		else
-			waitpid(pid, NULL,0);
+		// else
+		waitpid(pid, NULL,0);
 	}
+	else
+		ft_printf("minishell: %e: %e\n", "command not found", cmd->command[0]);
 }
 
 char *ft_check_path(char **spl, char *cmd)
@@ -62,11 +66,11 @@ char *ft_check_path(char **spl, char *cmd)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			free (cmd);
+			// free (cmd);
 			return (cmd);
 		}
-		ft_printf("minishell: %e: %e\n", "command not found", cmd);
-		return (NULL);
+		else
+			return (NULL);
 	}
 	s = ft_strjoin("/", cmd);
 	return(ft_path(spl , s));

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/26 21:24:31 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:15:13 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 {
 	int i;
 
-// while (cmd->command[i])
-// 	printf("%s\n", cmd->command[i++]);
-
 	i = 0;
 	// if(!cmd->command[0])
 	// 	return ;
@@ -86,7 +83,7 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 			return ;
 		}
 		else
-			ft_exec_path(cmd->command[i], shellenv, env);//probleme de excute touch
+			ft_exec_path(cmd, shellenv, env);//probleme de excute touch
 	}
 	if(cnt > 1)
 	{

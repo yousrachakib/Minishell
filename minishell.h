@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/26 19:14:43 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/27 10:46:21 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	ft_env (t_env *env, t_shellcmd *cmd);
 void	ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env);
 int		ft_exec_builtins(t_shellcmd *cmd  , t_env *env);
 int		ft_chercher_builtins(t_shellcmd *cmd ,t_env *env);
-void	ft_exec_path(char *cmd, t_env *shellenv, char **env);
+void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env);
 char	*git_path(t_env *env);
 char	*ft_check_path(char **spl, char *cmd);
 char	*ft_path(char **spl, char *cmd);
