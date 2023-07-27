@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/27 16:29:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:24:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_shellcmd    *findredirection(t_cmd   *command)
                 finallist->fd_in = open(command->next->input, O_RDONLY);
                 if (finallist->fd_in < 0)
                 {
-                    //error
+                    perror("cuteshell ");
+                    return (NULL);
                 }
             }
             if (current->type == t_output)
@@ -48,7 +49,8 @@ t_shellcmd    *findredirection(t_cmd   *command)
                 finallist->fd_out = open(command->next->input, O_WRONLY | O_CREAT | O_TRUNC, 0666);
                 if (finallist->fd_out < 0)
                 {
-                    //error
+                    perror("cuteshell ");
+                    return (NULL);
                 }
             }
             if (current->type == output_apnd)
@@ -58,7 +60,8 @@ t_shellcmd    *findredirection(t_cmd   *command)
                 finallist->fd_out = open(command->next->input, O_WRONLY | O_CREAT | O_APPEND, 0666);
                 if (finallist->fd_out < 0)
                 {
-                    //error
+                    perror("cuteshell ");
+                    return (NULL);
                 } 
             }
             command = command->next;

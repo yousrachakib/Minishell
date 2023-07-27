@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/27 15:37:05 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:22:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd *li
 		t_cmd *tmp;
 		tmp = (*command);
 		list = findredirection((*command));
+		if (list == NULL)
+			continue;
 		int i = 0;
 		t_shellcmd *tmp_list = list;
 		while(tmp_list)
