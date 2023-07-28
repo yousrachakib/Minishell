@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/27 11:35:19 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/27 12:04:05 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ void ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env)
 	char *str = git_path(shellenv);
 	char **spl;
 	char *s;
-	char **exec_arg;
 	int i = 0;
 	spl = ft_split(str, ':');
-	exec_arg = ft_split(cmd->command[0], ' ');
 	s = ft_check_path(spl, cmd->command[i]);
-	printf("{%s}\n", s);
 	if(!str)
 	{
 		ft_printf("minishell: command not found: %e\n", cmd);
@@ -49,12 +46,11 @@ void ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env)
 			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0)
-			execve(s,exec_arg,env);
-		// else
+			execve(s, cmd->command,env);
 		waitpid(pid, NULL,0);
 	}
 	else
-		ft_printf("minishell: %e: %e\n", "command not found", cmd->command[0]);
+		ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
 }
 
 char *ft_check_path(char **spl, char *cmd)

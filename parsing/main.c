@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/26 19:11:24 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:46:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			continue;
 		if (syntaxerror(command) == 1) 
 			continue;
-		check_and_expand(final_list,(*command));
+		check_and_expand(final_list,(*command)); 
 		// findredirection((*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');

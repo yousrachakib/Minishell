@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/27 11:15:13 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:35:44 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env *env)
 	if(!ft_strncmp(cmd->command[0] , "cd" , 3))
 		ft_cd(cmd ,env);
 	if(!ft_strncmp(cmd->command[0] , "export" , 7))
+	{
 		ft_export(cmd, env); //verifier les cas
+		// test_export(cmd, env);
+	}
 	if(!ft_strncmp(cmd->command[0] , "env" , 5))
 		ft_env(env , cmd); 
 	if(!ft_strncmp(cmd->command[0], "pwd" , 5))
@@ -72,8 +75,8 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 	int i;
 
 	i = 0;
-	// if(!cmd->command[0])
-	// 	return ;
+	if(!cmd->command[0])
+		return ;
 	int cnt = countNodes(cmd);
 	if(cnt == 1)
 	{
@@ -83,7 +86,7 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 			return ;
 		}
 		else
-			ft_exec_path(cmd, shellenv, env);//probleme de excute touch
+			ft_exec_path(cmd, shellenv, env);
 	}
 	if(cnt > 1)
 	{
