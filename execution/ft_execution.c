@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 10:35:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:46:55 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 	int i;
 
 	i = 0;
+	
 	if(!cmd->command[0])
 		return ;
 	int cnt = countNodes(cmd);

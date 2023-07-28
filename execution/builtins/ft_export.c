@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 14:38:35 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:07:41 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ void	print_env(t_env *env)
 	{
 		if (env->key)
 		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(env->key, 1);
-			// if (ft_strcmp(env->value, "") != 0)
-			if (env->value != NULL)
+			if (env->key != NULL && env->key[0] != '\0')
 			{
-				ft_putstr_fd("=\"", 1);
-				ft_putstr_fd(env->value, 1);
-				ft_putstr_fd("\"", 1);
+				ft_putstr_fd("declare -x ", 1);
+				ft_putstr_fd(env->key, 1);
+				// if (ft_strcmp(env->value, "") != 0)
+				if (env->value != NULL && env->value[0] != '\0')
+				{
+					ft_putstr_fd("=\"", 1);
+					ft_putstr_fd(env->value, 1);
+					ft_putstr_fd("\"", 1);
+				}
+				ft_putstr_fd("\n", 1);
 			}
-			ft_putstr_fd("\n", 1);
 		}
 		env = env->next;
 	}
@@ -36,8 +39,8 @@ void	print_env(t_env *env)
 
 int checkKeyExport(char* str) 
 {
-	int i = 0;
-    if (ft_isalpha(str[0]) == 0 && str[0] != '_') {
+	int i = 1;
+    if (!ft_isalpha(str[0]) && str[0] != '_') {
 		printf("here\n");
         return 0;
     }
@@ -64,26 +67,24 @@ void ft_export(t_shellcmd *cmd,t_env *env)
 	while(cmd->command[i])
 	{
 		if(checkKeyExport(cmd->command[i]) == 0)
-		{
-			ft_printf("%e: %e: %e\n" ,cmd->command[0] , cmd->command[1] , "not a valid identifier");
-			return ;
-		}
+			ft_printf("%e: %e: %e\n" ,cmd->command[0] , cmd->command[i], "not a valid identifier");
 		else
 		{
 			keyValue = malloc(sizeof(char) * 3);
 			keyValue[2] = NULL;
-			modifier_env(keyValue,env,cmd, cmd->command[i]);
+			modifier_env(keyValue,env, cmd->command[i]);
 		}
 		i++;
 	}
 }
 
-void ajouter_keyvaleur(t_env *env , t_shellcmd *cmd, char **key)
+void ajouter_keyvaleur(t_env *env , char *str, char **key)
 {
 	t_env *courrant = env;
+
 	while(courrant)
 	{
-		if(ft_strncmp(courrant->key, cmd->command[1], ft_strlen(cmd->command[1])) == 0)
+		if(ft_strncmp(courrant->key, str, ft_strlen(str) + 1) == 0)
 			break;
 		courrant = courrant->next;
 	}
@@ -97,7 +98,7 @@ void ajouter_keyvaleur(t_env *env , t_shellcmd *cmd, char **key)
 	}
 }
 
-int modifier_env(char **key, t_env *env, t_shellcmd *cmd, char *command)
+int modifier_env(char **key, t_env *env, char *command)
 {
 	int flag = 0;
 	int j = 0;
@@ -130,10 +131,14 @@ int modifier_env(char **key, t_env *env, t_shellcmd *cmd, char *command)
 	}
 	while (current)
 	{
-		if(!ft_strncmp(key[0],current->key, ft_strlen(key[0])))
+		if(!ft_strncmp(key[0],current->key, ft_strlen(key[0]) + 1))
 		{
 			if(flag == 2 && key[1])
+			{
+				if (current->value == NULL)
+					current->value = ft_strdup("");
 				current->value = ft_strjoin(current->value, key[1]);
+			}
 			else
 				current->value = key[1];
 			flag = 1;
@@ -142,6 +147,6 @@ int modifier_env(char **key, t_env *env, t_shellcmd *cmd, char *command)
 	}
 	if(flag == 1)
 		return(0);
-	ajouter_keyvaleur(env, cmd, key);
+	ajouter_keyvaleur(env, command, key);
 	return(1);
 }
