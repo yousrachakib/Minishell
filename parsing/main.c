@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/27 17:46:46 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:37:02 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 	{
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			break ; // ctrl + D
+			return(printf("exit\n"),exit(1)) ; // ctrl + D
 		if (input[0] != '\0') // working history
 			add_history(input);
 		command = tokenizer(input);
@@ -35,6 +35,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		// findredirection((*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
+		if(!splitedcmd || !splitedcmd[0])
+			continue;
 		free(firstcommand);
 		int i = 0;
 		while (splitedcmd[i])
@@ -65,6 +67,7 @@ int	main(int ac, char **av, char **env)
 	finallist = NULL;
 	command = NULL;
 	input = NULL;
+	env_list = NULL;
 	creat_env_struct(env, &env_list);
 	ft_readline(input, &command, env_list, &finallist , env);
 	// while(finallist)

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/25 20:42:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:19:30 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int ft_echo(t_shellcmd *cmd)
 		{
 			if(cmd->command[i] != NULL) 
 				ft_putstr_fd(cmd->command[i] , 1);
+			if(cmd->command[i+1])	
 			ft_putstr_fd(" " , 1);
 			i++;
 		}

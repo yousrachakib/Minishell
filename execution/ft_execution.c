@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 16:46:55 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 10:46:22 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env *env)
 		ft_exit(cmd);   
 	return(0);
 }
-int countNodes(t_shellcmd *head) {
-    int count = 0;
-    t_shellcmd *current = head;
+// int countNodes(t_shellcmd *head) {
+//     int count = 0;
+//     t_shellcmd *current = head;
 
-    while (current != NULL) {
-        count++;
-        current = current->next;
-    }
+//     while (current != NULL) {
+//         count++;
+//         current = current->next;
+//     }
 
-    return count;
-}
+//     return count;
+// }
 void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 {
 	int i;
@@ -78,21 +78,17 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 	
 	if(!cmd->command[0])
 		return ;
-	int cnt = countNodes(cmd);
-	if(cnt == 1)
+	while(cmd->next)
 	{
-		if(cmd->command && ft_chercher_builtins(cmd, shellenv) != 0)
-		{
-			ft_exec_builtins(cmd , shellenv);
-			return ;
-		}
-		else
-			ft_exec_path(cmd, shellenv, env);
+		//multiple pipes
+		cmd = cmd->next;
 	}
-	if(cnt > 1)
+	if(cmd->command && ft_chercher_builtins(cmd, shellenv) != 0)
 	{
-		// ft_exec_path( cmd->command[i], shellenv, env);
-		printf("======");
+		ft_exec_builtins(cmd , shellenv);
+		return ;
 	}
+	else
+		ft_exec_path(cmd, shellenv, env);
 	return ;
 }

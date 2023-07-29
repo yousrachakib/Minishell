@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 17:00:07 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 10:27:09 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,50 @@
 
 void ft_unset(t_shellcmd *cmd , t_env *env)
 {
-	t_env *current = env;
-	int flag = 0;
-
-	while (env)
+	t_env *current;
+	int j;
+	char *s;
+	
+	j=0;
+	while (cmd->command[j])
 	{
-		if(ft_strncmp(cmd->command[1] ,current->key, ft_strlen(current->key) - 1) == 0)
+		s = cmd->command[j];
+		current = env;
+		while (current && ft_strncmp(current->key, s, ft_strlen(s)))
+			current = current->next;
+		if(current)
 		{
 			free(current->key);
 			free(current->value);
-			flag = 1;
-			if(current->previous != NULL)
-				current->previous->next = current->next;
-			else
-				current = current->next;
-			if(current->next != NULL)
-				current->next->previous = current->previous;
-			free(current);
-			return;
+			current->key = NULL;
+			current->value = NULL;
 		}
-		else
-			current = current->next;
+		j++;
 	}
 } 
+
+
+// void	ft_unset(t_var *var)
+// {
+// 	t_env	*current;
+// 	char	*tmp;
+// 	int		i;
+
+// 	i = 0;
+// 	while (var->prs->args[i])
+// 	{
+// 		tmp = var->prs->args[i];
+// 		current = var->head_env;
+// 		while (current && ft_strncmp(current->key, tmp, ft_strlen(tmp)))
+// 			current = current->next;
+// 		if (current)
+// 		{
+// 			free(current->key);
+// 			free(current->value);
+// 			current->key = NULL;
+// 			current->value = NULL;
+// 		}
+// 		i++;
+// 	}
+// 	var->status = 0;
+// }
