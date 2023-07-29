@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/05 19:19:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/28 20:29:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env	*create_envnode(char *key, char *value)
 {
 	t_env	*node;
     
-	node = malloc(sizeof(t_env));
+	node = ft_calloc(sizeof(t_env), 1);
 	if (!node)
 		return (NULL);
 	node->key = key;
@@ -54,7 +54,7 @@ char    *retrieve_key(char *line)
     if (!equal_sign)
         return NULL;
     key_len = equal_sign - line;
-    key = malloc(key_len + 1);
+    key = ft_calloc(key_len + 1, 1);
     if (!key)
         return NULL;
     ft_strncpy(key, line, key_len);
@@ -75,7 +75,7 @@ char *retrieve_value(char *line)
 	line_len = ft_strlen(line);
     equal_sign = ft_strchr(line, '=');
     key_len = equal_sign - line;
-    key = malloc(key_len + 1);
+    key = ft_calloc(key_len + 1, 1);
     if (!key)
         return NULL;
     ft_strncpy(key, line, key_len);
