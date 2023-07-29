@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/29 15:40:16 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:13:09 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	char			flag;
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -68,7 +69,7 @@ typedef struct s_env
 
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
-void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list , char **env);
+void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
@@ -133,10 +134,10 @@ char	*ft_strjoin(char  *s1, char  *s2);
 char    **ft_split(char *s, char c);
 void	**ft_free(char **s);
 void	ft_env (t_env *env, t_shellcmd *cmd);
-void	ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env);
+void	ft_execution (t_shellcmd *cmd, t_env **shellenv );
 int		ft_exec_builtins(t_shellcmd *cmd  , t_env **env);
 int		ft_chercher_builtins(t_shellcmd *cmd ,t_env *env);
-void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env);
+void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv );
 char	*git_path(t_env *env);
 char	*ft_check_path(char **spl, char *cmd);
 char	*ft_path(char **spl, char *cmd);
@@ -151,6 +152,10 @@ void	ajouter_keyvaleur(t_env *env, char *str, char **key);
 t_env	cree_node(char *key, char *value);
 void	ft_add_liste(t_env *head, t_env *new_node);
 int		modifier_env(t_env **env, char *command);
-void	test_export(t_shellcmd *cmd,t_env *env);
-
+void	ft_creefork(char *s , t_shellcmd *cmd, char **newenv);
+char	**ft_envirenment(t_env *shellenv);
+int		countNodes(t_env *head);
+void	sighandler(int sig);
+void	ft_freeArr(char **s);
+int		ft_change_env(char **key , t_env *current , int flag);
 #endif

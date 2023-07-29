@@ -25,12 +25,13 @@ SRC = parsing/main.c \
 	execution/ft_execution.c \
 	execution/builtins/ft_env.c \
 	execution/builtins/ft_exit.c \
-	execution/builtins/ft_isalpha.c \
-	execution/builtins/ft_isdigit.c \
-	execution/builtins/ft_printf.c \
+	execution/utils/ft_isalpha.c \
+	execution/utils/ft_isdigit.c \
+	execution/utils/ft_printf.c \
 	execution/builtins/ft_pwd.c \
-	execution/builtins/ft_strncmp.c\
-	execution/builtins/ft_atoi.c\
+	execution/utils/ft_strncmp.c\
+	execution/utils/ft_atoi.c\
+	execution/utils/fonction_utils.c\
 	execution/builtins/ft_echo.c\
 	execution/ft_check_path.c\
 	execution/builtins/ft_cd.c\

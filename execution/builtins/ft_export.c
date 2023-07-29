@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 15:33:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:37:45 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	print_env(t_env *env)
 {
-
 	while (env)
 	{
 		if (env->key)
@@ -23,7 +22,6 @@ void	print_env(t_env *env)
 			{
 				ft_putstr_fd("declare -x ", 1);
 				ft_putstr_fd(env->key, 1);
-				// if (ft_strcmp(env->value, "") != 0)
 				if (env->value != NULL && env->value[0] != '\0')
 				{
 					ft_putstr_fd("=\"", 1);
@@ -55,18 +53,6 @@ int checkKeyExport(char* str)
     return 1;
 }
 
-void	ft_freeArr(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i++]);
-	}
-	free(s);
-}
-
 void ft_export(t_shellcmd *cmd,t_env **env)
 {
 	int i = 1;
@@ -77,7 +63,6 @@ void ft_export(t_shellcmd *cmd,t_env **env)
 	}
 	while(cmd->command[i])
 	{
-		puts(cmd->command[i]);
 		if(checkKeyExport(cmd->command[i]) == 0)
 			ft_printf("%e: %e: %e\n" ,cmd->command[0] , cmd->command[i], "not a valid identifier");
 		else
@@ -134,13 +119,22 @@ int modifier_env(t_env **env, char *command)
 		key[0] = ft_substr(command, 0 , j);
 	if (command[j] == '=' && flag != 2)
 		key[1] = ft_substr(command, j + 1, (ft_strlen(command) - j));
-	if (command[j] == '\0' && command[j] == '=') {	
+	if (command[j] == '\0' && command[j] == '=') {
 		key[1] = ft_strdup("");
 	}
-	else if (command[j] == '\0') {	
+	else if (command[j] == '\0')
+	{
 		key[1] = NULL;
 		flag = 0;
 	}
+	if(ft_change_env(key , current , flag) == 1)
+		return(0);
+	ajouter_keyvaleur(*env, command, key);
+	return(1);
+}
+
+int ft_change_env(char **key , t_env *current , int flag)
+{
 	while (current)
 	{
 		if(!ft_strncmp(key[0],current->key, ft_strlen(key[0]) + 1))
@@ -157,8 +151,5 @@ int modifier_env(t_env **env, char *command)
 		}
 		current = current->next;
 	}
-	if(flag == 1)
-		return(0);
-	ajouter_keyvaleur(*env, command, key);
-	return(1);
+	return(flag);
 }

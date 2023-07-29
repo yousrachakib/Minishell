@@ -6,13 +6,13 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/29 15:29:25 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:41:35 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list , char **env)
+void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 {
 	char *firstcommand;
 	char **splitedcmd;
@@ -45,7 +45,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **
 			addback_shellnode(list, create_shellnode(splitedcmd2));
 			i++;
 		}
-		ft_execution(*list, final_list, env);
+		ft_execution(*list, final_list);
 		free(*list);
 		(*list) = NULL;
 		// ft_execution(tmp_list, final_list);
@@ -69,7 +69,7 @@ int	main(int ac, char **av, char **env)
 	input = NULL;
 	env_list = NULL;
 	creat_env_struct(env, &env_list);
-	ft_readline(input, &command, &env_list, &finallist , env);
+	ft_readline(input, &command, &env_list, &finallist);
 	// while(finallist)
     // {
 	// 	while (finallist->command[i])

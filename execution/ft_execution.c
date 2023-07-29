@@ -6,11 +6,12 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 15:23:38 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:10:38 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 int ft_chercher_builtins(t_shellcmd *cmd ,t_env *env)
 {
 	(void)env;
@@ -37,6 +38,7 @@ int ft_chercher_builtins(t_shellcmd *cmd ,t_env *env)
 	}
 	return(0);
 }
+
 int ft_exec_builtins(t_shellcmd *cmd  , t_env **env)
 {
 	(void)env;
@@ -51,23 +53,13 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env **env)
 	if(!ft_strncmp(cmd->command[0], "pwd" , 5))
 		ft_pwd();
 	if(!ft_strncmp(cmd->command[0] , "unset" , 5))
-		ft_unset(cmd, env);//seg
+		ft_unset(cmd, env);
 	if(!ft_strncmp(cmd->command[0], "exit" , 5))
 		ft_exit(cmd);   
 	return(0);
 }
-// int countNodes(t_shellcmd *head) {
-//     int count = 0;
-//     t_shellcmd *current = head;
 
-//     while (current != NULL) {
-//         count++;
-//         current = current->next;
-//     }
-
-//     return count;
-// }
-void ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env)
+void ft_execution (t_shellcmd *cmd, t_env **shellenv )
 {
 	int i;
 
@@ -77,7 +69,7 @@ void ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env)
 		return ;
 	while(cmd->next)
 	{
-		//multiple pipes
+		//multiple pipes  
 		cmd = cmd->next;
 	}
 	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
@@ -86,6 +78,6 @@ void ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env)
 		return ;
 	}
 	else
-		ft_exec_path(cmd, *shellenv, env);
+		ft_exec_path(cmd, *shellenv);
 	return ;
 }
