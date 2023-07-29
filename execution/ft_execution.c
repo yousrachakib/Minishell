@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 10:46:22 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:23:38 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int ft_chercher_builtins(t_shellcmd *cmd ,t_env *env)
 	}
 	return(0);
 }
-int ft_exec_builtins(t_shellcmd *cmd  , t_env *env)
+int ft_exec_builtins(t_shellcmd *cmd  , t_env **env)
 {
 	(void)env;
 	if(!ft_strncmp(cmd->command[0] , "echo" , 5))
@@ -45,12 +45,9 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env *env)
 	if(!ft_strncmp(cmd->command[0] , "cd" , 3))
 		ft_cd(cmd ,env);
 	if(!ft_strncmp(cmd->command[0] , "export" , 7))
-	{
-		ft_export(cmd, env); //verifier les cas
-		// test_export(cmd, env);
-	}
+		ft_export(cmd, env);
 	if(!ft_strncmp(cmd->command[0] , "env" , 5))
-		ft_env(env , cmd); 
+		ft_env(*env , cmd); 
 	if(!ft_strncmp(cmd->command[0], "pwd" , 5))
 		ft_pwd();
 	if(!ft_strncmp(cmd->command[0] , "unset" , 5))
@@ -70,7 +67,7 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env *env)
 
 //     return count;
 // }
-void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
+void ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env)
 {
 	int i;
 
@@ -83,12 +80,12 @@ void ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env)
 		//multiple pipes
 		cmd = cmd->next;
 	}
-	if(cmd->command && ft_chercher_builtins(cmd, shellenv) != 0)
+	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 	{
 		ft_exec_builtins(cmd , shellenv);
 		return ;
 	}
 	else
-		ft_exec_path(cmd, shellenv, env);
+		ft_exec_path(cmd, *shellenv, env);
 	return ;
 }

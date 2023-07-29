@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/26 11:36:54 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:32:16 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ char *ft_path_home(t_env *env)
 	return(NULL);
 }
 
-void ft_cd(t_shellcmd *cmd , t_env *env)
+void ft_cd(t_shellcmd *cmd , t_env **env)
 {
 	char *path_home;
 	int i; 
 	
 	if(!cmd->command[1])
-		path_home = ft_path_home(env);
+		path_home = ft_path_home(*env);
 	else
 		path_home = ft_strdup(cmd->command[1]);
 	i = chdir(path_home);
@@ -44,5 +44,5 @@ void ft_cd(t_shellcmd *cmd , t_env *env)
 		return ;
 	}
 	else
-		change_pwd(cmd , env);
+		change_pwd(cmd , *env);
 }

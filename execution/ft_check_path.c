@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 11:01:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 11:51:18 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,11 @@ char *ft_check_path(char **spl, char *cmd)
 		else
 			return (NULL);
 	}
+	
 	s = ft_strjoin("/", cmd);
 	return(ft_path(spl , s));
 }
+
 char	*ft_path(char **spl, char *cmd)
 {
 	int		i;

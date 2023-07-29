@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 17:07:41 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:33:44 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,33 @@ int checkKeyExport(char* str)
     return 1;
 }
 
-void ft_export(t_shellcmd *cmd,t_env *env)
+void	ft_freeArr(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i++]);
+	}
+	free(s);
+}
+
+void ft_export(t_shellcmd *cmd,t_env **env)
 {
 	int i = 1;
-	char **keyValue;
 	if(!cmd->command[1])
 	{
-		print_env(env);
+		print_env(*env);
 		return ;
 	}
 	while(cmd->command[i])
 	{
+		puts(cmd->command[i]);
 		if(checkKeyExport(cmd->command[i]) == 0)
 			ft_printf("%e: %e: %e\n" ,cmd->command[0] , cmd->command[i], "not a valid identifier");
 		else
-		{
-			keyValue = malloc(sizeof(char) * 3);
-			keyValue[2] = NULL;
-			modifier_env(keyValue,env, cmd->command[i]);
-		}
+			modifier_env(env, cmd->command[i]);
 		i++;
 	}
 }
@@ -90,7 +98,6 @@ void ajouter_keyvaleur(t_env *env , char *str, char **key)
 	}
 	if(courrant)
 		courrant->value = key[1];
-	// printf("==%s==%s", )
 	else
 	{
 		courrant = create_envnode(key[0], key[1]);
@@ -98,12 +105,13 @@ void ajouter_keyvaleur(t_env *env , char *str, char **key)
 	}
 }
 
-int modifier_env(char **key, t_env *env, char *command)
+int modifier_env(t_env **env, char *command)
 {
 	int flag = 0;
 	int j = 0;
 	t_env *current;
-	current = env;
+	char **key;
+	current = *env;
 	while(command[j] !='\0')
 	{
 		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
@@ -114,6 +122,10 @@ int modifier_env(char **key, t_env *env, char *command)
 		}
 		j++;
 	}
+	key = malloc(sizeof(char) * 3);
+	if (!key)
+		return 0;
+	key[2] = NULL;
 	if (flag == 2) {	
 		key[0] = ft_substr(command, 0, j);
 		key[1] = ft_substr(command, j + 2, (ft_strlen(command) - j));
@@ -147,6 +159,6 @@ int modifier_env(char **key, t_env *env, char *command)
 	}
 	if(flag == 1)
 		return(0);
-	ajouter_keyvaleur(env, command, key);
+	ajouter_keyvaleur(*env, command, key);
 	return(1);
 }

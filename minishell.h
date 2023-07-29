@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 15:03:33 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:40:16 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_env
 
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
-void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list , char **env);
+void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list , char **env);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		is_whitespace(char c);
@@ -133,24 +133,24 @@ char	*ft_strjoin(char  *s1, char  *s2);
 char    **ft_split(char *s, char c);
 void	**ft_free(char **s);
 void	ft_env (t_env *env, t_shellcmd *cmd);
-void	ft_execution (t_shellcmd *cmd, t_env *shellenv , char **env);
-int		ft_exec_builtins(t_shellcmd *cmd  , t_env *env);
+void	ft_execution (t_shellcmd *cmd, t_env **shellenv , char **env);
+int		ft_exec_builtins(t_shellcmd *cmd  , t_env **env);
 int		ft_chercher_builtins(t_shellcmd *cmd ,t_env *env);
 void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv , char **env);
 char	*git_path(t_env *env);
 char	*ft_check_path(char **spl, char *cmd);
 char	*ft_path(char **spl, char *cmd);
-void	ft_cd(t_shellcmd *cmd , t_env *env);
+void	ft_cd(t_shellcmd *cmd , t_env **env);
 void	change_pwd(t_shellcmd *cmd  , t_env *env);
 void	ft_oldpwd(t_env *env , char *str);
-void	ft_unset(t_shellcmd *cmd , t_env *env);
-void	ft_export(t_shellcmd *cmd,t_env *env);
+void	ft_unset(t_shellcmd *cmd, t_env **env);
+void	ft_export(t_shellcmd *cmd,t_env **env);
 int		ft_check_cmd(char *str);
 void	add_cmd(t_env *env , t_shellcmd *cmd , int i , char **key);
 void	ajouter_keyvaleur(t_env *env, char *str, char **key);
 t_env	cree_node(char *key, char *value);
 void	ft_add_liste(t_env *head, t_env *new_node);
-int		modifier_env(char **key, t_env *env, char *command);
+int		modifier_env(t_env **env, char *command);
 void	test_export(t_shellcmd *cmd,t_env *env);
 
 #endif
