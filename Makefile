@@ -1,6 +1,6 @@
 CC = cc 
-READLINE = $(shell brew --prefix readline)
-FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
+# READLINE = $(shell brew --prefix readline)
+FLAGS = -Wall -Wextra -Werror  -g -fsanitize=address
 NAME = minishell
 SRC = parsing/main.c \
 	parsing/utils_minishell.c \
@@ -33,7 +33,7 @@ HEADER = minishell.h
 all : $(NAME)
 
 $(NAME) : $(OBJ)  $(HEADER)
-		$(CC) $(FLAGS) $(OBJ)  -lreadline  -o $(NAME) -L$(READLINE)/lib
+		$(CC) $(FLAGS) $(OBJ)  -lreadline  -o $(NAME) 
 
 %.o : %.c $(HEADER)
 		@$(CC) $(FLAGS) -c $< -o $@

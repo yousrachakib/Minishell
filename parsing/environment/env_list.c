@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 20:29:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:51:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	addback_envnode(t_env **head, t_env *newnode)
 
 char    *retrieve_key(char *line)
 {
-    int line_len;
+    // int line_len;
     char *equal_sign;
     int key_len;
     char *key;
 
-    line_len = ft_strlen(line);
+    // line_len = ft_strlen(line);
     equal_sign = ft_strchr(line, '=');
     if (!equal_sign)
         return NULL;
@@ -64,7 +64,7 @@ char    *retrieve_key(char *line)
 
 char *retrieve_value(char *line) 
 {
-    int line_len;
+    // int line_len;
 	char *equal_sign;
 	int key_len;
 	char *key;
@@ -72,7 +72,7 @@ char *retrieve_value(char *line)
 	char *value_duplicate;
 	char *newline;
 
-	line_len = ft_strlen(line);
+	// line_len = ft_strlen(line);
     equal_sign = ft_strchr(line, '=');
     key_len = equal_sign - line;
     key = ft_calloc(key_len + 1, 1);

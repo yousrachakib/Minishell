@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/29 22:33:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/30 20:40:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_shellcmd
 	char			**command;
 	int				fd_in;
 	int				fd_out;
+	int				error_flag;
 	struct s_shellcmd	*next;
 }	t_shellcmd;
 
@@ -103,5 +104,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode);
 t_shellcmd	*create_shellnode(char **command);
 void set_nonvalidcommand(char **command);
+char	**copy2(char **command);
+void	check_and_apply(t_shellcmd *list);
 
 #endif
