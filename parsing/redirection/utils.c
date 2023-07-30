@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:38:55 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/29 22:21:47 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:10:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char *copy(char *old)
     int i = 0;
     int j = 0;
     char *new;
-    new = ft_calloc(ft_strlen(old), 2);
+    new = ft_calloc(ft_strlen(old) + 1, 2);
     while (old[i])
     {
         if (!checkredirection(old[i]))
@@ -42,10 +42,11 @@ char *copy(char *old)
     {
         if( new[i] && new[i+1] && new[i+2] && new[i+3] && checkredirection(new[i]) && checkredirection(new[i + 3]))
         {
-            i++;
+            if(new[i + 1])
+                i++;
             new[i] = new[i + 2];
-            i++;
-            i++;
+            if(new[i + 2])
+                i = i + 2;
             new[i] = ' ';
         }
         i++;

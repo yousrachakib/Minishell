@@ -24,8 +24,8 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_split.c \
 	parsing/redirection/redirection.c \
 	parsing/redirection/utils.c \
-
-
+	parsing/redirection/here_doc.c \
+	parsing/redirection/here_doc_expand.c \
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

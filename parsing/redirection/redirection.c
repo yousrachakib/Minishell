@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 21:31:16 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:40:04 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,15 @@ char	**copy2(char **command)
 			tmp[j++] = ft_strdup(command[i]);
 		i++;	
 	}
-	i = 0;
-	// while (command[i])
-	// {
-	// 	free(command[i]);
-	// 	i++;
-	// }
-	// free(command);
 	return (tmp);
 }
 
-void    findredirection(t_shellcmd   *command)
+void    findredirection(t_env *env,t_shellcmd   *command)
 {
 	t_shellcmd	*current;
     int i;
 	
+	find_here_doc(env, command);
 	current = command;
 	while (current)
 	{

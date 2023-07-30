@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 20:40:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:39:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ char	**ft_split(char *s, char c);
 void	protect_dumbquote(char *input);
 int		checkredirection(char c);
 int		size_command(t_cmd *command);
-void	findredirection(t_shellcmd   *command);
+void    findredirection(t_env *env,t_shellcmd   *command);
 void	*ft_calloc(size_t count, size_t size);
 void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode);
 t_shellcmd	*create_shellnode(char **command);
 void set_nonvalidcommand(char **command);
 char	**copy2(char **command);
 void	check_and_apply(t_shellcmd *list);
+void	find_here_doc(t_env *env,t_shellcmd *list);
+char    *here_doc_expand(t_env   *env, char *input);
 
 #endif
