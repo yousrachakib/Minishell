@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:04:33 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 18:07:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:56:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char **ft_envirenment(t_env *shellenv)
 	
 	i = 0;
 	cnt = countNodes(shellenv) + 1;
-	env = (char **)malloc(cnt * sizeof(char*));
+	env = (char **)calloc(cnt  , sizeof(char*));
 	i = 0;
 	while (shellenv->next != NULL && i < cnt)
 	{

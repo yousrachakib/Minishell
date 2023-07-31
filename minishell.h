@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/29 18:13:09 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/30 21:36:34 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdarg.h>
 # include <sys/errno.h>
 # include <errno.h>
+# include <string.h>
 
 int	status_exit;
 
@@ -42,8 +43,9 @@ typedef enum s_type
 typedef struct s_shellcmd
 {
 	char			**command;
-	int				fd_in;
-	int				fd_out;
+	
+	int				fd_in;//0
+	int				fd_out;//1
 	struct s_shellcmd	*next;
 }	t_shellcmd;
 
@@ -60,7 +62,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	char			flag;
+	
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -158,4 +160,5 @@ int		countNodes(t_env *head);
 void	sighandler(int sig);
 void	ft_freeArr(char **s);
 int		ft_change_env(char **key , t_env *current , int flag);
+void	ft_pipe(t_shellcmd *cmd,t_env **shellenv);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 17:11:14 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/31 21:05:18 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*git_path(t_env *env)
 void ft_creefork(char *s , t_shellcmd *cmd, char **newenv)
 {
 	pid_t pid;
-	
+
 	pid = fork();
 	if(pid == -1)
 	{

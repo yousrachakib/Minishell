@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 18:37:45 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:36:10 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_env(t_env *env)
 			{
 				ft_putstr_fd("declare -x ", 1);
 				ft_putstr_fd(env->key, 1);
-				if (env->value != NULL && env->value[0] != '\0')
+				if (env->value != NULL)
 				{
 					ft_putstr_fd("=\"", 1);
 					ft_putstr_fd(env->value, 1);
@@ -119,7 +119,7 @@ int modifier_env(t_env **env, char *command)
 		key[0] = ft_substr(command, 0 , j);
 	if (command[j] == '=' && flag != 2)
 		key[1] = ft_substr(command, j + 1, (ft_strlen(command) - j));
-	if (command[j] == '\0' && command[j] == '=') {
+	if (command[j] == '=' && command[j + 1] == '\0') {
 		key[1] = ft_strdup("");
 	}
 	else if (command[j] == '\0')

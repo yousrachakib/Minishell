@@ -1,6 +1,6 @@
 CC = cc 
 READLINE = $(shell brew --prefix readline)
-FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
 NAME = minishell
 SRC = parsing/main.c \
 	parsing/utils_minishell.c \
@@ -23,6 +23,7 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_split.c \
 	parsing/redirection/redirection.c \
 	execution/ft_execution.c \
+	execution/ft_pipe.c \
 	execution/builtins/ft_env.c \
 	execution/builtins/ft_exit.c \
 	execution/utils/ft_isalpha.c \
