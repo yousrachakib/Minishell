@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/25 17:07:06 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:39:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_shellcmd
 	char			**command;
 	int				fd_in;
 	int				fd_out;
+	int				error_flag;
 	struct s_shellcmd	*next;
 }	t_shellcmd;
 
@@ -95,14 +96,22 @@ void    creat_env_struct(char **environment, t_env **final_list);
 int		ft_strcmp(char *str1,char *str2);
 void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
 char	*ft_itoa(int n);
-void findredirection(t_cmd	*finallist);
-int	ft_isalnum(int c);
-char *ft_strjoin(char *s1, char *s2);
-char *join_commands(t_cmd *commandlist);
+int		ft_isalnum(int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*join_commands(t_cmd *commandlist);
 char	**ft_split(char *s, char c);
 void	protect_dumbquote(char *input);
-t_shellcmd	*create_shellnode(char **command);
+int		checkredirection(char c);
+int		size_command(t_cmd *command);
+void    findredirection(t_env *env,t_shellcmd   *command);
+void	*ft_calloc(size_t count, size_t size);
 void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode);
+t_shellcmd	*create_shellnode(char **command);
+void set_nonvalidcommand(char **command);
+char	**copy2(char **command);
+void	check_and_apply(t_shellcmd *list);
+void	find_here_doc(t_env *env,t_shellcmd *list);
+char    *here_doc_expand(t_env   *env, char *input);
 
 
 

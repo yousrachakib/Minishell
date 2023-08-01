@@ -12,13 +12,41 @@
 
 #include "../minishell.h"
 
+void	check_and_apply(t_shellcmd *list)
+{
+	t_shellcmd *tmp;
+	char **temp;
+	tmp = list;
+	while (tmp)
+	{
+		temp = copy2(tmp->command);
+		tmp->command = temp;
+		tmp = tmp->next;
+	}
+}
+
+
+void	set_backnonvalidcommand(t_shellcmd *list)
+{
+	int i;
+	t_shellcmd *tmp_list = list;
+	while(tmp_list)
+   	{
+		i = 0;
+		while (tmp_list->command[i])
+		{
+			if (tmp_list->command[i][0] < 0)
+					protect_dumbquote(tmp_list->command[i]);
+			i++;
+		}
+		tmp_list = tmp_list->next;
+   	}
+}
 void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list)
 {
 	char *firstcommand;
 	char **splitedcmd;
 	char **splitedcmd2;
-	(void )list;
-	
 	while (1)
 	{
 		input = readline("cuteshell$> ");
@@ -35,6 +63,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		// findredirection((*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
+		set_nonvalidcommand(splitedcmd);
 		free(firstcommand);
 		int i = 0;
 		while (splitedcmd[i])
@@ -43,18 +72,22 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			addback_shellnode(list, create_shellnode(splitedcmd2));
 			i++;
 		}
+		set_backnonvalidcommand(*list);
+		findredirection(final_list,*list);
 		t_shellcmd *tmp_list = *list;
 		while(tmp_list)
    		{
 			i = 0;
 			while (tmp_list->command[i])
 			{
-				printf("tmp-->>%s\n", tmp_list->command[i]);
+				printf("here-->>|%s|\t", tmp_list->command[i]);
 				i++;
 			}
+			puts(" ");
 			tmp_list = tmp_list->next;
    		}
 	ft_execution(tmp_list, final_list);
+		*list = NULL;
 		free(input);
 	}
 }
@@ -69,20 +102,10 @@ int	main(int ac, char **av, char **env)
 	
 	(void)ac;
 	(void)av;
-	// finallist = malloc(sizeof(t_shellcmd));
 	finallist = NULL;
 	command = NULL;
 	input = NULL;
 	creat_env_struct(env, &env_list);
 	ft_readline(input, &command, env_list, &finallist);
-	// while(finallist)
-    // {
-	// 	while (finallist->command[i])
-    //     {
-	// 		printf("-->>%s\n", finallist->command[i]);
-	// 		i++;
-	// 	}
-    //     finallist = finallist->next;
-    // }
 	return (0);
 }

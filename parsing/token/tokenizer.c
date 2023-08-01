@@ -22,7 +22,7 @@ char	*ft_strdup(char *s1)
 	if (!s1)
 		return (NULL);
 	len = ft_strlen(s1);
-	ptr = malloc(sizeof(char) * (len + 1));
+	ptr = ft_calloc(sizeof(char) * (len + 1), 1);
 	if (!ptr)
 		return (NULL);
 	while (i < len)
@@ -48,9 +48,9 @@ char	*ft_substr(char *input,int start,int len)
 	if (start >= ft_strlen(input))
 		return (ft_strdup(""));
 	if (len >= ft_strlen(input))
-		ptr = (char *)malloc(sizeof(char) * (ft_strlen(input) + 1));
+		ptr = (char *)ft_calloc(sizeof(char) * (ft_strlen(input) + 1), 1);
 	else
-		ptr = (char *)malloc(sizeof(char) * (len + 1));
+		ptr = (char *)ft_calloc(sizeof(char) * (len + 1), 1);
 	if (!ptr)
 		return (NULL);
 	while (input[++i])
@@ -76,7 +76,7 @@ t_cmd **tokenizer(char *input)
 	int 	i;
 
 	i = 0;
-	command_list = malloc(sizeof(t_cmd *));
+	command_list = ft_calloc(sizeof(t_cmd *), 1);
 	if (!command_list)
 		return (NULL);
 	*command_list = NULL;
