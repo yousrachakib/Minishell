@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/31 21:20:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:14:41 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,81 +49,37 @@ int ft_exec_builtins(t_shellcmd *cmd  , t_env **env)
 	if(!ft_strncmp(cmd->command[0] , "export" , 7))
 		ft_export(cmd, env);
 	if(!ft_strncmp(cmd->command[0] , "env" , 5))
-		ft_env(*env , cmd); 
+		ft_env(*env , cmd);
 	if(!ft_strncmp(cmd->command[0], "pwd" , 5))
 		ft_pwd();
 	if(!ft_strncmp(cmd->command[0] , "unset" , 5))
 		ft_unset(cmd, env);
 	if(!ft_strncmp(cmd->command[0], "exit" , 5))
-		ft_exit(cmd);   
+		ft_exit(cmd);
 	return(0);
 }
 
 void ft_execution (t_shellcmd *cmd, t_env **shellenv )
 {
 	int i;
-	int pipfd[2];
-	int pid;
 	i = 0;
 	int		tmp_fd_in = dup(0);
 	int		tmp_fd_out = dup(1);
 	
-	// if(!cmd->command[0])
-	// 	return ;
+	if(!cmd->command[0])
+		return ;
 	while(cmd->next != NULL)
 	{
-		if(pipe(pipfd) == -1)
-		{
-			perror("an error with opening the pipe\n");
-			return;
-		}
-		pid = fork();
-		if (pid == -1) {
-			ft_printf("minishell: %e\n", strerror(errno));
-			return ;
-		}
-		if(pid == 0)
-		{
-			close(pipfd[0]);
-			dup2(pipfd[1], 1);
-			close(pipfd[1]);
-			if(ft_exec_builtins(cmd , shellenv))
-				exit(0);
-			char *str;
-			char **spl;
-			char *s;
-			char **newenv;
-			int i;
-			
-			newenv = ft_envirenment(*shellenv);
-			i = 0;
-			str = git_path(*shellenv);
-			spl = ft_split(str, ':');
-			s = ft_check_path(spl, cmd->command[i]);
-			signal(SIGQUIT, sighandler);
-			if(!str)
-			{
-				ft_printf("minishell: command not found: %e\n", cmd);
-				exit(1);
-			}
-			execve(s, cmd->command, newenv);
-			ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
-		}
-		close(pipfd[1]);
-		dup2(pipfd[0],STDIN_FILENO);
-		close(pipfd[0]);
+		ft_pipe(cmd , shellenv);
 		cmd = cmd->next;
 	}
 	dup2(cmd->fd_in,STDIN_FILENO);
 	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
-	{
 		ft_exec_builtins(cmd , shellenv);
-		return ;
-	}
 	else
 		ft_exec_path(cmd, *shellenv);
-		dup2(tmp_fd_in, 0);
-		close(tmp_fd_in);
-		dup2(tmp_fd_out, 1);
-		close(tmp_fd_out);
+	dup2(tmp_fd_in, 0);
+	close(tmp_fd_in);
+	dup2(tmp_fd_out, 1);
+	close(tmp_fd_out);
 }

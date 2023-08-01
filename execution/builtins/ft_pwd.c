@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:20:37 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/21 12:02:21 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:07:40 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void ft_pwd(void)
 	char buffer[1024];
 	size_t size = sizeof(buffer);
 	
+
 	getcwd(buffer, size);
 	ft_putstr_fd(buffer, 1);
 	ft_putstr_fd("\n", 1);
