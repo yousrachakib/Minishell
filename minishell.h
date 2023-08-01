@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/01 18:57:37 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:34:29 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,11 @@ void	ft_add_liste(t_env *head, t_env *new_node);
 int		modifier_env(t_env **env, char *command);
 void	ft_creefork(char *s , t_shellcmd *cmd, char **newenv);
 char	**ft_envirenment(t_env *shellenv);
-int		countNodes(t_env *head);
+int		countnodes(t_env *head) ;
 void	sighandler(int sig);
-void	ft_freeArr(char **s);
+void	ft_freearr(char **s);
 int		ft_change_env(char **key , t_env *current , int flag);
 void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
 void	ft_getpath(t_shellcmd *cmd , t_env **shellenv);
+void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
 #endif

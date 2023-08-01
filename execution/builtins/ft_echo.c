@@ -6,74 +6,73 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/28 21:19:30 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:52:34 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int ft_check_ln(char *str)
+int	ft_check_ln(char *str)
 {
-	int i = 0;
-	
-	if(str[i] != '\0' && str[i] == '-' && str[i + 1] == 'n' )
+	int		i;
+
+	i = 0;
+	if (str[i] != '\0' && str[i] == '-' && str[i + 1] == 'n' )
 	{
 		i++;
-		while (str[i] != '\0'&& str[i] == 'n')
+		while (str[i] != '\0' && str[i] == 'n')
 			i++;
-		if(str[i] == '\0')
-			return(1);
-		else if(str[i] != 'n')
-			return(0);
+		if (str[i] == '\0')
+			return (1);
+		else if (str[i] != 'n')
+			return (0);
 	}
-	return(0);
+	return (0);
 }
 
-void ft_print_new_ln(char **cmd , int flag)
+void	ft_print_new_ln(char **cmd, int flag)
 {
-	int i = 0;
-	if(cmd[i] && !ft_check_ln(cmd[i]) && cmd && flag == 0)
+	int		i;
+
+	i = 0;
+	if (cmd[i] && !ft_check_ln(cmd[i]) && cmd && flag == 0)
 	{
 		while (cmd[i])
 		{
-			ft_putstr_fd(cmd[i] , 1);
-			if(cmd[i] != NULL)
-				ft_putstr_fd(" " , 1);
+			ft_putstr_fd(cmd[i], 1);
+			if (cmd[i] != NULL)
+				ft_putstr_fd(" ", 1);
 			i++;
 		}
 		printf("\n");
 	}
 }
 
-int ft_echo(t_shellcmd *cmd)
+int	ft_echo(t_shellcmd *cmd)
 {
-	int i = 1;
-	int flag = 0;
-	
-	if(!cmd->command[i])
+	int		i;
+	int		flag;
+
+	i = 1;
+	flag = 0;
+	if (!cmd->command[i])
 		printf("\n");
-	while(cmd->command[i] != NULL && ft_check_ln(cmd->command[i]) == 1)
+	while (cmd->command[i] != NULL && ft_check_ln(cmd->command[i]) == 1)
 	{
 		i++;
 		flag = 1;
 	}
-	if(flag == 1 && cmd->command[i] && !ft_check_ln(cmd->command[i]) && cmd)
+	if (flag == 1 && cmd->command[i] && !ft_check_ln(cmd->command[i]) && cmd)
 	{
 		while (cmd->command[i])
 		{
-			if(cmd->command[i] != NULL) 
-				ft_putstr_fd(cmd->command[i] , 1);
-			if(cmd->command[i+1])	
-			ft_putstr_fd(" " , 1);
+			if (cmd->command[i] != NULL) 
+				ft_putstr_fd(cmd->command[i], 1);
+			if (cmd->command[i + 1])
+				ft_putstr_fd(" ", 1);
 			i++;
 		}
 	}
-	ft_print_new_ln(&cmd->command[i] , flag);
-	return(0);
+	ft_print_new_ln(&cmd->command[i], flag);
+	return (0);
 }
-
-// int main (int ac, char **av , char **env )
-// {
-// 	// printf("%s\n" , env[8]);
-// 	ft_echo(av);
-// }

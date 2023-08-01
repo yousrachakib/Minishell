@@ -6,17 +6,17 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 15:32:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:43:38 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void ft_oldpwd(t_env *env , char *str)
+void	ft_oldpwd(t_env *env, char *str)
 {
 	while (env)
 	{
-		if(ft_strncmp(env->key, "OLDPWD", 6) == 0)
+		if (ft_strncmp(env->key, "OLDPWD", 6) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(str);
@@ -25,15 +25,15 @@ void ft_oldpwd(t_env *env , char *str)
 	}
 }
 
-void change_pwd(t_shellcmd *cmd  , t_env *env)
+void	change_pwd(t_shellcmd *cmd, t_env *env)
 {
+	char	*str;
+	char	pwd[1024];
+
 	(void)cmd;
-	char *str;
-	char pwd[1024];
-	
 	while (env)
 	{
-		if(ft_strncmp(env->key, "PWD",4) == 0)
+		if (ft_strncmp(env->key, "PWD", 4) == 0)
 		{
 			str = env->value;
 			free(env->value);

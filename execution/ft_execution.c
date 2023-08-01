@@ -6,21 +6,23 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 19:14:41 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:26:54 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_chercher_builtins(t_shellcmd *cmd ,t_env *env)
+int	ft_chercher_builtins(t_shellcmd *cmd, t_env *env)
 {
+	int		i;
+	int		len;
+	char	*built[8];
+
+	i = 0;
 	(void)env;
-	int i = 0;
-	int len;
 	if (cmd)
 	{
 		len = ft_strlen(cmd->command[0]);
-		char *built[8];
 		built[0] = "echo";
 		built[1] = "cd";
 		built[2] = "env";
@@ -31,51 +33,53 @@ int ft_chercher_builtins(t_shellcmd *cmd ,t_env *env)
 		built[7] = NULL;
 		while (built[i] && cmd->command[0])
 		{
-			if(!ft_strncmp(cmd->command[0] , built[i] , (len + 1)))
-				return(1);
+			if (!ft_strncmp(cmd->command[0], built[i], (len + 1)))
+				return (1);
 			i++;
 		}
 	}
-	return(0);
+	return (0);
 }
 
-int ft_exec_builtins(t_shellcmd *cmd  , t_env **env)
+int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 {
 	(void)env;
-	if(!ft_strncmp(cmd->command[0] , "echo" , 5))
+	if (!ft_strncmp(cmd->command[0], "echo", 5))
 		ft_echo(cmd);
-	if(!ft_strncmp(cmd->command[0] , "cd" , 3))
-		ft_cd(cmd ,env);
-	if(!ft_strncmp(cmd->command[0] , "export" , 7))
+	if (!ft_strncmp(cmd->command[0], "cd", 3))
+		ft_cd(cmd, env);
+	if (!ft_strncmp(cmd->command[0], "export", 7))
 		ft_export(cmd, env);
-	if(!ft_strncmp(cmd->command[0] , "env" , 5))
-		ft_env(*env , cmd);
-	if(!ft_strncmp(cmd->command[0], "pwd" , 5))
+	if (!ft_strncmp(cmd->command[0], "env", 5))
+		ft_env(*env, cmd);
+	if (!ft_strncmp(cmd->command[0], "pwd", 5))
 		ft_pwd();
-	if(!ft_strncmp(cmd->command[0] , "unset" , 5))
+	if (!ft_strncmp(cmd->command[0], "unset", 5))
 		ft_unset(cmd, env);
-	if(!ft_strncmp(cmd->command[0], "exit" , 5))
+	if (!ft_strncmp(cmd->command[0], "exit", 5))
 		ft_exit(cmd);
-	return(0);
+	return (0);
 }
 
-void ft_execution (t_shellcmd *cmd, t_env **shellenv )
+void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
-	int i;
+	int		i;
+	int		tmp_fd_in;
+	int		tmp_fd_out;
+
+	tmp_fd_in = dup(0);
+	tmp_fd_out = dup(1);
 	i = 0;
-	int		tmp_fd_in = dup(0);
-	int		tmp_fd_out = dup(1);
-	
-	if(!cmd->command[0])
+	if (!cmd->command[0])
 		return ;
-	while(cmd->next != NULL)
+	while (cmd->next != NULL)
 	{
-		ft_pipe(cmd , shellenv);
+		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}
-	dup2(cmd->fd_in,STDIN_FILENO);
-	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
-		ft_exec_builtins(cmd , shellenv);
+	dup2(cmd->fd_in, STDIN_FILENO);
+	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+		ft_exec_builtins(cmd, shellenv);
 	else
 		ft_exec_path(cmd, *shellenv);
 	dup2(tmp_fd_in, 0);

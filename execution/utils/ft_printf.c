@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:45:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/17 16:25:27 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:33:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	ft_putchar(char c, int *len, int fd)
 	(*len)++;
 }
 
-void    ft_puterror(char *s, int *len)
+void	ft_puterror(char *s, int *len)
 {
-    int    i;
+	int	i;
 
-    i = 0;
-    if (!s)
-        s = "(null)";
-    while (s[i])
-    {
-        ft_putchar(s[i], len, 2);
-        i++;
-    }
+	i = 0;
+	if (!s)
+		s = "(null)";
+	while (s[i])
+	{
+		ft_putchar(s[i], len, 2);
+		i++;
+	}
 }
 
 void	ft_putstr(char *s, int *len)
@@ -52,10 +52,10 @@ void	ft_check_per(va_list pf, char c, int *len)
 		ft_putchar (va_arg (pf, int), len, 1);
 	else if (c == 's')
 		ft_putstr (va_arg (pf, char *), len);
-    else if (c == 'e')
-        ft_puterror (va_arg (pf, char *), len);
+	else if (c == 'e')
+		ft_puterror (va_arg (pf, char *), len);
 	else
-		ft_putchar(c, len , 1);
+		ft_putchar(c, len, 1);
 }
 
 int	ft_printf(const char *str, ...)
@@ -75,7 +75,7 @@ int	ft_printf(const char *str, ...)
 			i++;
 		}
 		else
-			ft_putchar(str[i], &len , 1);
+			ft_putchar(str[i], &len, 1);
 		i++;
 	}
 	va_end(pf);
