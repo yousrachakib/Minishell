@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 22:39:34 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:53:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			puts(" ");
 			tmp_list = tmp_list->next;
    		}
+	ft_execution(tmp_list, final_list);
 		*list = NULL;
 		free(input);
 	}
@@ -103,7 +104,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	finallist = NULL;
 	command = NULL;
-	env_list = NULL;
 	input = NULL;
 	creat_env_struct(env, &env_list);
 	ft_readline(input, &command, env_list, &finallist);

@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_fill.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/24 18:05:01 by mben-sal         ###   ########.fr       */
+/*   Created: 2023/07/13 20:56:05 by mben-sal          #+#    #+#             */
+/*   Updated: 2023/07/13 20:56:20 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    creat_env_struct(char **environment, t_env **final_list)
+int	ft_isdigit(int arg)
 {
-    t_env *list;
-    int i;
-
-    i = 0;
-    list = NULL;
-    while(environment[i])
-    {
-        list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
-        addback_envnode(final_list, list);
-        i++;
-    }
+	if (arg >= 48 && arg <= 57)
+		return (1);
+	else
+		return (0);
 }

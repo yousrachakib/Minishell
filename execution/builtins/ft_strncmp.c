@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_fill.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/24 18:05:01 by mben-sal         ###   ########.fr       */
+/*   Created: 2022/10/09 19:27:31 by mben-sal          #+#    #+#             */
+/*   Updated: 2023/07/22 10:17:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    creat_env_struct(char **environment, t_env **final_list)
+int	ft_strncmp(const char *first, const char *second, size_t len)
 {
-    t_env *list;
-    int i;
+	unsigned char	*f;
+	unsigned char	*s;
+	size_t			i;
 
-    i = 0;
-    list = NULL;
-    while(environment[i])
-    {
-        list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
-        addback_envnode(final_list, list);
-        i++;
-    }
+	f = (unsigned char *)first;
+	s = (unsigned char *)second;
+	i = 0;
+	if (!len)
+		return (0);
+	while ((f[i] || s[i]) && i < len)
+	{
+		if (f[i] != s[i])
+			return (f[i] - s[i]);
+		i++;
+	}
+	return (0);
 }
