@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 21:04:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 21:07:19 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/28 20:30:25 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static	char	*ft_word(char *s, char c, char **word)
 	int	i;
 
 	count = ft_count_word(s, c);
-	*word = malloc((count + 1) * sizeof(char));
+	*word = ft_calloc((count + 1) * sizeof(char), 1);
 	if (!word)
 		return (0);
 	(*word)[count] = 0;
@@ -88,7 +88,7 @@ char	**ft_split(char *s, char c)
 	while (c && *s && c == (char) *s)
 		s++;
 	count = ft_count_split((char *)s, c);
-	res = malloc((count + 1) * sizeof(char *));
+	res = ft_calloc((count + 1) * sizeof(char *), 1);
 	if (!res)
 		return (0);
 	res[count] = 0;
