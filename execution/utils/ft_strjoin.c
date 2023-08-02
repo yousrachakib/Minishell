@@ -6,21 +6,13 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:36:11 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/21 15:58:36 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:34:53 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// int ft_strlen(char *str)
-// {
-// 	int i = 0;
-	
-// 	while (str[i])
-// 		i++;
-// 	return(i);
-// }
-char	*ft_strjoin(char  *s1, char  *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len;
 	int		i;

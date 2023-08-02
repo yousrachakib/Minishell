@@ -1,7 +1,7 @@
 CC = cc 
 
 READLINE = $(shell brew --prefix readline)
-FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
 
 NAME = minishell
 SRC = parsing/main.c \
@@ -26,20 +26,22 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_split.c \
 	parsing/redirection/redirection.c \
 	execution/ft_execution.c \
+	execution/ft_pipe.c \
 	execution/builtins/ft_env.c \
 	execution/builtins/ft_exit.c \
-	execution/builtins/ft_isalpha.c \
-	execution/builtins/ft_isdigit.c \
-	execution/builtins/ft_printf.c \
+	execution/utils/ft_isalpha.c \
+	execution/utils/ft_isdigit.c \
+	execution/utils/ft_printf.c \
 	execution/builtins/ft_pwd.c \
-	execution/builtins/ft_strncmp.c\
-	execution/builtins/ft_atoi.c\
+	execution/utils/ft_strncmp.c\
+	execution/utils/ft_atoi.c\
+	execution/utils/fonction_utils.c\
 	execution/builtins/ft_echo.c\
 	execution/ft_check_path.c\
 	execution/builtins/ft_cd.c\
 	execution/builtins/change_pwd.c\
 	execution/builtins/ft_unset.c\
-	execution/builtins/ft_export.c
+	execution/builtins/ft_export.c \
 	parsing/redirection/utils.c \
 	parsing/redirection/here_doc.c \
 	parsing/redirection/here_doc_expand.c \

@@ -6,11 +6,12 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/25 17:13:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/01 21:19:05 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 char	*git_path(t_env *env)
 {
 	while (env)
@@ -24,53 +25,66 @@ char	*git_path(t_env *env)
 	return (NULL);
 }
 
-void ft_exec_path(char *cmd, t_env *env)
+void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 {
-	char *str = git_path(env);
-	char **spl;
-	char *s;
-	char **exec_arg;
-	// pid_t pid = fork();
-	if(!str)
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		ft_printf("minishell: %e\n", "Erreur lors de fork()");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		execve(s, cmd->command, newenv);
+	}
+	waitpid(pid, NULL, 0);
+}
+
+void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
+{
+	char	*str;
+	char	**spl;
+	char	*s;
+	char	**newenv;
+	int		i;
+
+	newenv = ft_envirenment(shellenv);
+	i = 0;
+	str = git_path(shellenv);
+	spl = ft_split(str, ':');
+	s = ft_check_path(spl, cmd->command[i]);
+	signal(SIGQUIT, sighandler);
+	if (!str)
 	{
 		ft_printf("minishell: command not found: %e\n", cmd);
 		exit(1);
 	}
-	spl = ft_split(str, ':');
-	exec_arg = ft_split(cmd ,' ');
-	s = ft_check_path(spl, cmd);//probleme d etulise execve
-	// if(s != NULL)
-	// {
-	// 	if(pid == -1)
-	// 	{
-	// 		ft_printf("minishell: %e\n", "Erreur lors de fork()");
-	// 		exit(EXIT_FAILURE);
-	// 	}
-	// 	else if (pid == 0)
-	// 		execve(s,exec_arg,env);
-	// 	else
-	// 		waitpid(pid, NULL,0);
-	// }
+	if (s != NULL)
+		ft_creefork(s, cmd, newenv);
+	else
+		ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
 }
 
-char *ft_check_path(char **spl, char *cmd)
+char	*ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
-	// char	**str;
-  
+
 	if (ft_strncmp(cmd, "/", 1) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
 		{
-			free (cmd);
 			return (cmd);
+			// free (cmd);
 		}
-		ft_printf("minishell: %e: %e\n", "command not found", cmd);
-		return (NULL);
+		else
+			return (NULL);
 	}
 	s = ft_strjoin("/", cmd);
-	return(ft_path(spl , s));
+	return (ft_path(spl, s));
 }
+
 char	*ft_path(char **spl, char *cmd)
 {
 	int		i;

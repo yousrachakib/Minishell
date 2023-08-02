@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 21:57:01 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:03:57 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	separators_case(char *input, int *i, t_cmd **head)
 		{
 			node = create_node("<<" , here_doc);
 			(*i)++;
-		}
+		} 
 		else
 			node = create_node("<", t_input);
 	}
