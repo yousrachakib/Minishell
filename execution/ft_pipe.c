@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:37:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:33:47 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	if (pid == 0)
 	{
 		close(pipfd[0]);
-		dup2(pipfd[1], 1);
+		dup2(pipfd[1], STDOUT_FILENO);
 		close(pipfd[1]);
 		pipe_exec_cmd(cmd, shellenv);
 	}
@@ -60,12 +60,17 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 		exit(1);
 	}
 	execve(s, cmd->command, newenv);
-	ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
+	ft_printf("minishell: %e: %e\n", cmd->command[0], " command not found!!\n");
 }
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {
-	if (ft_exec_builtins(cmd, shellenv))
-		return ;
-	ft_getpath(cmd, shellenv);
+	// printf("here ==> \n");
+	// if (ft_exec_builtins(cmd, shellenv))
+	// 	return ;
+	// ft_getpath(cmd, shellenv);
+	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+		ft_exec_builtins(cmd, shellenv);
+	else
+		ft_exec_path(cmd, *shellenv);
 }

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:19:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:09:05 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ char	*ft_check_path(char **spl, char *cmd)
 	if (ft_strncmp(cmd, "/", 1) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
-		{
 			return (cmd);
-			// free (cmd);
-		}
 		else
 			return (NULL);
 	}

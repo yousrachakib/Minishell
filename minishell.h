@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/03 19:25:20 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 20:53:41 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	
+	int				flag;
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -175,4 +175,5 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
 void	ft_getpath(t_shellcmd *cmd , t_env **shellenv);
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
 int		checkkeyexport(char* str);
+char	**check_plusegal_cmd(t_env *current, char *command, int j);
 #endif

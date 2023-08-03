@@ -42,6 +42,7 @@ SRC = parsing/main.c \
 	execution/builtins/change_pwd.c\
 	execution/builtins/ft_unset.c\
 	execution/builtins/ft_export.c \
+	execution/builtins/blt_export.c \
 	parsing/redirection/utils.c \
 	parsing/redirection/here_doc.c \
 	parsing/redirection/here_doc_expand.c \
