@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/02 21:16:17 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:25:20 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_shellcmd
 	int				fd_in;//0
 	int				fd_out;//1
 	int				error_flag;
+	
 	struct s_shellcmd	*next;
 }	t_shellcmd;
 
@@ -173,4 +174,5 @@ int		ft_change_env(char **key , t_env *current , int flag);
 void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
 void	ft_getpath(t_shellcmd *cmd , t_env **shellenv);
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
+int		checkkeyexport(char* str);
 #endif

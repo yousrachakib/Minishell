@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/02 21:24:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:36:31 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		// 	puts(" ");
 		// 	tmp_list = tmp_list->next;
    		// }
-	ft_execution(tmp_list, &final_list);
+		ft_execution(tmp_list, &final_list);
 		*list = NULL;
 		free(input);
 	}

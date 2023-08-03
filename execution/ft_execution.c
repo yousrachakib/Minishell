@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/02 21:23:35 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:45:25 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
-
 	i = 0;
 	if (!cmd->command[0])
 		return ;
