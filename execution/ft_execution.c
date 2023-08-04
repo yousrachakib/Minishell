@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/03 21:37:04 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:38:43 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 		ft_exec_builtins(cmd, shellenv);
 	else
 		ft_exec_path(cmd, *shellenv);
+	while(wait(NULL) != -1);
 	dup2(tmp_fd_in, 0);
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
