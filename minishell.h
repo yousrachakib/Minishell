@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/03 20:53:41 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:53:21 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <sys/errno.h>
 # include <errno.h>
 # include <string.h>
+# include <limits.h>
 
-int	status_exit;
+extern int	status_exit;
 
 typedef enum s_type
 {

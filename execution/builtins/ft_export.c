@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/03 21:08:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:40:38 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,11 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 	while (cmd->command[i])
 	{
 		if (checkkeyexport(cmd->command[i]) == 0)
+		{
 			ft_printf("%e: %e: %e\n", cmd->command[0],
 				cmd->command[i], "not a valid identifier");
+			status_exit = 1;
+		}
 		else
 			modifier_env(env, cmd->command[i]);
 		i++;

@@ -6,12 +6,12 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/03 18:36:31 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:57:54 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+int status_exit;
 // void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 void	check_and_apply(t_shellcmd *list)
 {
@@ -25,7 +25,6 @@ void	check_and_apply(t_shellcmd *list)
 		tmp = tmp->next;
 	}
 }
-
 
 void	set_backnonvalidcommand(t_shellcmd *list)
 {
@@ -104,7 +103,7 @@ int	main(int ac, char **av, char **env)
 	t_env *env_list;
 	t_cmd *command;
 	t_shellcmd *finallist;
-	
+
 	(void)ac;
 	(void)av;
 	finallist = NULL;

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 20:45:45 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:25:43 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	i = chdir(path_home);
 	if (i < 0)
 	{
-		ft_printf("%e :", "minishell");
-		perror(cmd->command[1]);
+		ft_printf("minishell: %e: HOME not set\n", cmd->command[0]);
+		status_exit = 1;
 		return ;
 	}
 	else
 		change_pwd(cmd, *env);
+	status_exit = 0;
 }

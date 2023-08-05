@@ -1,7 +1,7 @@
 CC = cc 
 
 READLINE = $(shell brew --prefix readline)
-FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g #-fsanitize=address
 
 NAME = minishell
 SRC = parsing/main.c \
