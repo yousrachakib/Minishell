@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/05 21:40:38 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/06 20:56:45 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,69 +103,49 @@ int	modifier_env(t_env **env, char *command)
 	t_env	*current;
 	char	**key;
 
+	key = NULL;
 	current = *env;
-	current->flag = 0;
-	j = 0;
-	while (command[j] != '\0')
+	if (current)
 	{
-		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
+		current->flag = 0;
+		j = 0;
+		while (command[j] != '\0')
 		{
-			if (command[j] == '+')
-				current->flag = 2;
-			break ;
+			if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
+			{
+				if (command[j] == '+')
+					current->flag = 2;
+				break ;
+			}
+			j++;
 		}
-		j++;
+		key = check_plusegal_cmd(current, command, j);
+		if (ft_change_env(key, current, current->flag) == 1)
+			return (0);
+		ajouter_keyvaleur(*env, command, key);
+		return(1);
 	}
-	key = check_plusegal_cmd(current, command, j);
-	if (ft_change_env(key, current, current->flag) == 1)
-		return (0);
-	ajouter_keyvaleur (*env, command, key);
+	addencas_env_null(*env , command);
 	return (1);
 }
 
-// char **check_plusegal_cmd(t_env *current, char *command, int j)
-// {
-// 	char **key;
-
-// 	key = (char **)calloc(3, sizeof(char *));
-// 	if (!key)
-// 		return (0);
-// 	key[2] = NULL;
-// 	if (current->flag == 2)
-// 	{
-// 		key[0] = ft_substr(command, 0, j);
-// 		key[1] = ft_substr(command, j + 2, (ft_strlen(command) - j));
-// 	}
-// 	else if (current->flag != 2)
-// 		key[0] = ft_substr(command, 0, j);
-// 	if (command[j] == '=' && current->flag != 2)
-// 		key[1] = ft_substr(command, j + 1, (ft_strlen(command) - j));
-// 	if (command[j] == '=' && command[j + 1] == '\0')
-// 		key[1] = ft_strdup("");
-// 	else if (command[j] == '\0')
-// 	{
-// 		key[1] = NULL;
-// 		current->flag = 0;
-// 	}
-// 	return(key);
-// }
-// int	ft_change_env(char **key, t_env *current, int flag)
-// {
-// 	while (current)
-// 	{
-// 		if (!ft_strncmp(key[0], current->key, ft_strlen(key[0]) + 1))
-// 		{
-// 			if(flag == 2 && key[1])
-// 			{
-// 				if (current->value == NULL)
-// 					current->value = ft_strdup("");
-// 				current->value = ft_strjoin(current->value, key[1]);
-// 			}
-// 			else
-// 				current->value = key[1];
-// 			flag = 1;
-// 		}
-// 		current = current->next;
-// 	}
-// 	return(flag);
-// }
+void addencas_env_null(t_env *env , char *command)
+{
+	int j = 0;
+	t_env *current; 
+	char *key;
+	char *valeur = NULL;
+	current = env;
+	while (command[j] != '\0')
+	{
+		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
+			break ;
+		j++;
+	}
+	key = ft_substr(command, 0,j);
+	if(command[j] == '=')
+		valeur = ft_substr(command, j + 1, ft_strlen(command));
+	current = create_envnode(key, valeur);
+	addback_envnode(&env, current);
+}
+// seg en cas print_env ==> addencas_env_null

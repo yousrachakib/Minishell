@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 20:58:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:30:56 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void    creat_env_struct(char **environment, t_env **final_list)
 
     i = 0;
     list = NULL;
+	*final_list = NULL;
+	if (!environment || !*environment)
+		return ;
     while(environment[i])
     {
         list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));

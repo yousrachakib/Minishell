@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:15:14 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:38:42 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,4 @@ void	ft_unset(t_shellcmd *cmd, t_env **env)
 		j++;
 	}
 }
+//message erreur :"not a valid identifier");

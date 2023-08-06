@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/05 13:51:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:16:21 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	ft_atoi(char *str)
 		if (res / 10 != save)
 		{
 			ft_printf("%e: numeric argument required\n", str);
-			return (255);
+			puts("reach");
+			status_exit = 255;
+			return (status_exit);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 22:20:37 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:09:59 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/06 12:18:20 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,3 @@ void	ft_pwd(void)
 	ft_putstr_fd(buffer, 1);
 	ft_putstr_fd("\n", 1);
 }
-
-// int main() 
-// {
-//     ft_pwd();
-//     return 0;
-// }
