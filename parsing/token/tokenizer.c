@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/06 15:42:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:21:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*ft_strdup(char *s1)
 		i++;
 	}
 	ptr[i] = '\0';
-	// printf("ptr dup : %s\n", ptr);
 	return (ptr);
 }
 

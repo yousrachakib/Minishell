@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/05 19:21:03 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/07 18:21:19 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,4 @@ void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 	}
 	else
 		ft_getpath(cmd, shellenv);
-		
 }

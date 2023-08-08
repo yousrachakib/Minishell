@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/06 20:56:45 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:45:36 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,21 +121,27 @@ int	modifier_env(t_env **env, char *command)
 		}
 		key = check_plusegal_cmd(current, command, j);
 		if (ft_change_env(key, current, current->flag) == 1)
+		{
+			ft_freearr(key);
 			return (0);
+		}
 		ajouter_keyvaleur(*env, command, key);
-		return(1);
+		{
+			ft_freearr(key);
+			return(1);
+		}
 	}
-	addencas_env_null(*env , command);
+	addencas_env_null(env , command);
 	return (1);
 }
 
-void addencas_env_null(t_env *env , char *command)
+void addencas_env_null(t_env **env , char *command)
 {
 	int j = 0;
 	t_env *current; 
 	char *key;
 	char *valeur = NULL;
-	current = env;
+	current = *env;
 	while (command[j] != '\0')
 	{
 		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
@@ -146,6 +152,5 @@ void addencas_env_null(t_env *env , char *command)
 	if(command[j] == '=')
 		valeur = ft_substr(command, j + 1, ft_strlen(command));
 	current = create_envnode(key, valeur);
-	addback_envnode(&env, current);
+	addback_envnode(env, current);
 }
-// seg en cas print_env ==> addencas_env_null

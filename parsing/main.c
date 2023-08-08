@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/06 17:20:00 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/08 22:04:36 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ int	main(int ac, char **av, char **env)
 	env_list = NULL;
 	creat_env_struct(env, &env_list);
 	ft_readline(input, &command, env_list, &finallist);
+	// while (1) {}
 	return (0);
 }
