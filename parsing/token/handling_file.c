@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/21 21:57:01 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/10 01:20:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	separators_case(char *input, int *i, t_cmd **head)
 		if (input[*i + 1] == '<')
 		{
 			node = create_node("<<" , here_doc);
+			node->here_doc = 1;
 			(*i)++;
 		}
 		else

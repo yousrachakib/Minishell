@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/25 17:53:07 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/10 01:55:20 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,31 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 	char *firstcommand;
 	char **splitedcmd;
 	char **splitedcmd2;
+	t_cmd *tmp;
 	while (1)
 	{
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			break ; // ctrl + D
-		if (input[0] != '\0') // working history
+			break ;
+		if (input[0] != '\0')
 			add_history(input);
 		command = tokenizer(input);
 		if (!command)
 			continue;
 		if (syntaxerror(command) == 1) 
 			continue;
+		tmp = (*command);
+		while (tmp)
+		{
+			if (tmp->here_doc == 1)
+			{
+				while(tmp->next->type == t_space)
+					tmp = tmp->next;
+				tmp->next->here_doc = 2;
+			}
+			tmp = tmp->next;
+		}
 		check_and_expand(final_list,(*command));
-		// findredirection((*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
 		set_nonvalidcommand(splitedcmd);
@@ -73,7 +84,6 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			i++;
 		}
 		set_backnonvalidcommand(*list);
-		findredirection(final_list,*list);
 		t_shellcmd *tmp_list = *list;
 		while(tmp_list)
    		{
@@ -86,7 +96,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			puts(" ");
 			tmp_list = tmp_list->next;
    		}
-	ft_execution(tmp_list, final_list);
+		findredirection(final_list,*list);
 		*list = NULL;
 		free(input);
 	}

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 21:30:14 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/10 01:56:20 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
     int j;
     int k;
 	int end;
+	int count;
 	int start;
 
     currentcmd = commandlist;
 	i = 0;
     j = 0;
+	count = 1;
     while (currentcmd)
     {
         input = ft_strdup(currentcmd->input);
@@ -38,8 +40,15 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
         {
         k = 0;
             while (input[i] && input[i] != '$')
-                temp[j++] = input[i++];
-            if (input[i] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2))
+			{
+				if (currentcmd->here_doc == 2 && count == 1)
+				{
+					temp[j++] = '$';
+					count -= 1;
+				}
+				temp[j++] = input[i++];
+			}
+            if (input[i] == '$' && (currentcmd->flag_var == 0 || currentcmd->flag_var == 2) && currentcmd->here_doc != 2)
             {
                 i = i + 1;
                 start = i;
