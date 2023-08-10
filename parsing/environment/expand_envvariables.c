@@ -6,11 +6,25 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/10 01:56:20 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/10 18:34:04 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	check_dolar(char *input)
+{
+	int i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '$')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
 {
@@ -41,7 +55,7 @@ void    check_and_expand(t_env  *envlist, t_cmd *commandlist)
         k = 0;
             while (input[i] && input[i] != '$')
 			{
-				if (currentcmd->here_doc == 2 && count == 1)
+				if (currentcmd->here_doc == 2 && count == 1 && check_dolar(currentcmd->input))
 				{
 					temp[j++] = '$';
 					count -= 1;
