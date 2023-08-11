@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/08 22:03:25 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/09 22:31:56 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,3 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	dup2(tmp_fd_out, 1);
 	close(tmp_fd_out);
 }
-// pipe prblm test cat | ls

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/08 22:32:47 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/09 20:05:18 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	if (s != NULL)
 		ft_creefork(s, cmd, newenv);
 	else
+	{
+		ft_freearr(newenv);
 		return ;
+	}
 }
 
 static int find(char *s)
@@ -86,7 +89,7 @@ static int find(char *s)
 char	*ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
-
+	char	*path;
 	if (find(cmd) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
@@ -107,7 +110,10 @@ char	*ft_check_path(char **spl, char *cmd)
 		}
 	}
 	s = ft_strjoin("/", cmd);
-	return (ft_path(spl, s));
+	path = ft_path(spl, s);
+	if(path == NULL)
+		free(s);
+	return (path);
 }
 
 char	*ft_path(char **spl, char *cmd)
@@ -134,10 +140,9 @@ char	*ft_path(char **spl, char *cmd)
 				return(NULL);
 			}
 		}
+		free(path);
 	}
 	ft_printf("%e command not found\n", cmd + 1);
-	free(cmd);
-	free(path);
 	status_exit = 127;
 	return(NULL);
 }

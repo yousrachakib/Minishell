@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/08 19:45:36 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/11 21:59:51 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 void	ajouter_keyvaleur(t_env *env, char *str, char **key)
 {
 	t_env	*courrant;
+	char *new_value;
 
+	new_value = NULL;
 	courrant = env;
 	while (courrant)
 	{
@@ -89,12 +91,17 @@ void	ajouter_keyvaleur(t_env *env, char *str, char **key)
 		courrant = courrant->next;
 	}
 	if (courrant)
+	{
+		new_value = key[1];
+		free(courrant->value);
 		courrant->value = key[1];
+	}
 	else
 	{
 		courrant = create_envnode(key[0], key[1]);
 		addback_envnode(&env, courrant);
 	}
+	ft_freearr(key);
 }
 
 int	modifier_env(t_env **env, char *command)
@@ -121,15 +128,9 @@ int	modifier_env(t_env **env, char *command)
 		}
 		key = check_plusegal_cmd(current, command, j);
 		if (ft_change_env(key, current, current->flag) == 1)
-		{
-			ft_freearr(key);
 			return (0);
-		}
 		ajouter_keyvaleur(*env, command, key);
-		{
-			ft_freearr(key);
 			return(1);
-		}
 	}
 	addencas_env_null(env , command);
 	return (1);
@@ -137,10 +138,13 @@ int	modifier_env(t_env **env, char *command)
 
 void addencas_env_null(t_env **env , char *command)
 {
-	int j = 0;
+	int j;
 	t_env *current; 
 	char *key;
-	char *valeur = NULL;
+	char *valeur;
+
+	valeur = NULL;
+	j = 0;
 	current = *env;
 	while (command[j] != '\0')
 	{
