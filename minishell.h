@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/07 18:18:19 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:16:44 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,5 @@ int		checkkeyexport(char* str);
 char	**check_plusegal_cmd(t_env *current, char *command, int j);
 void	cas_erreur(void);
 void	addencas_env_null(t_env **env , char *command);
+void	env_null(t_env **env);
 #endif

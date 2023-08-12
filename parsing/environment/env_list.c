@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/06 20:51:19 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:35:30 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 t_env	*create_envnode(char *key, char *value)
 {
 	t_env	*node;
+
+	// printf("==> %s=%s\n", key,value);
     
 	node = ft_calloc(sizeof(t_env), 1);
 	if (!node)

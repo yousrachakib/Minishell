@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:36:11 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/11 18:48:07 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:01:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[i])
 		ptr[j++] = s2[i++];
 	ptr[j] = '\0';
-
 	return (ptr);
 }

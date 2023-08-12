@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/11 21:59:51 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:41:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	print_env(t_env *env)
 		{
 			if (env->key != NULL && env->key[0] != '\0')
 			{
+				if(ft_strcmp(env->key, "PATH") == 0 && env->flag == 1)
+				break;
 				ft_putstr_fd("declare -x ", 1);
 				ft_putstr_fd(env->key, 1);
 				if (env->value != NULL)

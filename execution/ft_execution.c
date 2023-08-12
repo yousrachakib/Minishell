@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/09 22:31:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:39:25 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,14 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	int		tmp_fd_in;
 	int		tmp_fd_out;
 	int		status;
+	t_env	*current;
 
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
 	i = 0;
+	current = *shellenv;
+	if(current == NULL)
+		env_null(shellenv);
 	while (cmd->next != NULL)
 	{
 		ft_pipe(cmd, shellenv);
@@ -80,10 +84,41 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
+	{
 		ft_exec_path(cmd, *shellenv);
-	while(wait(&status) != -1);
+	}
 	dup2(tmp_fd_in, 0);
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
 	close(tmp_fd_out);
+	while(wait(&status) != -1);
 }
+
+void	env_null(t_env **env)
+{
+	int j;
+	t_env *current; 
+	char *key[5];
+	char *valeur[5];
+
+	current = *env;
+	j = 0;
+	valeur[0]="/Users/mben-sal/Desktop/Cursus/minishell";
+	valeur[1]="1";
+	valeur[2]="/usr/bin/env";
+	valeur[3]="/Users/mben-sal/.brew/bin:/Users/mben-sal/brew/bin:/Users/mben-sal/.brew/bin:/Users/mben-sal/goinfre/homebrew/bin:/Users/mben-sal/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki";
+	valeur[4]= NULL;
+	key[0] = "PWD";
+	key[1] = "SHLVL";
+	key[2] = "_";
+	key[3] = "PATH";
+	key[4] = NULL;
+	while(j <= 4)
+	{
+		current = create_envnode(key[j], valeur[j]);
+		addback_envnode(env, current);
+		current->flag = 1;
+		j++;
+	}
+}	
+	

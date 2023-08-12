@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:31:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/05 21:37:35 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:38:21 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ void	ft_env(t_env *env, t_shellcmd *cmd)
 		status_exit = 127;
 		return ;
 	}
+
 	while (env)
 	{
 		if (env->value != NULL && env->value[0] != '\0')
+		{
+			if(ft_strcmp(env->key, "PATH") == 0 && env->flag == 1)
+				break;
 			printf("%s=%s\n", env->key, env->value);
+		}
 		env = env->next;
 	}
 	return ;
