@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/13 16:00:00 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/13 21:10:54 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	env_null(t_env **env)
 {
 	int j;
 	t_env *current; 
-	char *key[5];
-	char *valeur[5];
+	char *key[6];
+	char *valeur[6];
 
 	current = *env;
 	j = 0;
@@ -105,18 +105,21 @@ void	env_null(t_env **env)
 	valeur[1]="1";
 	valeur[2]="/usr/bin/env";
 	valeur[3]="/Users/mben-sal/.brew/bin:/Users/mben-sal/brew/bin:/Users/mben-sal/.brew/bin:/Users/mben-sal/goinfre/homebrew/bin:/Users/mben-sal/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki";
-	valeur[4]= NULL;
+	valeur[4]= "/Users/mben-sal";
+	valeur[5]=NULL;
 	key[0] = "PWD";
 	key[1] = "SHLVL";
 	key[2] = "_";
 	key[3] = "PATH";
-	key[4] = NULL;
-	while(j <= 4)
+	key[4] = "HOME";
+	key[5] = NULL;
+	while(j <= 5)
 	{
 		current = create_envnode(key[j], valeur[j]);
 		addback_envnode(env, current);
 		current->flag_env = 5;
 		j++;
 	}
+	
 }	
 	
