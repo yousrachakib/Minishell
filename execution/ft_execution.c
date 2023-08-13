@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/12 19:39:25 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/13 16:00:00 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
-	{
 		ft_exec_path(cmd, *shellenv);
-	}
 	dup2(tmp_fd_in, 0);
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
@@ -117,7 +115,7 @@ void	env_null(t_env **env)
 	{
 		current = create_envnode(key[j], valeur[j]);
 		addback_envnode(env, current);
-		current->flag = 1;
+		current->flag_env = 5;
 		j++;
 	}
 }	

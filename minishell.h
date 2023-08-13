@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/12 19:16:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/13 15:34:58 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 	int				flag;
+	int				flag_env;
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -162,7 +163,7 @@ void	ft_unset(t_shellcmd *cmd, t_env **env);
 void	ft_export(t_shellcmd *cmd,t_env **env);
 int		ft_check_cmd(char *str);
 void	add_cmd(t_env *env , t_shellcmd *cmd , int i , char **key);
-void	ajouter_keyvaleur(t_env *env, char *str, char **key);
+void	ajouter_keyvaleur(t_env **env, char *str, char **key);
 t_env	cree_node(char *key, char *value);
 void	ft_add_liste(t_env *head, t_env *new_node);
 int		modifier_env(t_env **env, char *command);

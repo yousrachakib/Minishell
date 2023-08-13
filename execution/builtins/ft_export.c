@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/12 19:41:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/13 16:54:35 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@ void	print_env(t_env *env)
 		{
 			if (env->key != NULL && env->key[0] != '\0')
 			{
-				if(ft_strcmp(env->key, "PATH") == 0 && env->flag == 1)
-				break;
-				ft_putstr_fd("declare -x ", 1);
-				ft_putstr_fd(env->key, 1);
-				if (env->value != NULL)
+				if(ft_strcmp(env->key, "PATH") == 0 && env->flag_env == 5)
+					env = env->next;
+				else
 				{
-					ft_putstr_fd("=\"", 1);
-					ft_putstr_fd(env->value, 1);
-					ft_putstr_fd("\"", 1);
+					ft_putstr_fd("declare -x ", 1);
+					ft_putstr_fd(env->key, 1);
+					if (env->value != NULL)
+					{
+						ft_putstr_fd("=\"", 1);
+						ft_putstr_fd(env->value, 1);
+						ft_putstr_fd("\"", 1);
+					}
+					ft_putstr_fd("\n", 1);
 				}
-				ft_putstr_fd("\n", 1);
 			}
 		}
 		env = env->next;
@@ -74,18 +77,20 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 			status_exit = 1;
 		}
 		else
+		{
 			modifier_env(env, cmd->command[i]);
+		}
 		i++;
 	}
 }
 
-void	ajouter_keyvaleur(t_env *env, char *str, char **key)
+void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 {
 	t_env	*courrant;
 	char *new_value;
 
 	new_value = NULL;
-	courrant = env;
+	courrant = *env;
 	while (courrant)
 	{
 		if (ft_strncmp(courrant->key, str, ft_strlen(str) + 1) == 0)
@@ -101,9 +106,8 @@ void	ajouter_keyvaleur(t_env *env, char *str, char **key)
 	else
 	{
 		courrant = create_envnode(key[0], key[1]);
-		addback_envnode(&env, courrant);
+		addback_envnode(env, courrant);
 	}
-	ft_freearr(key);
 }
 
 int	modifier_env(t_env **env, char *command)
@@ -114,49 +118,23 @@ int	modifier_env(t_env **env, char *command)
 
 	key = NULL;
 	current = *env;
-	if (current)
-	{
-		current->flag = 0;
-		j = 0;
-		while (command[j] != '\0')
-		{
-			if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
-			{
-				if (command[j] == '+')
-					current->flag = 2;
-				break ;
-			}
-			j++;
-		}
-		key = check_plusegal_cmd(current, command, j);
-		if (ft_change_env(key, current, current->flag) == 1)
-			return (0);
-		ajouter_keyvaleur(*env, command, key);
-			return(1);
-	}
-	addencas_env_null(env , command);
-	return (1);
-}
-
-void addencas_env_null(t_env **env , char *command)
-{
-	int j;
-	t_env *current; 
-	char *key;
-	char *valeur;
-
-	valeur = NULL;
+	current->flag = 0;
 	j = 0;
-	current = *env;
 	while (command[j] != '\0')
 	{
 		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
+		{
+			if (command[j] == '+')
+				current->flag = 2;
 			break ;
+		}
 		j++;
 	}
-	key = ft_substr(command, 0,j);
-	if(command[j] == '=')
-		valeur = ft_substr(command, j + 1, ft_strlen(command));
-	current = create_envnode(key, valeur);
-	addback_envnode(env, current);
+	key = check_plusegal_cmd(current, command, j);
+	if (ft_change_env(key, current, current->flag) == 1)
+		return (0);
+	else
+		ajouter_keyvaleur(env, command, key);
+	return (1);
 }
+
