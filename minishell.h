@@ -6,9 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/13 14:04:36 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:47:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -19,6 +21,10 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdarg.h>
+# include <sys/errno.h>
+# include <errno.h>
+# include <string.h>
 
 int	status_exit;
 
@@ -49,8 +55,9 @@ typedef struct s_expand
 typedef struct s_shellcmd
 {
 	char			**command;
-	int				fd_in;
-	int				fd_out;
+	
+	int				fd_in;//0
+	int				fd_out;//1
 	int				error_flag;
 	struct s_shellcmd	*next;
 }	t_shellcmd;
@@ -69,6 +76,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -127,4 +135,58 @@ void	check_and_apply(t_shellcmd *list);
 void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
 char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 
+/*****************************************************************************/
+/*                              execution                                    */
+/*****************************************************************************/
+
+typedef struct s_spl
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	int		index;
+	int		count;
+	char	**ptr;
+}	t_spl;
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putchar_fd(char c, int fd);
+int		ft_echo(t_shellcmd *cmd);
+int		ft_isalpha(int arg);
+int		ft_isdigit(int arg);
+int		ft_exit(t_shellcmd *cmd);
+int		ft_atoi(char *str);
+int		ft_printf(const char *str, ...);
+int		ft_strncmp(const char *first, const char *second, size_t len);
+void	ft_pwd(void);
+char	*ft_strjoin(char  *s1, char  *s2);
+char    **ft_split(char *s, char c);
+void	**ft_free(char **s);
+void	ft_env (t_env *env, t_shellcmd *cmd);
+void	ft_execution (t_shellcmd *cmd, t_env **shellenv );
+int		ft_exec_builtins(t_shellcmd *cmd  , t_env **env);
+int		ft_chercher_builtins(t_shellcmd *cmd ,t_env *env);
+void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv );
+char	*git_path(t_env *env);
+char	*ft_check_path(char **spl, char *cmd);
+char	*ft_path(char **spl, char *cmd);
+void	ft_cd(t_shellcmd *cmd , t_env **env);
+void	change_pwd(t_shellcmd *cmd  , t_env *env);
+void	ft_oldpwd(t_env *env , char *str);
+void	ft_unset(t_shellcmd *cmd, t_env **env);
+void	ft_export(t_shellcmd *cmd,t_env **env);
+int		ft_check_cmd(char *str);
+void	add_cmd(t_env *env , t_shellcmd *cmd , int i , char **key);
+void	ajouter_keyvaleur(t_env *env, char *str, char **key);
+t_env	cree_node(char *key, char *value);
+void	ft_add_liste(t_env *head, t_env *new_node);
+int		modifier_env(t_env **env, char *command);
+void	ft_creefork(char *s , t_shellcmd *cmd, char **newenv);
+char	**ft_envirenment(t_env *shellenv);
+int		countnodes(t_env *head) ;
+void	sighandler(int sig);
+void	ft_freearr(char **s);
+int		ft_change_env(char **key , t_env *current , int flag);
+void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
+void	ft_getpath(t_shellcmd *cmd , t_env **shellenv);
+void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
 #endif

@@ -6,12 +6,13 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/11 15:18:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:54:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 void	check_and_apply(t_shellcmd *list)
 {
 	t_shellcmd	*tmp;
@@ -78,6 +79,10 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		check_and_expand(final_list,(*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
+		// test
+		if(!splitedcmd || !splitedcmd[0])
+			continue;
+		// test
 		set_nonvalidcommand(splitedcmd);
 		free(firstcommand);
 		int i = 0;
@@ -119,6 +124,7 @@ int	main(int ac, char **av, char **env)
 	finallist = NULL;
 	command = NULL;
 	input = NULL;
+	env_list = NULL;
 	creat_env_struct(env, &env_list);
 	ft_readline(input, &command, env_list, &finallist);
 	return (0);

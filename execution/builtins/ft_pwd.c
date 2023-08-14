@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_fill.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 19:55:04 by yochakib         ###   ########.fr       */
+/*   Created: 2023/07/13 22:20:37 by mben-sal          #+#    #+#             */
+/*   Updated: 2023/08/01 21:09:59 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	creat_env_struct(char **environment, t_env **final_list)
+void	ft_pwd(void)
 {
-	t_env	*list;
-	int		i;
+	char	buffer[1024];
+	size_t	size;
 
-	i = 0;
-	list = NULL;
-	while (environment[i])
-	{
-		list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
-		addback_envnode(final_list, list);
-		i++;
-	}
+	size = sizeof(buffer);
+	getcwd(buffer, size);
+	ft_putstr_fd(buffer, 1);
+	ft_putstr_fd("\n", 1);
 }
+
+// int main() 
+// {
+//     ft_pwd();
+//     return 0;
+// }
