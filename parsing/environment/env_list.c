@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 15:51:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:09:22 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	*create_envnode(char *key, char *value)
 {
 	t_env	*node;
-    
+
 	node = ft_calloc(sizeof(t_env), 1);
 	if (!node)
 		return (NULL);
@@ -44,52 +44,51 @@ void	addback_envnode(t_env **head, t_env *newnode)
 
 char    *retrieve_key(char *line)
 {
-    // int line_len;
-    char *equal_sign;
-    int key_len;
-    char *key;
+	char	*equal_sign;
+	int		key_len;
+	char	*key;
 
-    // line_len = ft_strlen(line);
-    equal_sign = ft_strchr(line, '=');
-    if (!equal_sign)
-        return NULL;
-    key_len = equal_sign - line;
-    key = ft_calloc(key_len + 1, 1);
-    if (!key)
-        return NULL;
-    ft_strncpy(key, line, key_len);
-    key[key_len] = '\0';
-    return (key);
+	equal_sign = ft_strchr(line, '=');
+	if (!equal_sign)
+		return (NULL);
+	key_len = equal_sign - line;
+	key = ft_calloc(key_len + 1, 1);
+	if (!key)
+		return (NULL);
+	ft_strncpy(key, line, key_len);
+	key[key_len] = '\0';
+	return (key);
 }
 
-char *retrieve_value(char *line) 
+void	*protection(char *value_duplicate, char *key)
 {
-    // int line_len;
-	char *equal_sign;
-	int key_len;
-	char *key;
-	char *value;
-	char *value_duplicate;
-	char *newline;
+	if (!value_duplicate)
+		free(key);
+	return (NULL);
+}
 
-	// line_len = ft_strlen(line);
-    equal_sign = ft_strchr(line, '=');
-    key_len = equal_sign - line;
-    key = ft_calloc(key_len + 1, 1);
-    if (!key)
-        return NULL;
-    ft_strncpy(key, line, key_len);
-    key[key_len] = '\0';
-    value = equal_sign + 1;
-    value_duplicate = ft_strdup(value);
-    if (!value_duplicate) 
-	{
-        free(key);
-        return NULL;
-    }
-    newline = ft_strchr(value_duplicate, '\n');
-    if (newline)
-        *newline = '\0';
-    free(key);
-    return (value_duplicate);
+char	*retrieve_value(char *line)
+{
+	char	*equal_sign;
+	int		key_len;
+	char	*key;
+	char	*value;
+	char	*value_duplicate;
+	char	*newline;
+
+	equal_sign = ft_strchr(line, '=');
+	key_len = equal_sign - line;
+	key = ft_calloc(key_len + 1, 1);
+	if (!key)
+		return (NULL);
+	ft_strncpy(key, line, key_len);
+	key[key_len] = '\0';
+	value = equal_sign + 1;
+	value_duplicate = ft_strdup(value);
+	protection(value_duplicate, key);
+	newline = ft_strchr(value_duplicate, '\n');
+	if (newline)
+		*newline = '\0';
+	free(key);
+	return (value_duplicate);
 }

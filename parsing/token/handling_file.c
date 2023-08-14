@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/10 01:20:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:17:19 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,45 @@
 
 void	whitespace_case(char *input, int *i, t_cmd	**head)
 {
-	t_cmd *node;
+	t_cmd	*node;
 
 	node = NULL;
 	while (input[*i] && is_whitespace(input[*i]))
 		(*i)++;
 	node = create_node(" ", t_space);
-	addback_node(head,node);
-	
+	addback_node(head, node);
 }
+
+t_cmd	*caseone(int *i, char *input)
+{
+	t_cmd	*node;
+
+	node = NULL;
+	if (input[*i + 1] == '<')
+	{
+		node = create_node("<<", here_doc);
+		node->here_doc = 1;
+		(*i)++;
+	}
+	else
+		node = create_node("<", t_input);
+	return (node);
+}
+
 void	separators_case(char *input, int *i, t_cmd **head)
 {
-	t_cmd *node;
+	t_cmd	*node;
 
 	node = NULL;
 	if (input[*i] == '|')
-		node = create_node("|" , t_pipe);
+		node = create_node("|", t_pipe);
 	else if (input[*i] == '<')
-	{
-		if (input[*i + 1] == '<')
-		{
-			node = create_node("<<" , here_doc);
-			node->here_doc = 1;
-			(*i)++;
-		}
-		else
-			node = create_node("<", t_input);
-	}
+		node = caseone(i, input);
 	else if (input[*i] == '>')
 	{
 		if (input[*i + 1] == '>')
 		{
-			node = create_node(">>" , output_apnd);
+			node = create_node(">>", output_apnd);
 			(*i)++;
 		}
 		else
@@ -62,7 +69,7 @@ int	handle_singleq(char *input, int *i, t_cmd **head)
 	char	*res;
 
 	j = *i;
-	if (check_quotes(input+(*i)))
+	if (check_quotes(input + (*i)))
 	{
 		printf("syntaxError : verify quotations\n");
 		return (1);
@@ -70,10 +77,10 @@ int	handle_singleq(char *input, int *i, t_cmd **head)
 	if (input[j] == '\'')
 	{
 		j++;
-		while(input[j] !='\'')
+		while (input[j] !='\'')
 			j++;
 	}
-	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1); 
+	res = ft_substr(input, ((*i) + 1), j - (*i) - 1);
 	if (!res)
 		return (1);
 	node = create_node(res, t_singlequote);
@@ -90,7 +97,7 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	char	*res;
 
 	j = *i;
-	if (check_quotes(input+(*i)))
+	if (check_quotes(input + (*i)))
 	{
 		printf("syntaxError : verify quotations\n");
 		return (1);
@@ -98,10 +105,10 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	if (input[j] == '\"')
 	{
 		j++;
-		while(input[j] !='\"')
+		while (input[j] !='\"')
 			j++;
 	}
-	res = ft_substr(input, ((*i) + 1) , j - (*i) - 1);
+	res = ft_substr(input, ((*i) + 1), j - (*i) - 1);
 	if (!res)
 		return (1);
 	node = create_node(res, t_doublequote);
@@ -109,38 +116,4 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	(*i) += j - (*i) + 1;
 	addback_node(head, node);
 	return (0);
-}
-
-int	quotation_case(char *input, int *i, t_cmd **head)
-{
-	if (input[*i] == '\'')
-	{
-		if (handle_singleq(input, i, head) == 1)
-			return (1);
-	}
-	else if (input[*i] == '\"')
-	{
-		if (handle_doubleq(input, i, head) == 1)
-			return (1);
-	}
-	return (0);
-}
-
-void	word_case(char *input, int *i, t_cmd **head)
-{
-	t_cmd *node;
-	int j;
-	char *res;
-
-	j = *i;
-	while (input[j] && input[j] != '|' && input[j] != '<'
-		&& input[j] != '>' && input[j] != '\'' && input[j] != '\"'
-		&& !is_whitespace(input[j]))
-		j++;
-	res = ft_substr(input, (*i), (j - (*i)));
-	if (!res)
-		return ;
-	node = create_node(res, t_word);
-	(*i) += j - (*i);
-	addback_node(head, node);
 }

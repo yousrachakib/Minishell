@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/10 00:59:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:04:36 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ typedef enum s_type
 	output_apnd,
 	here_doc,
 }	t_type;
+
+typedef struct s_expand
+{
+	int		i;
+	int		j;
+	int		k;
+	int		end;
+	int		start;
+	char	*temp;
+	char	*keytosearch;
+}	t_expand;
 
 typedef struct s_shellcmd
 {
@@ -69,6 +80,10 @@ int	ft_strlen(char *str);
 void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
+int		pipe_error_secondcase(t_cmd *list);
+int		pipe_error_firstcase(t_cmd *list);
+int		redirection_error(t_cmd *list);
+int		begin_end_oflist(t_cmd *list);
 int		is_whitespace(char c);
 int		check_special(char c);
 char	*ft_substr(char *input,int start,int len);
@@ -79,6 +94,8 @@ void	reset_inquotevalues(char	*command);
 void	protect_inquote(char *input);
 void	separators_case(char *input, int *i, t_cmd **head);
 void	whitespace_case(char *input, int *i, t_cmd	**head);
+int		handle_singleq(char *input, int *i, t_cmd **head);
+int		handle_doubleq(char *input, int *i, t_cmd **head);
 int		quotation_case(char *input, int *i, t_cmd **head);
 void	word_case(char *input, int *i, t_cmd **head);
 t_cmd 	**tokenizer(char *input);
@@ -107,7 +124,7 @@ t_shellcmd	*create_shellnode(char **command);
 void set_nonvalidcommand(char **command);
 char	**copy2(char **command);
 void	check_and_apply(t_shellcmd *list);
-void	find_here_doc(t_env *env,t_shellcmd *list);
-char    *here_doc_expand(t_env   *env, char *input);
+void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
+char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 
 #endif

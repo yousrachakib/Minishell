@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 22:40:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:05:06 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ char	**copy2(char **command)
 void    findredirection(t_env *env,t_shellcmd   *command)
 {
 	t_shellcmd	*current;
+	t_expand	*var;
     int i;
 	
-	find_here_doc(env, command);
+	find_here_doc(env, command, var);
 	current = command;
 	while (current)
 	{

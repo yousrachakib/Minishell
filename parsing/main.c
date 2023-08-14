@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/10 01:55:20 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:18:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	check_and_apply(t_shellcmd *list)
 {
-	t_shellcmd *tmp;
-	char **temp;
+	t_shellcmd	*tmp;
+	char		**temp;
+
 	tmp = list;
 	while (tmp)
 	{
@@ -25,29 +26,32 @@ void	check_and_apply(t_shellcmd *list)
 	}
 }
 
-
 void	set_backnonvalidcommand(t_shellcmd *list)
 {
-	int i;
-	t_shellcmd *tmp_list = list;
-	while(tmp_list)
-   	{
+	int			i;
+	t_shellcmd	*tmp_list;
+
+	tmp_list = list;
+	while (tmp_list)
+	{
 		i = 0;
 		while (tmp_list->command[i])
 		{
 			if (tmp_list->command[i][0] < 0)
-					protect_dumbquote(tmp_list->command[i]);
+				protect_dumbquote(tmp_list->command[i]);
 			i++;
 		}
 		tmp_list = tmp_list->next;
-   	}
+	}
 }
+
 void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list)
 {
-	char *firstcommand;
-	char **splitedcmd;
-	char **splitedcmd2;
-	t_cmd *tmp;
+	char	*firstcommand;
+	char	**splitedcmd;
+	char	**splitedcmd2;
+	t_cmd	*tmp;
+
 	while (1)
 	{
 		input = readline("cuteshell$> ");
@@ -57,15 +61,15 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			add_history(input);
 		command = tokenizer(input);
 		if (!command)
-			continue;
-		if (syntaxerror(command) == 1) 
-			continue;
+			continue ;
+		if (syntaxerror(command) == 1)
+			continue ;
 		tmp = (*command);
 		while (tmp)
 		{
 			if (tmp->here_doc == 1)
 			{
-				while(tmp->next->type == t_space)
+				while (tmp->next->type == t_space)
 					tmp = tmp->next;
 				tmp->next->here_doc = 2;
 			}
@@ -105,13 +109,13 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
-	status_exit = 0;
-	t_env *env_list;
-	t_cmd *command;
-	t_shellcmd *finallist;
-	
+	t_env	*env_list;
+	t_cmd	*command;
+	t_shellcmd	*finallist;
+
 	(void)ac;
 	(void)av;
+	status_exit = 0;
 	finallist = NULL;
 	command = NULL;
 	input = NULL;
