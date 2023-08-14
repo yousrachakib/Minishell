@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:35:50 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 10:30:24 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:50:57 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 
 void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
-	int		i;
 	int		tmp_fd_in;
 	int		tmp_fd_out;
 	int		status;
@@ -71,7 +70,6 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
-	i = 0;
 	current = *shellenv;
 	if(current == NULL)
 		env_null(shellenv);
@@ -98,7 +96,7 @@ void	env_null(t_env **env)
 	t_env *current; 
 	char *key[6];
 	char *valeur[6];
-
+	
 	current = *env;
 	j = 0;
 	valeur[0]="/Users/mben-sal/Desktop/Cursus/minishell";
@@ -106,7 +104,7 @@ void	env_null(t_env **env)
 	valeur[2]="/usr/bin/env";
 	valeur[3]="/Users/mben-sal/.brew/bin:/Users/mben-sal/brew/bin:/Users/mben-sal/.brew/bin:/Users/mben-sal/goinfre/homebrew/bin:/Users/mben-sal/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki";
 	valeur[4]= "/Users/mben-sal";
-	valeur[5]=NULL;
+	valeur[5]= NULL;
 	key[0] = "PWD";
 	key[1] = "SHLVL";
 	key[2] = "_";
@@ -115,11 +113,10 @@ void	env_null(t_env **env)
 	key[5] = NULL;
 	while(j <= 5)
 	{
-		current = create_envnode(key[j], valeur[j]);
+		current = create_envnode(ft_strdup(key[j]), ft_strdup(valeur[j]));
 		addback_envnode(env, current);
 		current->flag_env = 5;
 		j++;
 	}
-	
 }	
 	

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/08 22:04:36 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 12:23:02 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,12 @@ int	main(int ac, char **av, char **env)
 	command = NULL;
 	input = NULL;
 	env_list = NULL;
-	creat_env_struct(env, &env_list);
+	// if(!*env)
+	// 	env_null(&env_list);
+	// else
+		creat_env_struct(env, &env_list);
+	printf("\033[2J\033[1;1H");
 	ft_readline(input, &command, env_list, &finallist);
-	// while (1) {}
+	while (1) {}
 	return (0);
 }
