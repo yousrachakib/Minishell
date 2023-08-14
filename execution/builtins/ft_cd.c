@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/13 21:18:01 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:00:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ char	*ft_path_home(t_env *env)
 	while (current)
 	{
 		if (ft_strncmp(current->key, "HOME", 5) == 0)
+		{
+			if(current->value == NULL)
+				current->value = ft_strdup("/Users/mben-sal");
 			return (ft_strdup(current->value));
+		}
 		current = current->next;
 	}
 	return (NULL);
@@ -48,6 +52,7 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 			status_exit = 1;
 			return ;
 		}
+		free(path_home);
 	}
 	else
 		path_home = ft_strdup(cmd->command[1]);
