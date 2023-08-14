@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/12 11:04:19 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:33:19 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ void	ft_bltunset(t_env *current, t_env **env)
 		}
 		if (current->next)
 			current->next->previous = current->previous;
-		free(current->key);
-		free(current->value);
-		free(current);
 	}
 }
 

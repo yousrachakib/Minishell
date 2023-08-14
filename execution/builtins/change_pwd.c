@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/13 21:18:27 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:24:53 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	change_pwd(t_shellcmd *cmd, t_env *env)
 		{
 			str = env->value;
 			env->value = ft_strdup(getcwd(pwd, sizeof(pwd)));
-			// ajouter en cas vide 
 		}
 		env = env->next;
 	}
