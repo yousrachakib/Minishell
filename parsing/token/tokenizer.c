@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/25 17:08:21 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:10:21 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*ft_substr(char *input,int start,int len)
 	return (ptr);
 }
 
-
 int	check_special(char c)
 {
 	if (c == '<' || c == '>' || c == '|')
@@ -70,10 +69,10 @@ int	check_special(char c)
 	return (0);
 }
 
-t_cmd **tokenizer(char *input)
+t_cmd	**tokenizer(char *input)
 {
 	t_cmd	**command_list;
-	int 	i;
+	int		i;
 
 	i = 0;
 	command_list = ft_calloc(sizeof(t_cmd *), 1);
@@ -83,7 +82,7 @@ t_cmd **tokenizer(char *input)
 	while (input[i])
 	{
 		if (input[i] && is_whitespace(input[i]))
-			whitespace_case(input ,&i, command_list);
+			whitespace_case(input, &i, command_list);
 		else if (input[i] && check_special(input[i]))
 			separators_case(input, &i, command_list);
 		else if (input[i] && (input[i] == '\"' || input[i] == '\''))

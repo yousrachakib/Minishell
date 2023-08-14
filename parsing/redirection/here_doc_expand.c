@@ -6,60 +6,67 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:24:57 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/30 22:50:19 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:01:35 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char    *here_doc_expand(t_env   *env, char *input)
+void	init_expand(t_expand	*var)
 {
-    t_env *currentenv;
-    int i;
-    int j;
-    int k;
-    int end;
-	int start;
-    char *temp;
-    char *keytosearch;
-    
-    temp = ft_calloc(ft_strlen(input) + 1, 10000);
-    if (!temp)
-        return (NULL);
-    i = 0;
-    j = 0;
-    while(input[i])
-    {
-        k = 0;
-        while (input[i] && input[i] != '$')
-            temp[j++] = input[i++];
-        if (input[i] == '$')
-        {
-            i = i + 1;
-            start = i;
-            while (input[i] && ft_isalnum(input[i]))
-                i++;
-            end = i - 1;
-            keytosearch = ft_substr(input, start, (end - start + 1));
-            currentenv = env;
-            while (currentenv)
-            {
-                if (!ft_strcmp(currentenv->key, keytosearch))
-                {
-                    while (currentenv->value[k])
-                        temp[j++] = currentenv->value[k++];
-                    break;
-                }
-                currentenv = currentenv->next;
-            }
-        i -= 1;
-        }
-        if (input[i] == '$' && input[i + 1] == '?')
-        {
-            ft_putstr_fd(ft_itoa(status_exit), 1);
-        }
-        if (input[i])
-            i++;
-    }
-    return (temp);
+	var->end = 0;
+	var->start = 0;
+	var->i = 0;
+	var->j = 0;
+	var->k = 0;
+	var->keytosearch = NULL;
+	var->temp = NULL;
+}
+
+void	search(t_env	*currentenv, char *keytosearch, t_expand *var)
+{
+	while (currentenv)
+	{
+		if (!ft_strcmp(currentenv->key, keytosearch))
+		{
+			while (currentenv->value[var->k])
+				var->temp[var->j++] = currentenv->value[var->k++];
+			break ;
+		}
+		currentenv = currentenv->next;
+	}
+}
+
+char    *here_doc_expand(t_env   *env, char *input, t_expand *var)
+{
+	t_env	*currentenv;
+
+	init_expand(var);
+	var->temp = ft_calloc(ft_strlen(input) + 1, 10000);
+	if (!var->temp)
+		return (NULL);
+	while (input[var->i])
+	{
+		var->k = 0;
+		while (input[var->i] && input[var->i] != '$')
+			var->temp[var->j++] = input[var->i++];
+		if (input[var->i] == '$')
+		{
+			var->i = var->i + 1;
+			var->start = var->i;
+			while (input[var->i] && ft_isalnum(input[var->i]))
+				var->i++;
+			var->end = var->i - 1;
+			var->keytosearch = ft_substr(input, var->start, \
+			(var->end - var->start + 1));
+			currentenv = env;
+			search(currentenv, var->keytosearch, var);
+		var->i -= 1;
+		}
+		if (input[var->i] == '$' && input[var->i + 1] == '?')
+			ft_putstr_fd(ft_itoa(status_exit), 1);
+		if (input[var->i])
+			var->i++;
+	}
+	return (var->temp);
 }
