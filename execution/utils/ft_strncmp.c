@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:27:31 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/22 10:17:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/13 16:45:55 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_strncmp(const char *first, const char *second, size_t len)
 	f = (unsigned char *)first;
 	s = (unsigned char *)second;
 	i = 0;
-	if (!len)
-		return (0);
+	if (!s || !f)
+		return (1);
 	while ((f[i] || s[i]) && i < len)
 	{
 		if (f[i] != s[i])

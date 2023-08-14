@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 20:52:34 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:56:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	ft_echo(t_shellcmd *cmd)
 		}
 	}
 	ft_print_new_ln(&cmd->command[i], flag);
-	return (0);
+	status_exit = 0;
+	return (status_exit);
 }

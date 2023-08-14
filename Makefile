@@ -1,7 +1,7 @@
 CC = cc 
 
 READLINE = $(shell brew --prefix readline)
-FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g #-fsanitize=address
 
 NAME = minishell
 SRC = parsing/main.c \
@@ -45,6 +45,7 @@ SRC = parsing/main.c \
 	execution/builtins/change_pwd.c\
 	execution/builtins/ft_unset.c\
 	execution/builtins/ft_export.c \
+	execution/builtins/blt_export.c
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 19:54:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:32:15 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
 
+#include "../minishell.h"
+int status_exit;
 // void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 void	check_and_apply(t_shellcmd *list)
 {
@@ -94,17 +95,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		}
 		set_backnonvalidcommand(*list);
 		t_shellcmd *tmp_list = *list;
-		while(tmp_list)
-   		{
-			i = 0;
-			while (tmp_list->command[i])
-			{
-				printf("here-->>|%s|\t", tmp_list->command[i]);
-				i++;
-			}
-			puts(" ");
-			tmp_list = tmp_list->next;
-   		}
+		ft_execution(tmp_list, &final_list);
 		findredirection(final_list,*list);
 		*list = NULL;
 		free(input);
@@ -125,7 +116,11 @@ int	main(int ac, char **av, char **env)
 	command = NULL;
 	input = NULL;
 	env_list = NULL;
-	creat_env_struct(env, &env_list);
+	// if(!*env)
+	// 	env_null(&env_list);
+	// else
+		creat_env_struct(env, &env_list);
+	printf("\033[2J\033[1;1H");
 	ft_readline(input, &command, env_list, &finallist);
 	return (0);
 }

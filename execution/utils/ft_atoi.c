@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/29 16:53:21 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/09 22:21:52 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_atoi(char *str)
 {
 	int	i;
 	int	sign;
-	int	res;
+	long long	res;
+	long long save;
 
 	i = 0;
 	sign = 1;
@@ -31,8 +32,15 @@ int	ft_atoi(char *str)
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
+		save = res;
 		res = res * 10;
 		res = res + str[i] - 48;
+		if (res / 10 != save)
+		{
+			ft_printf("%e: numeric argument required\n", str);
+			status_exit = 255;
+			return (status_exit);
+		}
 		i++;
 	}
 	return (res * sign);

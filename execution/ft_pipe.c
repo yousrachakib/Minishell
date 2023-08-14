@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:37:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/12 14:21:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	if (pipe(pipfd) == -1)
 	{
 		perror("an error with opening the pipe\n");
+		status_exit = 1; 
 		return ;
 	}
 	pid = fork();
 	if (pid == -1)
 	{
 		ft_printf("minishell: %e\n", strerror(errno));
+		status_exit = 1;
 		return ;
 	}
 	if (pid == 0)
 	{
 		close(pipfd[0]);
-		dup2(pipfd[1], 1);
+		dup2(pipfd[1], STDOUT_FILENO);
 		close(pipfd[1]);
 		pipe_exec_cmd(cmd, shellenv);
+		exit(0);
 	}
 	close(pipfd[1]);
 	dup2(pipfd[0], STDIN_FILENO);
@@ -51,21 +54,22 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	newenv = ft_envirenment(*shellenv);
 	i = 0;
 	str = git_path(*shellenv);
+	if (str == NULL)
+	{
+		ft_printf("minishell: %e: No such file or directory\n", cmd->command[0]);
+		status_exit = 127;
+		exit(0);
+	}
 	spl = ft_split(str, ':');
 	s = ft_check_path(spl, cmd->command[i]);
 	signal(SIGQUIT, sighandler);
-	if (!str)
-	{
-		ft_printf("minishell: command not found: %e\n", cmd);
-		exit(1);
-	}
 	execve(s, cmd->command, newenv);
-	ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
 }
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {
-	if (ft_exec_builtins(cmd, shellenv))
-		return ;
-	ft_getpath(cmd, shellenv);
+	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+		ft_exec_builtins(cmd, shellenv);
+	else
+		ft_getpath(cmd, shellenv);
 }

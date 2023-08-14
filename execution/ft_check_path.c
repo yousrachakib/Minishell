@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/01 21:19:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 15:39:18 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 		execve(s, cmd->command, newenv);
 	}
 	waitpid(pid, NULL, 0);
+	free(s);
+	ft_freearr(newenv);
 }
 
 void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
@@ -53,36 +55,65 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	newenv = ft_envirenment(shellenv);
 	i = 0;
 	str = git_path(shellenv);
+	if (str == NULL)
+	{
+		ft_printf("minishell: %e: No such file or directory\n", cmd->command[0]);
+		ft_freearr(newenv);
+		status_exit = 127;
+		return ;
+	}
 	spl = ft_split(str, ':');
 	s = ft_check_path(spl, cmd->command[i]);
 	signal(SIGQUIT, sighandler);
-	if (!str)
-	{
-		ft_printf("minishell: command not found: %e\n", cmd);
-		exit(1);
-	}
+	ft_freearr(spl);
 	if (s != NULL)
 		ft_creefork(s, cmd, newenv);
 	else
-		ft_printf("minishell: %e: %e\n", cmd->command[0], "command not found");
+	{
+		ft_freearr(newenv);
+		return ;
+	}
+}
+
+static int find(char *s)
+{
+	while (*s)
+	{
+		if (*s == '/')
+			return (0);
+		s++;
+	}
+	return (1);
 }
 
 char	*ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
-
-	if (ft_strncmp(cmd, "/", 1) == 0)
+	char	*path;
+	if (find(cmd) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
-		{
 			return (cmd);
-			// free (cmd);
-		}
 		else
+		{
+			if (access(cmd, F_OK))
+			{
+				ft_printf("%e command not found\n", cmd);
+				status_exit = 127;
+			}
+			else if (access(cmd, X_OK))
+			{
+				ft_printf("%e permission denied\n", cmd);
+				status_exit = 126;
+			}
 			return (NULL);
+		}
 	}
 	s = ft_strjoin("/", cmd);
-	return (ft_path(spl, s));
+	path = ft_path(spl, s);
+	if(path == NULL)
+		free(s);
+	return (path);
 }
 
 char	*ft_path(char **spl, char *cmd)
@@ -94,8 +125,24 @@ char	*ft_path(char **spl, char *cmd)
 	while (spl[++i])
 	{
 		path = ft_strjoin(spl[i], cmd);
-		if (access(path, F_OK | X_OK) == 0)
-			return (path);
+		if (access(path, F_OK) == 0)
+		{
+			if (access(path, X_OK) == 0) {
+				free(cmd);
+				return (path);
+			}
+			else
+			{
+				ft_printf("%e permission denied\n", cmd + 1);
+				status_exit = 126;
+				free(cmd);
+				free(path);
+				return(NULL);
+			}
+		}
+		free(path);
 	}
-	return (NULL);
+	ft_printf("%e command not found\n", cmd + 1);
+	status_exit = 127;
+	return(NULL);
 }

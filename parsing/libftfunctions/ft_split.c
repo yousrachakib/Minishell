@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 21:04:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 20:30:25 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/05 12:28:18 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static	char	*ft_word(char *s, char c, char **word)
 	return (s);
 }
 
-static	int	_free(char **res, int size)
+static	int	_free_(char **res, int size)
 {
 	while (size--)
 	{
@@ -97,7 +97,7 @@ char	**ft_split(char *s, char c)
 	{
 		s = ft_word((char *)s, c, res + i);
 		if (!s)
-			_free(res, i);
+			_free_(res, i);
 		i++;
 	}
 	return (res);

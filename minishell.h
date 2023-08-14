@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 19:47:59 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:33:25 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 
@@ -25,8 +26,9 @@
 # include <sys/errno.h>
 # include <errno.h>
 # include <string.h>
+# include <limits.h>
 
-int	status_exit;
+extern int	status_exit;
 
 typedef enum s_type
 {
@@ -59,6 +61,7 @@ typedef struct s_shellcmd
 	int				fd_in;//0
 	int				fd_out;//1
 	int				error_flag;
+	
 	struct s_shellcmd	*next;
 }	t_shellcmd;
 
@@ -76,7 +79,8 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	
+	int				flag;
+	int				flag_env;
 	struct s_env	*previous;
 	struct s_env	*next;
 }	t_env;
@@ -176,7 +180,7 @@ void	ft_unset(t_shellcmd *cmd, t_env **env);
 void	ft_export(t_shellcmd *cmd,t_env **env);
 int		ft_check_cmd(char *str);
 void	add_cmd(t_env *env , t_shellcmd *cmd , int i , char **key);
-void	ajouter_keyvaleur(t_env *env, char *str, char **key);
+void	ajouter_keyvaleur(t_env **env, char *str, char **key);
 t_env	cree_node(char *key, char *value);
 void	ft_add_liste(t_env *head, t_env *new_node);
 int		modifier_env(t_env **env, char *command);
@@ -189,4 +193,9 @@ int		ft_change_env(char **key , t_env *current , int flag);
 void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
 void	ft_getpath(t_shellcmd *cmd , t_env **shellenv);
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
+int		checkkeyexport(char* str);
+char	**check_plusegal_cmd(t_env *current, char *command, int j);
+void	cas_erreur(void);
+void	addencas_env_null(t_env **env , char *command);
+void	env_null(t_env **env);
 #endif
