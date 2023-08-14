@@ -6,26 +6,24 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/06 19:30:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:34:36 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../minishell.h"
 
-void    creat_env_struct(char **environment, t_env **final_list)
+void	creat_env_struct(char **environment, t_env **final_list)
 {
-    t_env *list;
-    int i;
+	t_env	*list;
+	int		i;
 
-    i = 0;
-    list = NULL;
-	*final_list = NULL;
-	if (!environment || !*environment)
-		return ;
-    while(environment[i])
-    {
-        list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
-        addback_envnode(final_list, list);
-        i++;
-    }
+	i = 0;
+	list = NULL;
+	while (environment[i])
+	{
+		list = create_envnode(retrieve_key(environment[i]), retrieve_value(environment[i]));
+		addback_envnode(final_list, list);
+		i++;
+	}
 }

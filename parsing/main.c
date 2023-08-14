@@ -6,17 +6,19 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:28:42 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:32:15 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 int status_exit;
 // void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 void	check_and_apply(t_shellcmd *list)
 {
-	t_shellcmd *tmp;
-	char **temp;
+	t_shellcmd	*tmp;
+	char		**temp;
+
 	tmp = list;
 	while (tmp)
 	{
@@ -28,39 +30,54 @@ void	check_and_apply(t_shellcmd *list)
 
 void	set_backnonvalidcommand(t_shellcmd *list)
 {
-	int i;
-	t_shellcmd *tmp_list = list;
-	while(tmp_list)
-   	{
+	int			i;
+	t_shellcmd	*tmp_list;
+
+	tmp_list = list;
+	while (tmp_list)
+	{
 		i = 0;
 		while (tmp_list->command[i])
 		{
 			if (tmp_list->command[i][0] < 0)
-					protect_dumbquote(tmp_list->command[i]);
+				protect_dumbquote(tmp_list->command[i]);
 			i++;
 		}
 		tmp_list = tmp_list->next;
-   	}
+	}
 }
+
 void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list)
 {
-	char *firstcommand;
-	char **splitedcmd;
-	char **splitedcmd2;
+	char	*firstcommand;
+	char	**splitedcmd;
+	char	**splitedcmd2;
+	t_cmd	*tmp;
+
 	while (1)
 	{
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			return(printf("exit\n"),exit(1)) ; // ctrl + D
-		if (input[0] != '\0') // working history
+			break ;
+		if (input[0] != '\0')
 			add_history(input);
 		command = tokenizer(input);
 		if (!command)
-			continue;
-		if (syntaxerror(command) == 1) 
-			continue;
-		check_and_expand(final_list,(*command)); 
-		// findredirection((*command));
+			continue ;
+		if (syntaxerror(command) == 1)
+			continue ;
+		tmp = (*command);
+		while (tmp)
+		{
+			if (tmp->here_doc == 1)
+			{
+				while (tmp->next->type == t_space)
+					tmp = tmp->next;
+				tmp->next->here_doc = 2;
+			}
+			tmp = tmp->next;
+		}
+		check_and_expand(final_list,(*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
 		// test
@@ -77,20 +94,9 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			i++;
 		}
 		set_backnonvalidcommand(*list);
-		findredirection(final_list,*list);
 		t_shellcmd *tmp_list = *list;
-		// while(tmp_list->next != NULL)
-   		// {
-		// 	i = 0;
-		// 	while (tmp_list->command[i])
-		// 	{
-		// 		printf("here-->>|%s|\t", tmp_list->command[i]);
-		// 		i++;
-		// 	}
-		// 	puts(" ");
-		// 	tmp_list = tmp_list->next;
-   		// }
 		ft_execution(tmp_list, &final_list);
+		findredirection(final_list,*list);
 		*list = NULL;
 		free(input);
 	}
@@ -99,13 +105,13 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
-	status_exit = 0;
-	t_env *env_list;
-	t_cmd *command;
-	t_shellcmd *finallist;
+	t_env	*env_list;
+	t_cmd	*command;
+	t_shellcmd	*finallist;
 
 	(void)ac;
 	(void)av;
+	status_exit = 0;
 	finallist = NULL;
 	command = NULL;
 	input = NULL;

@@ -25,6 +25,9 @@ SRC = parsing/main.c \
 	parsing/libftfunctions/ft_calloc.c \
 	parsing/libftfunctions/ft_split.c \
 	parsing/redirection/redirection.c \
+	parsing/redirection/utils.c \
+	parsing/redirection/here_doc.c \
+	parsing/redirection/here_doc_expand.c \
 	execution/ft_execution.c \
 	execution/ft_pipe.c \
 	execution/builtins/ft_env.c \
@@ -42,10 +45,7 @@ SRC = parsing/main.c \
 	execution/builtins/change_pwd.c\
 	execution/builtins/ft_unset.c\
 	execution/builtins/ft_export.c \
-	execution/builtins/blt_export.c \
-	parsing/redirection/utils.c \
-	parsing/redirection/here_doc.c \
-	parsing/redirection/here_doc_expand.c \
+	execution/builtins/blt_export.c
 
 OBJ = $(SRC:.c=.o)
 HEADER = minishell.h 

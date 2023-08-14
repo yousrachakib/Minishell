@@ -6,13 +6,13 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:43:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/05 18:45:38 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:06:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(char *str1,char *str2)
+int	ft_strcmp(char *str1, char *str2)
 {
 	int	i;
 
