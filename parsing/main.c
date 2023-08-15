@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:32:15 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:41:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,14 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		input = readline("cuteshell$> ");
 		if (input == NULL)
 			break ;
+		if (verify_emptystring(input) == 1)
+		{
+			free(input);
+			continue ;
+		}
 		if (input[0] != '\0')
 			add_history(input);
+			
 		command = tokenizer(input);
 		if (!command)
 			continue ;
@@ -94,9 +100,20 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			i++;
 		}
 		set_backnonvalidcommand(*list);
-		t_shellcmd *tmp_list = *list;
-		ft_execution(tmp_list, &final_list);
 		findredirection(final_list,*list);
+		t_shellcmd *tmp_list = *list;
+		while (tmp_list)
+		{
+			i = 0;
+			while (tmp_list->command[i])
+			{
+			printf("****%s******\n", tmp_list->command[i++]);
+				
+			}
+			tmp_list = tmp_list->next;
+		}
+		tmp_list = *list;
+		ft_execution(tmp_list, &final_list);
 		*list = NULL;
 		free(input);
 	}
@@ -119,7 +136,7 @@ int	main(int ac, char **av, char **env)
 	// if(!*env)
 	// 	env_null(&env_list);
 	// else
-		creat_env_struct(env, &env_list);
+	creat_env_struct(env, &env_list);
 	printf("\033[2J\033[1;1H");
 	ft_readline(input, &command, env_list, &finallist);
 	return (0);
