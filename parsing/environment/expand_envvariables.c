@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/12 12:58:31 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/15 19:17:31 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,18 @@ void	check_and_expand(t_env  *envlist, t_cmd *commandlist)
 				}
 				temp[j++] = input[i++];
 			}
+			if (input[i] == '$' && input[i + 1] == '?')
+			{
+				puts("here");
+				
+				char *tmp = ft_itoa(status_exit);
+				while (*tmp)
+				{
+					temp[j] = *tmp++;
+					j++;
+				}
+				i++;
+			}
 			if (input[i] == '$' && (currentcmd->flag_var == 0 \
 				|| currentcmd->flag_var == 2) \
 				&& currentcmd->here_doc != 2)
@@ -86,8 +98,6 @@ void	check_and_expand(t_env  *envlist, t_cmd *commandlist)
 				}
 			i -= 1;
 			}
-			if (input[i] == '$' && input[i + 1] == '?')
-				ft_putstr_fd(ft_itoa(status_exit), 1);
 			if (input[i])
 				i++;
 		}

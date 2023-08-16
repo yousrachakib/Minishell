@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/11 15:16:13 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:12:58 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ int	is_whitespace(char c)
 	if (c == ' ' || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
+}
+
+int	verify_emptystring(char *str)
+{
+	int i  = 0;
+	while (str[i] && is_whitespace(str[i]) == 1)
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
+	
 }
 
 int	check_quotes(char *input)

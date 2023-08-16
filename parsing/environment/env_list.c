@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:34:56 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:40:42 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../minishell.h"
 
@@ -43,7 +42,7 @@ void	addback_envnode(t_env **head, t_env *newnode)
 	newnode->previous = temp;
 }
 
-char    *retrieve_key(char *line)
+char	*retrieve_key(char *line)
 {
 	char	*equal_sign;
 	int		key_len;

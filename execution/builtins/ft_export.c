@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 22:26:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 20:57:47 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 {
 	t_env	*courrant;
-	char	*new_value;
 
-	new_value = NULL;
 	courrant = *env;
 	while (courrant)
 	{
@@ -99,7 +97,6 @@ void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 	}
 	if (courrant)
 	{
-		new_value = key[1];
 		free(courrant->value);
 		courrant->value = key[1];
 	}

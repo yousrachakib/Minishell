@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 22:16:17 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:01:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ char	*ft_check_path(char **spl, char *cmd)
 		{
 			if (access(cmd, F_OK))
 			{
-				ft_printf("%e command not found\n", cmd);
+				ft_putstr_fd(" command not found\n", 2);
 				status_exit = 127;
 			}
 			else if (access(cmd, X_OK))
 			{
-				ft_printf("%e permission denied\n", cmd);
+				ft_putstr_fd("permission denied\n", 2);
 				status_exit = 126;
 			}
 			return (NULL);
@@ -148,3 +148,7 @@ char	*ft_path(char **spl, char *cmd)
 	status_exit = 127;
 	return (NULL);
 }
+// ls | a| b | c | ls
+// bash: a: command not found
+// bash: b: command not found
+// bash: c: command not found

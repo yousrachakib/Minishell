@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:33:25 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:13:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char	**copy2(char **command);
 void	check_and_apply(t_shellcmd *list);
 void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
 char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
+int	verify_emptystring(char *str);
 
 /*****************************************************************************/
 /*                              execution                                    */

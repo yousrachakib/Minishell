@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:31:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 22:25:21 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 20:30:36 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_env(t_env *env, t_shellcmd *cmd)
 	{
 		if (env->value != NULL && env->value[0] != '\0')
 		{
-			if (ft_strcmp(env->key, "PATH") == 0 && env->flag_env == 5)
+			if (ft_strcmp(env->key, "") == 0 && env->flag_env == 5)
 				env = env->next;
 			else
 				printf("%s=%s\n", env->key, env->value);

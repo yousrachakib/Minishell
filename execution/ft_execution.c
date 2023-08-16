@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 19:29:55 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 20:34:35 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,17 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
 	current = *shellenv;
-	if (current == NULL)
+	if(current == NULL)
 		env_null(shellenv);
 	while (cmd->next != NULL)
 	{
 		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}
-	dup2(cmd->fd_in, STDIN_FILENO);
+	if(cmd->fd_in != -2)
+		dup2(cmd->fd_in, 0);
+	if(cmd->fd_out != -2)
+		dup2(cmd->fd_out, 1);
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
@@ -87,35 +90,25 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
 	close(tmp_fd_out);
-	while (wait(&status) != -1)
-	{
-	}
+	while(wait(&status) != -1);
 }
 
 void	env_null(t_env **env)
 {
 	int		j;
 	t_env	*current; 
-	char	*key[6];
-	char	*valeur[6];
+	char	*key[0];
+	char	*valeur[0];
 
 	current = *env;
 	j = 0;
-	valeur[0] = "/Users/mben-sal/Desktop/Cursus/minishell";
-	valeur[1] = "1";
-	valeur[2] = "/usr/bin/env";
-	valeur[3] = "/Users/mben-sal/.brew/bin:/Users/mben-sal/brew/bin:/Users/mben-sal/.brew/bin:/Users/mben-sal/goinfre/homebrew/bin:/Users/mben-sal/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki";
-	valeur[4] = "/Users/mben-sal";
-	valeur[5] = NULL;
-	key[0] = "PWD";
-	key[1] = "SHLVL";
-	key[2] = "_";
-	key[3] = "PATH";
-	key[4] = "HOME";
-	key[5] = NULL;
-	while (j <= 5)
+	valeur[0] = "";
+	valeur[1] = NULL;
+	key[0] = "";
+	key[1] = NULL;
+	while (j <= 1)
 	{
-		current = create_envnode(ft_strdup(key[j]), ft_strdup(valeur[j]));
+		current = create_envnode(ft_strdup(key[0]), ft_strdup(valeur[0]));
 		addback_envnode(env, current);
 		current->flag_env = 5;
 		j++;

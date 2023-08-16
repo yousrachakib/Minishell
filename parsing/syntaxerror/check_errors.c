@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:04:29 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/11 17:56:16 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:29:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	begin_end_oflist(t_cmd *list)
 	temp = list;
 	if (temp->type == t_pipe || temp->type == t_input || temp->type == t_output \
 		|| temp->type == output_apnd || temp->type == here_doc)
-		firstcheck(temp);
+		if (firstcheck(temp) == 1)
+			return (1);
 	temp = list;
 	if (temp->type == t_pipe)
 	{
@@ -94,10 +95,10 @@ int	redirection_error(t_cmd *list)
 	t_cmd	*temp;
 
 	temp = list;
-	if (temp->next->type == t_space)
+	if (temp->next && temp->next->type == t_space)
 		temp = temp->next;
-	if (temp->next->type == t_word || temp->next->type == t_singlequote \
-		|| temp->next->type == t_doublequote)
+	if (temp->next && (temp->next->type == t_word || temp->next->type == t_singlequote \
+		|| temp->next->type == t_doublequote))
 		return (0);
 	else
 	{
