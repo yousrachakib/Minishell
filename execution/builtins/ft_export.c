@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 11:51:10 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 22:26:44 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_env(t_env *env)
 		{
 			if (env->key != NULL && env->key[0] != '\0')
 			{
-				if(ft_strcmp(env->key, "PATH") == 0 && env->flag_env == 5)
+				if (ft_strcmp(env->key, "PATH") == 0 && env->flag_env == 5)
 					env = env->next;
 				else
 				{
@@ -87,7 +87,7 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 {
 	t_env	*courrant;
-	char *new_value;
+	char	*new_value;
 
 	new_value = NULL;
 	courrant = *env;
@@ -137,4 +137,3 @@ int	modifier_env(t_env **env, char *command)
 		ajouter_keyvaleur(env, command, key);
 	return (1);
 }
-

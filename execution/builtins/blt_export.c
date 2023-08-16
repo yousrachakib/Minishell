@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:00:51 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/13 16:54:29 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:34:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 {
 	char	**key;
 
-	key = (char **)calloc(3, sizeof(char *));
+	key = (char **)ft_calloc(3, sizeof(char *));
 	if (!key)
 		return (0);
 	key[2] = NULL;
@@ -41,15 +41,14 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 
 int	ft_change_env(char **key, t_env *current, int flag)
 {
-	char *new_value;
-	
+	char	*new_value;
+
 	while (current)
 	{
 		if (!ft_strncmp(key[0], current->key, ft_strlen(key[0]) + 1))
 		{
 			if (flag == 2 && key[1])
 			{
-
 				new_value = NULL;
 				if (current->value == NULL)
 					current->value = ft_strdup("");

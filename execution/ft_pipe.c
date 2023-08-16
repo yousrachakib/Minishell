@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/12 14:21:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:06:50 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 		status_exit = 1;
 		return ;
 	}
+	if(cmd->fd_in != -2)
+		pipfd[0] = cmd->fd_in;
+	if(cmd->fd_out != -2)
+		pipfd[1] = cmd->fd_out;
 	if (pid == 0)
 	{
 		close(pipfd[0]);

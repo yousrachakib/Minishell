@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 15:39:18 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/14 22:16:17 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	}
 }
 
-static int find(char *s)
+static int	find(char *s)
 {
 	while (*s)
 	{
@@ -90,6 +90,7 @@ char	*ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
 	char	*path;
+
 	if (find(cmd) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
@@ -111,7 +112,7 @@ char	*ft_check_path(char **spl, char *cmd)
 	}
 	s = ft_strjoin("/", cmd);
 	path = ft_path(spl, s);
-	if(path == NULL)
+	if (path == NULL)
 		free(s);
 	return (path);
 }
@@ -127,7 +128,8 @@ char	*ft_path(char **spl, char *cmd)
 		path = ft_strjoin(spl[i], cmd);
 		if (access(path, F_OK) == 0)
 		{
-			if (access(path, X_OK) == 0) {
+			if (access(path, X_OK) == 0) 
+			{
 				free(cmd);
 				return (path);
 			}
@@ -137,12 +139,12 @@ char	*ft_path(char **spl, char *cmd)
 				status_exit = 126;
 				free(cmd);
 				free(path);
-				return(NULL);
+				return (NULL);
 			}
 		}
 		free(path);
 	}
 	ft_printf("%e command not found\n", cmd + 1);
 	status_exit = 127;
-	return(NULL);
+	return (NULL);
 }
