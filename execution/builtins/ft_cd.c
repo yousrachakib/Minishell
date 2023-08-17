@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/15 20:23:15 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:26:00 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	i = chdir(path_home);
 	if (i < 0)
 	{
-		ft_printf("minishell: cd: %e: No such file or directory\n", cmd->command[1]);
+		ft_putstr_fd(cmd->command[1], 2);
+		ft_putstr_fd("No such file or directory\n", 2);
 		free(path_home);
 		status_exit = 1;
 		return ;

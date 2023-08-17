@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 21:01:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:28:16 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 	pid = fork();
 	if (pid == -1)
 	{
-		ft_printf("minishell: %e\n", "Erreur lors de fork()");
+		ft_putstr_fd("Erreur lors de fork()\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
@@ -57,7 +57,8 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	str = git_path(shellenv);
 	if (str == NULL)
 	{
-		ft_printf("minishell: %e: No such file or directory\n", cmd->command[0]);
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd("No such file or directory\n", 2);
 		ft_freearr(newenv);
 		status_exit = 127;
 		return ;
@@ -99,7 +100,7 @@ char	*ft_check_path(char **spl, char *cmd)
 		{
 			if (access(cmd, F_OK))
 			{
-				ft_putstr_fd(" command not found\n", 2);
+				ft_putstr_fd("command not found\n", 2);
 				status_exit = 127;
 			}
 			else if (access(cmd, X_OK))
@@ -135,7 +136,9 @@ char	*ft_path(char **spl, char *cmd)
 			}
 			else
 			{
-				ft_printf("%e permission denied\n", cmd + 1);
+				ft_putstr_fd("minishell :", 2);
+				ft_putstr_fd(cmd + 1, 2);
+				ft_putstr_fd(" :command not found \n", 2);
 				status_exit = 126;
 				free(cmd);
 				free(path);
@@ -144,11 +147,10 @@ char	*ft_path(char **spl, char *cmd)
 		}
 		free(path);
 	}
-	ft_printf("%e command not found\n", cmd + 1);
+	ft_putstr_fd("minishell :", 2);
+	ft_putstr_fd(cmd + 1, 2);
+	ft_putstr_fd(" :command not found \n", 2);
 	status_exit = 127;
 	return (NULL);
 }
-// ls | a| b | c | ls
-// bash: a: command not found
-// bash: b: command not found
-// bash: c: command not found
+

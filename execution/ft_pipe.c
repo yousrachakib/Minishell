@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 21:28:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:51:34 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	str = git_path(*shellenv);
 	if (str == NULL)
 	{
-		ft_printf("minishell: %e: No such file or directory\n", cmd->command[0]);
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd("No such file or directory\n", 2);
 		status_exit = 127;
 		exit(0);
 	}
@@ -69,7 +70,6 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	signal(SIGQUIT, sighandler);
 	execve(s, cmd->command, newenv);
 }
-
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {
 	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)

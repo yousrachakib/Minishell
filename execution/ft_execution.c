@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 20:34:35 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:28:58 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,3 +114,6 @@ void	env_null(t_env **env)
 		j++;
 	}
 }
+//(./test) ==>>  bash: ./test: No such file or directory
+// cat < evhvhds ==>> bash: No such file or directory
+// exit 57

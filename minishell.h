@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:13:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:30:43 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,4 +199,5 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j);
 void	cas_erreur(void);
 void	addencas_env_null(t_env **env , char *command);
 void	env_null(t_env **env);
+void	ft_check_commande(t_shellcmd *cmd, t_env **shellenv);
 #endif
