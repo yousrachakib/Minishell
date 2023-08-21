@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/17 22:28:16 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:13:24 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,11 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	char	**spl;
 	char	*s;
 	char	**newenv;
-	int		i;
-
+	struct stat path_stat;
 	newenv = ft_envirenment(shellenv);
-	i = 0;
 	str = git_path(shellenv);
 	if (str == NULL)
-	{
+	{	
 		ft_putstr_fd(cmd->command[0], 2);
 		ft_putstr_fd("No such file or directory\n", 2);
 		ft_freearr(newenv);
@@ -64,16 +62,41 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 		return ;
 	}
 	spl = ft_split(str, ':');
-	s = ft_check_path(spl, cmd->command[i]);
-	signal(SIGQUIT, sighandler);
-	ft_freearr(spl);
-	if (s != NULL)
-		ft_creefork(s, cmd, newenv);
-	else
+	s = ft_check_path(spl, cmd->command[0]);
+	if(s == NULL)
 	{
 		ft_freearr(newenv);
 		return ;
 	}
+	signal(SIGQUIT, sighandler);
+	ft_freearr(spl);
+	if (s != NULL && stat(s,&path_stat) == 0)
+	{
+		if (S_ISREG(path_stat.st_mode))
+			ft_creefork(s, cmd, newenv);
+		else if (S_ISDIR(path_stat.st_mode))
+		{
+			ft_putstr_fd("minishell :", 2);
+			ft_putstr_fd(s, 2);
+			ft_putstr_fd(" :Is a directory\n", 2);
+			status_exit = 126;
+		}
+		else
+		{
+			ft_putstr_fd("minishell :", 2);
+			ft_putstr_fd(s, 2);
+			ft_putstr_fd(" :Not an executable file\n", 2);
+			status_exit = 127;
+		}
+	}
+	else
+	{
+		ft_putstr_fd("minishell :", 2);
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd(" :No such file or directorye\n", 2);
+		status_exit = 127;
+	}
+	return ;
 }
 
 static int	find(char *s)

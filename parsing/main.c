@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:41:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:01:53 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
-int status_exit;
+// int status_exit;
 // void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
 void	check_and_apply(t_shellcmd *list)
 {

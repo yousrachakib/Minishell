@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/17 20:30:43 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 14:08:58 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
 # include <errno.h>
 # include <string.h>
 # include <limits.h>
+#include <sys/stat.h>
+# include <signal.h>
 
-extern int	status_exit;
+int	status_exit;
 
 typedef enum s_type
 {
@@ -80,6 +82,7 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 	int				flag;
+	int				hanlder_c;
 	int				flag_env;
 	struct s_env	*previous;
 	struct s_env	*next;
@@ -200,4 +203,8 @@ void	cas_erreur(void);
 void	addencas_env_null(t_env **env , char *command);
 void	env_null(t_env **env);
 void	ft_check_commande(t_shellcmd *cmd, t_env **shellenv);
+void	suite_execution(t_shellcmd *cmd, t_env **shellenv);
+void	handler_c(int signo);
+void	ft_fils(t_shellcmd *cmd, int pipfd[2]);
+// void	ft_chech_derectory(char *s, t_shellcmd *cmd, char	**newenv);
 #endif

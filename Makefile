@@ -1,6 +1,10 @@
 CC = cc 
 
 READLINE = $(shell brew --prefix readline)
+# L = -L/Users/${USER}/.brew/opt/readline/lib
+# I = -I/Users/${USER}/.brew/opt/readline/include
+
+# FLAGS = -Wall -Wextra -Werror  ${I}(READLINE)/include -g -fsanitize=address
 FLAGS = -Wall -Wextra -Werror  -I$(READLINE)/include -g -fsanitize=address
 
 NAME = minishell

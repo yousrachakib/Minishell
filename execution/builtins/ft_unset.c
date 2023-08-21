@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/14 22:27:26 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/20 11:41:54 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_unset(t_shellcmd *cmd, t_env **env)
 		{
 			s = cmd->command[j];
 			current = *env;
-			while (current && ft_strncmp(current->key, s, ft_strlen(current->key)))
+			while (current && ft_strncmp(current->key, s, ft_strlen(current->key) + 1))
 				current = current->next;
 			ft_bltunset(current, env);
 		}
