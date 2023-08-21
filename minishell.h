@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/21 14:08:58 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:22:13 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,13 @@ void	env_null(t_env **env);
 void	ft_check_commande(t_shellcmd *cmd, t_env **shellenv);
 void	suite_execution(t_shellcmd *cmd, t_env **shellenv);
 void	handler_c(int signo);
-void	ft_fils(t_shellcmd *cmd, int pipfd[2]);
+void	ft_file(t_shellcmd *cmd, int pipfd[2]);
+void	ft_close_fd(t_shellcmd *cmd, int pipfd[2]);
+void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv);
+void	ft_message_erreur(char *s1, char *s2, char *s3);
+void	ft_erreur_access(char *path, char *cmd);
+void	ft_path_erreur(char *cmd);
+char	*ft_home(t_shellcmd *cmd, t_env **env);
+void	ft_pipe_erreur();
 // void	ft_chech_derectory(char *s, t_shellcmd *cmd, char	**newenv);
 #endif

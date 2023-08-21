@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 13:55:46 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:35:22 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,26 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	current = *shellenv;
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
-	if(current == NULL)
+	if (current == NULL)
 		env_null(shellenv);
 	while (cmd->next != NULL)
 	{
 		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}
-	suite_execution(cmd , shellenv);
+	suite_execution(cmd, shellenv);
 	dup2(tmp_fd_in, 0);
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
 	close(tmp_fd_out);
-	while(wait(&status) != -1);
+	while (wait(&status) != -1);
 }
 
-void suite_execution(t_shellcmd *cmd, t_env **shellenv)
+void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 {
-	if(cmd->fd_in != -2)
+	if (cmd->fd_in != -2)
 		dup2(cmd->fd_in, 0);
-	if(cmd->fd_out != -2)
+	if (cmd->fd_out != -2)
 		dup2(cmd->fd_out, 1);
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
@@ -100,19 +100,16 @@ void suite_execution(t_shellcmd *cmd, t_env **shellenv)
 
 void	env_null(t_env **env)
 {
-	
 	t_env	*current; 
 	char	*key[0];
 	char	*valeur[0];
 
 	current = *env;
-
 	valeur[0] = "";
 	key[0] = "";
 	current = create_envnode(ft_strdup(key[0]), ft_strdup(valeur[0]));
 	addback_envnode(env, current);
 	current->flag_env = 5;
-	
 }
 
 /*parsing*/ 

@@ -6,24 +6,11 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 12:13:24 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:33:05 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*git_path(t_env *env)
-{
-	while (env)
-	{
-		if (!ft_strncmp(env->key, "PATH", 5))
-		{
-			return (env->value);
-		}
-		env = env->next;
-	}
-	return (NULL);
-}
 
 void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 {
@@ -49,53 +36,22 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	char	*str;
 	char	**spl;
 	char	*s;
-	char	**newenv;
-	struct stat path_stat;
-	newenv = ft_envirenment(shellenv);
+
 	str = git_path(shellenv);
 	if (str == NULL)
-	{	
+	{
 		ft_putstr_fd(cmd->command[0], 2);
 		ft_putstr_fd("No such file or directory\n", 2);
-		ft_freearr(newenv);
 		status_exit = 127;
 		return ;
 	}
 	spl = ft_split(str, ':');
 	s = ft_check_path(spl, cmd->command[0]);
-	if(s == NULL)
-	{
-		ft_freearr(newenv);
+	if (s == NULL)
 		return ;
-	}
 	signal(SIGQUIT, sighandler);
 	ft_freearr(spl);
-	if (s != NULL && stat(s,&path_stat) == 0)
-	{
-		if (S_ISREG(path_stat.st_mode))
-			ft_creefork(s, cmd, newenv);
-		else if (S_ISDIR(path_stat.st_mode))
-		{
-			ft_putstr_fd("minishell :", 2);
-			ft_putstr_fd(s, 2);
-			ft_putstr_fd(" :Is a directory\n", 2);
-			status_exit = 126;
-		}
-		else
-		{
-			ft_putstr_fd("minishell :", 2);
-			ft_putstr_fd(s, 2);
-			ft_putstr_fd(" :Not an executable file\n", 2);
-			status_exit = 127;
-		}
-	}
-	else
-	{
-		ft_putstr_fd("minishell :", 2);
-		ft_putstr_fd(cmd->command[0], 2);
-		ft_putstr_fd(" :No such file or directorye\n", 2);
-		status_exit = 127;
-	}
+	ft_directory(s, cmd, shellenv);
 	return ;
 }
 
@@ -121,16 +77,7 @@ char	*ft_check_path(char **spl, char *cmd)
 			return (cmd);
 		else
 		{
-			if (access(cmd, F_OK))
-			{
-				ft_putstr_fd("command not found\n", 2);
-				status_exit = 127;
-			}
-			else if (access(cmd, X_OK))
-			{
-				ft_putstr_fd("permission denied\n", 2);
-				status_exit = 126;
-			}
+			ft_path_erreur(cmd);
 			return (NULL);
 		}
 	}
@@ -159,21 +106,13 @@ char	*ft_path(char **spl, char *cmd)
 			}
 			else
 			{
-				ft_putstr_fd("minishell :", 2);
-				ft_putstr_fd(cmd + 1, 2);
-				ft_putstr_fd(" :command not found \n", 2);
-				status_exit = 126;
-				free(cmd);
-				free(path);
+				ft_erreur_access(path, cmd);
 				return (NULL);
 			}
 		}
 		free(path);
 	}
-	ft_putstr_fd("minishell :", 2);
-	ft_putstr_fd(cmd + 1, 2);
-	ft_putstr_fd(" :command not found \n", 2);
+	ft_message_erreur("minishell :", cmd + 1, " :command not found \n");
 	status_exit = 127;
 	return (NULL);
 }
-

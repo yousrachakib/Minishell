@@ -42,6 +42,7 @@ SRC = parsing/main.c \
 	execution/builtins/ft_pwd.c \
 	execution/utils/ft_strncmp.c\
 	execution/utils/ft_atoi.c\
+	execution/utils/file_utils.c\
 	execution/utils/fonction_utils.c\
 	execution/builtins/ft_echo.c\
 	execution/ft_check_path.c\

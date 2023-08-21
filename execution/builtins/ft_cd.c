@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/18 19:08:54 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:22:30 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,13 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	int		i; 
 	char	pwd[1024];
 
-	if (!cmd->command[1]) 
-	{
-		path_home = ft_path_home(*env);
-		if (!path_home) 
-		{
-			ft_printf("minishell: %e: HOME not set\n", cmd->command[0]);
-			free(path_home);
-			status_exit = 1;
-			return ;
-		}
-		// free(path_home);
-	}
-	else
-		path_home = ft_strdup(cmd->command[1]);
+	path_home = ft_home(cmd, env);
+	if (!path_home)
+		return ;
 	i = chdir(path_home);
 	if (i < 0)
 	{
 		ft_putstr_fd("Minishell : ", 2);
-
 		perror(cmd->command[1]);
 		free(path_home);
 		status_exit = 1;
@@ -78,4 +66,24 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	else
 		change_pwd(cmd, *env);
 	status_exit = 0;
+}
+
+char	*ft_home(t_shellcmd *cmd, t_env **env)
+{
+	char	*path_home;
+
+	if (!cmd->command[1]) 
+	{
+		path_home = ft_path_home(*env);
+		if (!path_home) 
+		{
+			ft_printf("minishell: %e: HOME not set\n", cmd->command[0]);
+			free(path_home);
+			status_exit = 1;
+			return (NULL);
+		}
+	}
+	else
+		path_home = ft_strdup(cmd->command[1]);
+	return (path_home);
 }
