@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/22 15:40:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:01:47 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	check_dolar(char *input)
 	}
 	return (0);
 }
+
 void	fill_heredoc_var(t_cmd	**command)
 {
 	t_cmd	*tmp;
+
 	tmp = (*command);
 	while (tmp)
 	{
@@ -41,86 +43,89 @@ void	fill_heredoc_var(t_cmd	**command)
 	}
 }
 
-void	check_and_expand(t_env  *envlist, t_cmd *commandlist)
+void	init_expand(t_expand	*var)
 {
-    t_cmd	*currentcmd;
-    t_env	*currentenv;
-    char	*input;
-    char	*keytosearch;
-    char	*temp;
-	int		i;
-    int		j;
-    int		k;
-	int		end;
-	int		count;
-	int		start;
+	var->end = 0;
+	var->i = 0;
+	var->j = 0;
+	var->k = 0;
+	var->start = 0;
+	var->keytosearch = NULL;
+	var->temp = NULL;
+	var->input = NULL;
+}
 
+void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var)
+{
+	t_cmd	*currentcmd;
+	t_env	*currentenv;
+	int		count;
+	char	*tmp;
+
+	init_expand(var);
 	currentcmd = commandlist;
-	i = 0;
-	j = 0;
 	count = 1;
 	while (currentcmd)
 	{
-		input = ft_strdup(currentcmd->input);
-		temp = ft_calloc(100000, 1); //needs modification
-		if (!temp)
+		var->input = ft_strdup(currentcmd->input);
+		var->temp = ft_calloc(100000, 1); //needs modification
+		if (!var->temp)
 			return ;
-		while (input[i])
+		while (var->input[var->i])
 		{
-			k = 0;
-			while (input[i] && input[i] != '$')
+			var->k = 0;
+			while (var->input[var->i] && var->input[var->i] != '$')
 			{
 				if (currentcmd->here_doc == 2 && count == 1 && \
 					check_dolar(currentcmd->input))
 				{
-					temp[j++] = '$';
+					var->temp[var->j++] = '$';
 					count -= 1;
 				}
-				temp[j++] = input[i++];
+				var->temp[var->j++] = var->input[var->i++];
 			}
-			if (input[i] == '$' && input[i + 1] == '?')
+			if (var->input[var->i] == '$' && var->input[var->i + 1] == '?')
 			{
-				puts("here");
-				
-				char *tmp = ft_itoa(status_exit);
+				tmp = ft_itoa(status_exit);
 				while (*tmp)
 				{
-					temp[j] = *tmp++;
-					j++;
+					var->temp[var->j] = *tmp++;
+					var->j++;
 				}
-				i++;
+				var->i++;
 			}
-			if (input[i] == '$' && (currentcmd->flag_var == 0 \
+			if (var->input[var->i] == '$' && (currentcmd->flag_var == 0 \
 				|| currentcmd->flag_var == 2) \
 				&& currentcmd->here_doc != 2)
 			{
-				i = i + 1;
-				start = i;
-				while (input[i] && ft_isalnum(input[i]))
-					i++;
-				end = i - 1;
-				keytosearch = ft_substr(input, start, (end - start + 1));
+				var->i = var->i + 1;
+				var->start = var->i;
+				while (var->input[var->i] && ft_isalnum(var->input[var->i]))
+					var->i++;
+				var->end = var->i - 1;
+				var->keytosearch = ft_substr(var->input, var->start, \
+				(var->end - var->start + 1));
 				currentenv = envlist;
 				while (currentenv)
 				{
-					if (!ft_strcmp(currentenv->key, keytosearch))
+					if (!ft_strcmp(currentenv->key, var->keytosearch))
 					{
-						while (currentenv->value[k])
-							temp[j++] = currentenv->value[k++];
+						while (currentenv->value[var->k])
+							var->temp[var->j++] = currentenv->value[var->k++];
 						break ;
 					}
 					currentenv = currentenv->next;
 				}
-			i -= 1;
+			var->i -= 1;
 			}
-			if (input[i])
-				i++;
+			if (var->input[var->i])
+				var->i++;
 		}
-		temp[j] = '\0';
-		currentcmd->input = ft_strdup(temp);
-		free(temp);
-		i = 0;
-		j = 0;
+		var->temp[var->j] = '\0';
+		currentcmd->input = ft_strdup(var->temp);
+		free(var->temp);
+		var->i = 0;
+		var->j = 0;
 		currentcmd = currentcmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 17:18:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 15:40:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:55:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ char	*retrieve_value(char *line)
 	char	*equal_sign;
 	int		key_len;
 	char	*key;
-	char	*value;
 	char	*value_duplicate;
 	char	*newline;
 
 	equal_sign = ft_strchr(line, '=');
+	if (!equal_sign)
+		return (NULL);
 	key_len = equal_sign - line;
 	key = ft_calloc(key_len + 1, 1);
 	if (!key)
 		return (NULL);
-	ft_strncpy(key, line, key_len);
+	strncpy(key, line, key_len);
 	key[key_len] = '\0';
-	value = equal_sign + 1;
-	value_duplicate = ft_strdup(value);
+	value_duplicate = ft_strdup(equal_sign + 1);
 	protection(value_duplicate, key);
 	newline = ft_strchr(value_duplicate, '\n');
 	if (newline)

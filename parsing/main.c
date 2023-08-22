@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/22 15:42:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:04:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	set_backnonvalidcommand(t_shellcmd *list)
 	}
 }
 
-void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list)
+void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list, t_expand *var)
 {
 	char	*firstcommand;
 	char	**splitedcmd;
@@ -71,7 +71,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		if (syntaxerror(command) == 1) // free in case of error
 			continue ;
 		fill_heredoc_var(command);
-		check_and_expand(final_list,(*command));
+		check_and_expand(final_list,(*command), var);
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
 		free(firstcommand);
@@ -97,7 +97,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
-		ft_execution(tmp_list, &final_list);
+		// ft_execution(tmp_list, &final_list);
 		*list = NULL;
 		free(input);
 	}
@@ -109,6 +109,7 @@ int	main(int ac, char **av, char **env)
 	t_env	*env_list;
 	t_cmd	*command;
 	t_shellcmd	*finallist;
+	t_expand	var;
 
 	(void)ac;
 	(void)av;
@@ -122,6 +123,6 @@ int	main(int ac, char **av, char **env)
 	// else
 	creat_env_struct(env, &env_list);
 	printf("\033[2J\033[1;1H");
-	ft_readline(input, &command, env_list, &finallist);
+	ft_readline(input, &command, env_list, &finallist, &var);
 	return (0);
 }

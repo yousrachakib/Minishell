@@ -6,22 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:24:57 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 15:01:35 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:00:03 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	init_expand(t_expand	*var)
-{
-	var->end = 0;
-	var->start = 0;
-	var->i = 0;
-	var->j = 0;
-	var->k = 0;
-	var->keytosearch = NULL;
-	var->temp = NULL;
-}
 
 void	search(t_env	*currentenv, char *keytosearch, t_expand *var)
 {

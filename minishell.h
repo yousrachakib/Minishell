@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/21 15:12:36 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:00:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_expand
 	int		end;
 	int		start;
 	char	*temp;
+	char	*input;
 	char	*keytosearch;
 }	t_expand;
 
@@ -89,7 +90,7 @@ typedef struct s_env
 
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);
-void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list);
+void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list, t_expand *var);
 int		check_quotes(char *input);
 int		syntaxerror(t_cmd **list);
 int		pipe_error_secondcase(t_cmd *list);
@@ -120,7 +121,7 @@ char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
 void    creat_env_struct(char **environment, t_env **final_list);
 int		ft_strcmp(char *str1,char *str2);
-void    check_and_expand(t_env  *envlist, t_cmd *commandlist);
+void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var);
 char	*ft_itoa(int n);
 int		ft_isalnum(int c);
 char	*ft_strjoin(char *s1, char *s2);
@@ -140,6 +141,7 @@ void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
 char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 int	verify_emptystring(char *str);
 void	fill_heredoc_var(t_cmd	**command);
+void	init_expand(t_expand	*var);
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/
