@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/22 18:01:47 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 18:25:42 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,39 @@ void	init_expand(t_expand	*var)
 	var->input = NULL;
 }
 
+void	expand_partone(t_cmd	*currentcmd,t_env	*envlist,t_expand	*var)
+{
+	t_env	*currentenv;
+
+	if (var->input[var->i] == '$' && (currentcmd->flag_var == 0 \
+		|| currentcmd->flag_var == 2) \
+		&& currentcmd->here_doc != 2)
+	{
+		var->i = var->i + 1;
+		var->start = var->i;
+		while (var->input[var->i] && ft_isalnum(var->input[var->i]))
+			var->i++;
+		var->end = var->i - 1;
+		var->keytosearch = ft_substr(var->input, var->start, \
+		(var->end - var->start + 1));
+		currentenv = envlist;
+		while (currentenv)
+		{
+			if (!ft_strcmp(currentenv->key, var->keytosearch))
+			{
+				while (currentenv->value[var->k])
+					var->temp[var->j++] = currentenv->value[var->k++];
+				break ;
+			}
+			currentenv = currentenv->next;
+		}
+			var->i -= 1;
+	}
+}
+
 void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var)
 {
 	t_cmd	*currentcmd;
-	t_env	*currentenv;
 	int		count;
 	char	*tmp;
 
@@ -94,30 +123,7 @@ void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var)
 				}
 				var->i++;
 			}
-			if (var->input[var->i] == '$' && (currentcmd->flag_var == 0 \
-				|| currentcmd->flag_var == 2) \
-				&& currentcmd->here_doc != 2)
-			{
-				var->i = var->i + 1;
-				var->start = var->i;
-				while (var->input[var->i] && ft_isalnum(var->input[var->i]))
-					var->i++;
-				var->end = var->i - 1;
-				var->keytosearch = ft_substr(var->input, var->start, \
-				(var->end - var->start + 1));
-				currentenv = envlist;
-				while (currentenv)
-				{
-					if (!ft_strcmp(currentenv->key, var->keytosearch))
-					{
-						while (currentenv->value[var->k])
-							var->temp[var->j++] = currentenv->value[var->k++];
-						break ;
-					}
-					currentenv = currentenv->next;
-				}
-			var->i -= 1;
-			}
+			expand_partone(currentcmd, envlist, var);
 			if (var->input[var->i])
 				var->i++;
 		}
