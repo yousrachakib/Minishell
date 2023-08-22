@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 19:17:31 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:40:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ int	check_dolar(char *input)
 		i++;
 	}
 	return (0);
+}
+void	fill_heredoc_var(t_cmd	**command)
+{
+	t_cmd	*tmp;
+	tmp = (*command);
+	while (tmp)
+	{
+		if (tmp->here_doc == 1)
+		{
+			while (tmp->next->type == t_space)
+				tmp = tmp->next;
+			tmp->next->here_doc = 2;
+		}
+		tmp = tmp->next;
+	}
 }
 
 void	check_and_expand(t_env  *envlist, t_cmd *commandlist)

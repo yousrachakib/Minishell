@@ -6,14 +6,14 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:41:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:42:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
 int status_exit;
-// void	ft_readline(char *input, t_cmd	**command, t_env **final_list, t_shellcmd **list)
+
 void	check_and_apply(t_shellcmd *list)
 {
 	t_shellcmd	*tmp;
@@ -52,7 +52,6 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 	char	*firstcommand;
 	char	**splitedcmd;
 	char	**splitedcmd2;
-	t_cmd	*tmp;
 
 	while (1)
 	{
@@ -66,36 +65,21 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		}
 		if (input[0] != '\0')
 			add_history(input);
-			
 		command = tokenizer(input);
 		if (!command)
 			continue ;
-		if (syntaxerror(command) == 1)
+		if (syntaxerror(command) == 1) // free in case of error
 			continue ;
-		tmp = (*command);
-		while (tmp)
-		{
-			if (tmp->here_doc == 1)
-			{
-				while (tmp->next->type == t_space)
-					tmp = tmp->next;
-				tmp->next->here_doc = 2;
-			}
-			tmp = tmp->next;
-		}
+		fill_heredoc_var(command);
 		check_and_expand(final_list,(*command));
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
-		// test
-		if(!splitedcmd || !splitedcmd[0])
-			continue;
-		// test
-		set_nonvalidcommand(splitedcmd);
 		free(firstcommand);
+		set_nonvalidcommand(splitedcmd);
 		int i = 0;
 		while (splitedcmd[i])
 		{
-			splitedcmd2 = ft_split(splitedcmd[i], ' ');
+			splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
 			addback_shellnode(list, create_shellnode(splitedcmd2));
 			i++;
 		}

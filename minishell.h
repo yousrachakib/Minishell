@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:13:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:12:36 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	check_and_apply(t_shellcmd *list);
 void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
 char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 int	verify_emptystring(char *str);
-
+void	fill_heredoc_var(t_cmd	**command);
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/
