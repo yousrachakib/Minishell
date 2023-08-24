@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/22 20:41:25 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:38:17 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			i++;
 		}
 		set_backnonvalidcommand(*list);
-		
 		findredirection(final_list,*list, var);
 		t_shellcmd *tmp_list = *list;
 		while (tmp_list)

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/13 14:04:17 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 15:50:03 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	handle_heredoc(t_env *env, char *tofind, t_expand *var)
 	while (1)
 	{
 		input = readline(">");
-		if (ft_strcmp(input, tofind) != 0)
+		if ( input && tofind && ft_strcmp(input, tofind) != 0)
 		{
 			temp = here_doc_expand(env, input, var);
 			free(input);
