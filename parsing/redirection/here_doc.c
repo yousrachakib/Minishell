@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 20:00:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:18:33 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 			input = temp;
 			ft_putstr_fd(input, list->fd_in);
 			ft_putstr_fd("\n", list->fd_in);
-			printf("  her %d\n", list->fd_in);
 			free(input);
 		}
 		else

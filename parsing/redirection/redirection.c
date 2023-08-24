@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 18:08:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:23:46 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 {
 	t_shellcmd	*current;
     int i;
-	
-	// printf("=1===>%d\n", command->fd_in);
 	find_here_doc(env, command, var);
-	// printf("=2===>%d\n", command->fd_in);
 	current = command;
 	while (current)
 	{

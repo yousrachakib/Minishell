@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/24 20:10:14 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:26:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 	return (0);
 }
 
-void	ft_execution(t_shellcmd *cmd, t_env **shellenv)
+void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
 	int		tmp_fd_in;
 	int		tmp_fd_out;
@@ -80,40 +80,29 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv)
 		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}
-	suite_execution(cmd, shellenv , tmp_fd_out, tmp_fd_in);
-	// dup2(tmp_fd_in, 0);
-	// close(tmp_fd_in);
-	// dup2(tmp_fd_out, 1);
-	// close(tmp_fd_out);
+	suite_execution(cmd, shellenv);
+	dup2(tmp_fd_in, 0);
+	close(tmp_fd_in);
+	dup2(tmp_fd_out, 1);
+	close(tmp_fd_out);
 	while (wait(&status) != -1);
 }
 
-void	suite_execution(t_shellcmd *cmd, t_env **shellenv ,int		tmp_fd_in, int		tmp_fd_out)
+void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 {
 	if (cmd->error_flag == 1)
 		return;
 	else
 	{
 		if (cmd->fd_in != -2)
-		{
-			printf("-->|%d|\n", cmd->fd_in);
-			ft_putstr_fd("loooool ", cmd->fd_in);
 			dup2(cmd->fd_in, 0);
-			close(cmd->fd_in);
-		}
 		if (cmd->fd_out != -2)
-		{
 			dup2(cmd->fd_out, 1);
-		}
 	}
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
 		ft_exec_path(cmd, *shellenv);
-	dup2(tmp_fd_in, 0);
-	// close(tmp_fd_in);
-	dup2(tmp_fd_out, 1);
-	// close(tmp_fd_out);
 }
 
 void	env_null(t_env **env)

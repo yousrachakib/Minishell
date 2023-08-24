@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 20:01:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:21:21 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 				printf("****%s******\n", tmp_list->command[i++]);
 				printf("==>>|%d|\n", tmp_list->fd_in);
 			}
-			printf("next -->> %p\n", tmp_list->next);
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;

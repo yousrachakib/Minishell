@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/24 19:52:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:22:32 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
 			status_exit = 127;
 		}
 	}
-	// else if (s != NULL && cmd->command[0])
-	// {
-	// 	ft_message_erreur("minishell :", cmd->command[0], \
-	// 					" :No such file or directorye\n" );
-	// 	status_exit = 127;
-	// }
+	else
+	{
+		ft_message_erreur("minishell :", cmd->command[0], \
+						" :No such file or directorye\n" );
+		status_exit = 127;
+	}
 }
 
 char	*git_path(t_env *env)
