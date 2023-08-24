@@ -45,13 +45,13 @@ char	**copy2(char **command)
 	return (tmp);
 }
 
-void    findredirection(t_env *env,t_shellcmd   *command)
+void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 {
 	t_shellcmd	*current;
-	t_expand	*var;
     int i;
 	
-	var = NULL;
+	// printf("-->%d\n", var->end);
+	// 	exit(0);
 	find_here_doc(env, command, var);
 	current = command;
 	while (current)

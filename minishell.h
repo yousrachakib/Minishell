@@ -121,6 +121,7 @@ char	*ft_strchr(char *s, int c);
 char	*ft_strncpy(char *dest, char *src,int n);
 char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
+void    findredirection(t_env *env,t_shellcmd   *command, 	t_expand	*var);
 void    creat_env_struct(char **environment, t_env **final_list);
 int		ft_strcmp(char *str1,char *str2);
 void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var);
@@ -132,7 +133,7 @@ char	**ft_split(char *s, char c);
 void	protect_dumbquote(char *input);
 int		checkredirection(char c);
 int		size_command(t_cmd *command);
-void    findredirection(t_env *env,t_shellcmd   *command);
+
 void	*ft_calloc(size_t count, size_t size);
 void	addback_shellnode(t_shellcmd **head, t_shellcmd *newnode);
 t_shellcmd	*create_shellnode(char **command);

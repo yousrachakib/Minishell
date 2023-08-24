@@ -84,7 +84,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			i++;
 		}
 		set_backnonvalidcommand(*list);
-		findredirection(final_list,*list);
+		
+		findredirection(final_list,*list, var);
 		t_shellcmd *tmp_list = *list;
 		while (tmp_list)
 		{
