@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/24 16:55:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:52:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
 	if (s != NULL && (stat(s, &path_stat) == 0))
 	{
 		if (S_ISREG(path_stat.st_mode))
+		{
 			ft_creefork(s, cmd, newenv);
+			return ;
+		}
 		else if (S_ISDIR(path_stat.st_mode))
 		{
 			ft_message_erreur ("minishell :", s, " :Is a directory\n");
@@ -55,12 +58,12 @@ void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
 			status_exit = 127;
 		}
 	}
-	else
-	{
-		ft_message_erreur("minishell :", cmd->command[0], \
-						" :No such file or directorye\n" );
-		status_exit = 127;
-	}
+	// else if (s != NULL && cmd->command[0])
+	// {
+	// 	ft_message_erreur("minishell :", cmd->command[0], \
+	// 					" :No such file or directorye\n" );
+	// 	status_exit = 127;
+	// }
 }
 
 char	*git_path(t_env *env)

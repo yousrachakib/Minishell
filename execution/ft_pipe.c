@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/22 19:39:45 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:55:16 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	ft_file(cmd, pipfd);
 	if (pid == 0)
 	{
-		close(pipfd[0]);
+		// close(pipfd[0]);
 		dup2(pipfd[1], STDOUT_FILENO);
-		close(pipfd[1]);
+		// close(pipfd[1]);
 		pipe_exec_cmd(cmd, shellenv);
 		exit(0);
 	}
@@ -43,11 +43,12 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 
 void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])
 {
-	close(cmd->fd_in);
-	close(cmd->fd_out);
-	close(pipfd[1]);
+	(void)cmd;
+	// close(cmd->fd_in);
+	// close(cmd->fd_out);
+	// close(pipfd[1]);
 	dup2(pipfd[0], STDIN_FILENO);
-	close(pipfd[0]);
+	// close(pipfd[0]);
 }
 
 void	ft_file(t_shellcmd *cmd, int pipfd[2])
@@ -58,12 +59,12 @@ void	ft_file(t_shellcmd *cmd, int pipfd[2])
 	{
 		if (cmd->fd_in != -2 && cmd->fd_in != 0)
 		{
-			close(pipfd[0]);
+			// close(pipfd[0]);
 			pipfd[0] = cmd->fd_in;
 		}
 		if (cmd->fd_out != -2 && cmd->fd_out != 1)
 		{
-			close(pipfd[1]);
+			// close(pipfd[1]);
 			pipfd[1] = cmd->fd_out;
 		}
 	}
