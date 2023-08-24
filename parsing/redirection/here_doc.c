@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 15:50:03 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:18:33 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ char	*creat_filename(void)
 	return (name2);
 }
 
-void	handle_heredoc(t_env *env, char *tofind, t_expand *var)
+void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 {
-	int		fd;
 	char	*input;
 	char	*temp;
 	char	*filename;
 
 	filename = creat_filename();
-	fd = open(filename, O_WRONLY | O_CREAT, 0777);
-	if (fd == -1)
+	list->fd_in = open(filename, O_WRONLY | O_CREAT, 0777);
+	if (list->fd_in == -1)
 		ft_putstr_fd("Error file not found", 2);
 	while (1)
 	{
@@ -44,8 +43,8 @@ void	handle_heredoc(t_env *env, char *tofind, t_expand *var)
 			temp = here_doc_expand(env, input, var);
 			free(input);
 			input = temp;
-			ft_putstr_fd(input, fd);
-			ft_putstr_fd("\n", fd);
+			ft_putstr_fd(input, list->fd_in);
+			ft_putstr_fd("\n", list->fd_in);
 			free(input);
 		}
 		else
@@ -65,7 +64,11 @@ void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var)
 		while (temp->command[i])
 		{
 			if (temp->command[i][0] == '<' && temp->command[i][1] == '<')
-				handle_heredoc(env, temp->command[i + 1], var);
+			{
+				handle_heredoc(env, list ,temp->command[i + 1], var);
+				remove_redirandfilename(temp->command[i]);
+				remove_redirandfilename(temp->command[i + 1]);
+			}
 			i++;
 		}
 		temp = temp->next;

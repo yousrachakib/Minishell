@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 18:47:00 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:54:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
 	struct stat	path_stat;
 
 	newenv = ft_envirenment(shellenv);
+			ft_creefork(s, cmd, newenv);
 	if (s != NULL && (stat(s, &path_stat) == 0))
 	{
 		if (S_ISREG(path_stat.st_mode))
-			ft_creefork(s, cmd, newenv);
 		else if (S_ISDIR(path_stat.st_mode))
 		{
 			ft_message_erreur ("minishell :", s, " :Is a directory\n");

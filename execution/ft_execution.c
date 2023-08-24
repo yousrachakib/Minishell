@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/22 20:44:43 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:52:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 		if (cmd->fd_out != -2)
 			dup2(cmd->fd_out, 1);
 	}
-	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
-		ft_exec_builtins(cmd, shellenv);
-	else
+	// if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+	// 	ft_exec_builtins(cmd, shellenv);
+	// else
 		ft_exec_path(cmd, *shellenv);
 }
 

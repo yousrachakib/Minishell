@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 20:33:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:39:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 	}
 	else if (pid == 0)
 	{
+		printf("$%d\n",cmd->fd_in);
 		execve(s, cmd->command, newenv);
 	}
 	waitpid(pid, NULL, 0);

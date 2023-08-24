@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/10 01:20:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:25:09 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ t_shellcmd	*create_shellnode(char **command)
 		node->command[i] = ft_strdup(command[i]);
 		i++;
 	}
+	node->fd_in = -2;
+	node->fd_out = -2;
+	node->error_flag = 0;
 	node->next = NULL;
 	return (node);
 }

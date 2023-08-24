@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 19:57:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:26:51 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,31 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 	t_shellcmd	*current;
     int i;
 	
-	// printf("-->%d\n", var->end);
-	// 	exit(0);
+	printf("=1===>%d\n", command->fd_in);
 	find_here_doc(env, command, var);
+	printf("=2===>%d\n", command->fd_in);
 	current = command;
 	while (current)
 	{
     	i = 0;
-		current->fd_in = -2;
-		current->fd_out = -2;
-		current->error_flag = 0; 
 		while (current->command[i])
 		{
 			if (current->command[i][0] == '>' || current->command[i][0] == '<' || \
 				(current->command[i][0] == '>' && current->command[i][1] == '>'))
 			{
-				if (current->command[i][0] == '<' && current->command[i][1] != '<')
+				if (current->command[i + 1] && current->command[i][0] == '<' && current->command[i][1] != '<')
 				{
 					current->fd_in = open(current->command[i + 1], O_RDONLY);
-					remove_redirandfilename(current->command[i]);
-					remove_redirandfilename(current->command[i + 1]);
 					if (current->fd_in == -1)
 					{
 						current->error_flag = 1;
 						perror("cuteshell ");
 						break;
 					}
+					remove_redirandfilename(current->command[i]);
+					remove_redirandfilename(current->command[i + 1]);
 				}
-				if (current->command[i][0] == '>')
+				if (current->command[i + 1] && current->command[i][0] == '>')
 				{ 
 					current->fd_out = open(current->command[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 					remove_redirandfilename(current->command[i]);
@@ -89,7 +86,7 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 						break;
 					}
 				}
-				if ((current->command[i][0] == '>' && current->command[i][1] == '>'))
+				if ((current->command[i + 1] && current->command[i][0] == '>' && current->command[i][1] == '>'))
 				{
 					current->fd_out = open(current->command[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 					remove_redirandfilename(current->command[i]);
