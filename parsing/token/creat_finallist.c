@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:49:06 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 15:47:22 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:34:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char *join_commands(t_cmd *commandlist)
     joined_commands = ft_strdup("");
     while (currentcmd)
     {
-		if (currentcmd->input[0] < 0)
+		if (currentcmd->flag_var == 2 || currentcmd->flag_var == 1)
             protect_dumbquote(currentcmd->input);
         joined_commands = ft_strjoin(joined_commands, currentcmd->input);
         currentcmd = currentcmd->next;

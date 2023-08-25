@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 16:21:21 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:39:06 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		check_and_expand(final_list,(*command), var);
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
+		int k = -1;
+		while (splitedcmd[++k])
+		{
+			int kk= -1;
+			while (splitedcmd[k][++kk])
+				if(splitedcmd[k][kk] < 0)
+					splitedcmd[k][kk] *= -1;
+		}
 		free(firstcommand);
 		set_nonvalidcommand(splitedcmd);
 		int i = 0;
@@ -90,11 +98,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 		{
 			i = 0;
 			while (tmp_list->command[i])
-			{
-				
-				printf("****%s******\n", tmp_list->command[i++]);
-				printf("==>>|%d|\n", tmp_list->fd_in);
-			}
+				printf("|%s|\n", tmp_list->command[i++]);
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
