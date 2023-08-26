@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/12 14:21:50 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:00:48 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 
 	if (pipe(pipfd) == -1)
 	{
-		perror("an error with opening the pipe\n");
-		status_exit = 1; 
+		ft_pipe_erreur();
 		return ;
 	}
 	pid = fork();
@@ -30,6 +29,7 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 		status_exit = 1;
 		return ;
 	}
+	ft_file(cmd, pipfd);
 	if (pid == 0)
 	{
 		close(pipfd[0]);
@@ -38,9 +38,35 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 		pipe_exec_cmd(cmd, shellenv);
 		exit(0);
 	}
+	ft_close_fd(cmd, pipfd);
+}
+
+void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])
+{
+	close(cmd->fd_in);
+	close(cmd->fd_out);
 	close(pipfd[1]);
 	dup2(pipfd[0], STDIN_FILENO);
 	close(pipfd[0]);
+}
+
+void	ft_file(t_shellcmd *cmd, int pipfd[2])
+{
+	if(cmd->error_flag == 1)
+		return;
+	else
+	{
+		if (cmd->fd_in != -2 && cmd->fd_in != 0)
+		{
+			close(pipfd[0]);
+			pipfd[0] = cmd->fd_in;
+		}
+		if (cmd->fd_out != -2 && cmd->fd_out != 1)
+		{
+			close(pipfd[1]);
+			pipfd[1] = cmd->fd_out;
+		}
+	}
 }
 
 void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
@@ -54,21 +80,31 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	newenv = ft_envirenment(*shellenv);
 	i = 0;
 	str = git_path(*shellenv);
+	if(find(cmd->command[0])== 0)
+	{
+		ft_creefork(cmd->command[0], cmd, newenv);
+		return;
+	}
 	if (str == NULL)
 	{
-		ft_printf("minishell: %e: No such file or directory\n", cmd->command[0]);
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd(" :No such file or directory\n", 2);
 		status_exit = 127;
 		exit(0);
 	}
 	spl = ft_split(str, ':');
 	s = ft_check_path(spl, cmd->command[i]);
 	signal(SIGQUIT, sighandler);
-	execve(s, cmd->command, newenv);
+	if (execve(s, cmd->command, newenv) == -1)
+	{
+		strerror(errno);
+		status_exit = 1;
+	}
 }
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {
-	if(cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
 		ft_getpath(cmd, shellenv);

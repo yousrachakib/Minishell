@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:50:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/05 19:14:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/26 14:39:45 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@ int	ft_exit(t_shellcmd *cmd)
 {
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (!cmd->command[1])
 		exit (0);
-	while (cmd->command[1][i])
+	while (cmd->command[1][++i])
 	{
 		if (ft_isalpha(cmd->command[1][i]))
 		{
 			ft_printf("%e :%e : %e : %e", "minishell", cmd->command[0],
-				cmd->command[1], "numeric argument required");
-				status_exit = 255;
+				cmd->command[1], "numeric argument required\n");
+			status_exit = 255;
 			exit (status_exit);
 		}
-		i++;
 	}
 	if (!cmd->command[2])
 		exit (ft_atoi(cmd->command[1]));

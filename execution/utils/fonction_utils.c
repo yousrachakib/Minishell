@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:04:33 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/06 17:37:53 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:48:58 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	**ft_envirenment(t_env *shellenv)
 	i = 0;
 	cnt = countnodes (shellenv) + 1;
 	if (cnt <= 1)
-		return NULL;
-	env = (char **)calloc(cnt, sizeof(char *));
+		return (NULL);
+	env = (char **)ft_calloc(cnt, sizeof(char *));
+	if (!env)
+		return (NULL);
 	i = 0;
 	while (shellenv->next != NULL && i < cnt)
 	{
@@ -67,4 +69,12 @@ void	ft_freearr(char **s)
 		free(s[i++]);
 	}
 	free(s);
+}
+
+void	ft_erreur_access(char *path, char *cmd )
+{
+	ft_message_erreur("minishell :", cmd + 1, " :command not found \n");
+	status_exit = 126;
+	free(cmd);
+	free(path);
 }

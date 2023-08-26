@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/15 18:55:51 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 12:16:23 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,57 +66,86 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	int		tmp_fd_in;
 	int		tmp_fd_out;
 	int		status;
-	// t_env	*current;
+	t_env	*current;
 
+	current = *shellenv;
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
-	// current = *shellenv;
-	// if(current == NULL)
-	// 	env_null(shellenv);
+	if(cmd == NULL || !cmd->command || !cmd->command[0] || !cmd->command[0][0])
+		return;
+	if (current == NULL)
+		env_null(shellenv);
 	while (cmd->next != NULL)
 	{
 		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}
-	dup2(cmd->fd_in, STDIN_FILENO);
-	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
-		ft_exec_builtins(cmd, shellenv);
-	else
-		ft_exec_path(cmd, *shellenv);
+	suite_execution(cmd, shellenv);
 	dup2(tmp_fd_in, 0);
 	close(tmp_fd_in);
 	dup2(tmp_fd_out, 1);
 	close(tmp_fd_out);
-	while(wait(&status) != -1);
+	while (wait(&status) != -1);
+}
+
+void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
+{
+	if (cmd->error_flag == 1)
+		return;
+	else
+	{
+		if (cmd->fd_in != -2)
+			dup2(cmd->fd_in, 0);
+		if (cmd->fd_out != -2)
+			dup2(cmd->fd_out, 1);
+	}
+	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
+		ft_exec_builtins(cmd, shellenv);
+	else
+		ft_exec_path(cmd, *shellenv);
 }
 
 void	env_null(t_env **env)
 {
-	int j;
-	t_env *current; 
-	char *key[6];
-	char *valeur[6];
-	
+	t_env	*current; 
+	char	*key[0];
+	char	*valeur[0];
+
 	current = *env;
-	j = 0;
-	valeur[0]="/Users/mben-sal/Desktop/Cursus/minishell";
-	valeur[1]="1";
-	valeur[2]="/usr/bin/env";
-	valeur[3]="/Users/mben-sal/.brew/bin:/Users/mben-sal/brew/bin:/Users/mben-sal/.brew/bin:/Users/mben-sal/goinfre/homebrew/bin:/Users/mben-sal/goinfre/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki";
-	valeur[4]= "/Users/mben-sal";
-	valeur[5]= NULL;
-	key[0] = "PWD";
-	key[1] = "SHLVL";
-	key[2] = "_";
-	key[3] = "PATH";
-	key[4] = "HOME";
-	key[5] = NULL;
-	while(j <= 5)
-	{
-		current = create_envnode(ft_strdup(key[j]), ft_strdup(valeur[j]));
-		addback_envnode(env, current);
-		current->flag_env = 5;
-		j++;
-	}
-}	
-	
+	valeur[0] = "";
+	key[0] = "";
+	current = create_envnode(ft_strdup(key[0]), ft_strdup(valeur[0]));
+	addback_envnode(env, current);
+	current->flag_env = 5;
+}
+
+/*parsing*/ 
+
+// seg ===== > ls << asdas
+
+//********//
+
+// dans cette cas (ls < lkj > out et cat < evhvhds)
+// if (tmp_list->fd_in == -2 || tmp_list->fd_out == -2)
+			//return ;
+//*******//
+//ajouter dans partier parsing
+// main ===> 
+// current->hanlder_c = 0;
+// signal(SIGINT, handler_c);
+// void handler_c(int signo)
+// {
+// 	t_env var;
+// 	(void)signo;
+// 	if(!(var.hanlder_c))
+// 		return;
+// 	if (signo == SIGINT)
+// 	{
+// 		ft_putstr_fd("\n",1);
+// 		rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		rl_redisplay();
+// 		status_exit = 1;
+// 	}
+// }
+// changer Makefile 
