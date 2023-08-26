@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:35:04 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:48:40 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ t_cmd	**tokenizer(char *input)
 		else if (input[i] && (input[i] == '\"' || input[i] == '\''))
 		{
 			if (quotation_case(input, &i, command_list) == 1)
+			{
+				free_list(command_list);
 				return (NULL);
+			}
 		}
 		else
 			word_case(input, &i, command_list);

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:12:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:29:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ void	word_case(char *input, int *i, t_cmd **head)
 	res = ft_substr(input, (*i), (j - (*i)));
 	if (!res)
 		return ;
-	node = create_node(res, t_word);
+	node = create_node(ft_strdup(res), t_word);
 	(*i) += j - (*i);
+	free(res);
 	addback_node(head, node);
 }
 

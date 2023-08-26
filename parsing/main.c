@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/25 21:39:06 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:58:34 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,45 @@ void	set_backnonvalidcommand(t_shellcmd *list)
 	}
 }
 
-void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **list, t_expand *var)
+void	fixing_garbage_value(char **cmd)
 {
-	char	*firstcommand;
-	char	**splitedcmd;
-	char	**splitedcmd2;
+	int k = -1;
+	while (cmd[++k])
+	{
+		int kk= -1;
+		while (cmd[k][++kk])
+			if(cmd[k][kk] < 0)
+				cmd[k][kk] *= -1;
+	}
+}
+
+void	free_list(t_cmd **command)
+{
+	t_cmd	*next;
+	t_cmd	*tmp;
+
+	tmp = *command;
+	while (tmp)
+	{
+		next = tmp;
+		tmp = tmp->next;
+		if (next->input)
+			free(next->input);
+		next->input = NULL;
+		free(next);
+	}
+	free(command);
+	command = NULL;
+}
+void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_expand *var)
+{
+	// char	*firstcommand;
+	// char	**splitedcmd;
+	// char	**splitedcmd2;
 
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		input = readline("cuteshell$> ");
 		if (input == NULL)
 			break ;
@@ -63,46 +94,63 @@ void	ft_readline(char *input, t_cmd	**command, t_env *final_list, t_shellcmd **l
 			free(input);
 			continue ;
 		}
-		if (input[0] != '\0')
-			add_history(input);
+		add_history(input);
 		command = tokenizer(input);
 		if (!command)
+		{
+			free(input);
 			continue ;
-		if (syntaxerror(command) == 1) // free in case of error
+		}
+		if (syntaxerror(command) == 1)
+		{
+			free_list(command);	
+			free(input);
 			continue ;
+		}
 		fill_heredoc_var(command);
-		check_and_expand(final_list,(*command), var);
-		firstcommand = join_commands((*command));
-		splitedcmd = ft_split(firstcommand, '|');
-		int k = -1;
-		while (splitedcmd[++k])
+		check_and_expand(env,(*command), var);
+		t_cmd *trav = *command;
+		while (trav)
 		{
-			int kk= -1;
-			while (splitedcmd[k][++kk])
-				if(splitedcmd[k][kk] < 0)
-					splitedcmd[k][kk] *= -1;
+			printf("t_cmd: %s \n", trav->input);
+			trav = trav->next;
 		}
-		free(firstcommand);
-		set_nonvalidcommand(splitedcmd);
-		int i = 0;
-		while (splitedcmd[i])
-		{
-			splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
-			addback_shellnode(list, create_shellnode(splitedcmd2));
-			i++;
-		}
-		set_backnonvalidcommand(*list);
-		findredirection(final_list,*list, var);
-		t_shellcmd *tmp_list = *list;
-		while (tmp_list)
-		{
-			i = 0;
-			while (tmp_list->command[i])
-				printf("|%s|\n", tmp_list->command[i++]);
-			tmp_list = tmp_list->next;
-		}
-		tmp_list = *list;
-		ft_execution(tmp_list, &final_list);
+		free_list(command);
+		// firstcommand = join_commands((*command));
+		// // free_list(*command);
+		// splitedcmd = ft_split(firstcommand, '|');
+		// fixing_garbage_value(splitedcmd);
+		// free(firstcommand);
+		// set_nonvalidcommand(splitedcmd);
+		// int i = 0;
+		// while (splitedcmd[i])
+		// {
+		// 	splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
+		// 	addback_shellnode(list, create_shellnode(splitedcmd2));
+		// 	i++;
+		// }
+		// ft_freearr(splitedcmd);
+		// ft_freearr(splitedcmd2);
+		// set_backnonvalidcommand(*list);
+		// findredirection(env,*list, var);
+		// t_shellcmd *tmp_list = *list;
+		// while (tmp_list)
+		// {
+		// 	i = 0;
+		// 	while (tmp_list->command[i])
+		// 		printf("|%s|\n", tmp_list->command[i++]);
+		// 	tmp_list = tmp_list->next;
+		// }
+		// tmp_list = *list;
+		// ft_execution(tmp_list, &env);
+		// t_shellcmd *trav1 = *list;
+		// i = 0;
+		// while (trav1)
+		// {
+		// 	printf("t_shellcmd: %p %p\n", trav1->command[i], trav1);
+		// 	trav1 = trav1->next;
+		// }
+		// free_finallist(*list);
 		*list = NULL;
 		free(input);
 	}
