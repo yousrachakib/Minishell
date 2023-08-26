@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/24 21:26:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 14:34:05 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 {
 	pid_t	pid;
+	int status;
 
 	pid = fork();
 	if (pid == -1)
@@ -24,9 +25,15 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 	}
 	else if (pid == 0)
 	{
-		execve(s, cmd->command, newenv);
+		if (execve(s, cmd->command, newenv) == -1)
+		{
+			strerror(errno);
+			status_exit = 1;
+		}
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		status_exit =  WEXITSTATUS(status);
 	free(s);
 	ft_freearr(newenv);
 }
@@ -36,12 +43,20 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	char	*str;
 	char	**spl;
 	char	*s;
+	char		**newenv;
 
+	newenv = ft_envirenment(shellenv);
+	if(find(cmd->command[0])== 0)
+	{
+		//eccess
+		ft_directory(cmd->command[0], cmd, newenv);
+		return;
+	}
 	str = git_path(shellenv);
 	if (str == NULL)
 	{
 		ft_putstr_fd(cmd->command[0], 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd(" :No such file or directory\n", 2);
 		status_exit = 127;
 		return ;
 	}
@@ -49,13 +64,13 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	s = ft_check_path(spl, cmd->command[0]);
 	if (s == NULL)
 		return ;
+	ft_creefork(s, cmd, newenv);
 	signal(SIGQUIT, sighandler);
 	ft_freearr(spl);
-	ft_directory(s, cmd, shellenv);
 	return ;
 }
 
-static int	find(char *s)
+int	find(char *s)
 {
 	while (*s)
 	{

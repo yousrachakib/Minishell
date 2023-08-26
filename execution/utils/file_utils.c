@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/25 18:26:38 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 14:02:37 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@ void	ft_message_erreur(char *s1, char *s2, char *s3)
 	ft_putstr_fd(s3, 2);
 }
 
-void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
+void	ft_directory(char *s, t_shellcmd *cmd, char	**newenv)
 {
-	char		**newenv;
 	struct stat	path_stat;
 
-	newenv = ft_envirenment(shellenv);
 	if (s != NULL && (stat(s, &path_stat) == 0))
 	{
 		if (S_ISREG(path_stat.st_mode))
 		{
-			ft_creefork(s, cmd, newenv);
-			return ;
+			ft_creefork(cmd->command[0], cmd, newenv);
+				return;
 		}
 		else if (S_ISDIR(path_stat.st_mode))
 		{
@@ -63,6 +61,7 @@ void	ft_directory(char *s, t_shellcmd *cmd, t_env *shellenv)
 						" :No such file or directorye\n" );
 		status_exit = 127;
 	}
+	return;
 }
 
 char	*git_path(t_env *env)
@@ -78,5 +77,3 @@ char	*git_path(t_env *env)
 	return (NULL);
 }
 
-//cuteshell$> ./asads
-//command not found

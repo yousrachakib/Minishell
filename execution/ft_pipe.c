@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/22 19:39:45 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:00:48 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,26 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	newenv = ft_envirenment(*shellenv);
 	i = 0;
 	str = git_path(*shellenv);
+	if(find(cmd->command[0])== 0)
+	{
+		ft_creefork(cmd->command[0], cmd, newenv);
+		return;
+	}
 	if (str == NULL)
 	{
 		ft_putstr_fd(cmd->command[0], 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd(" :No such file or directory\n", 2);
 		status_exit = 127;
 		exit(0);
 	}
 	spl = ft_split(str, ':');
 	s = ft_check_path(spl, cmd->command[i]);
 	signal(SIGQUIT, sighandler);
-	execve(s, cmd->command, newenv);
+	if (execve(s, cmd->command, newenv) == -1)
+	{
+		strerror(errno);
+		status_exit = 1;
+	}
 }
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
