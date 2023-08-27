@@ -6,12 +6,15 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 15:16:56 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:22:27 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+
 int status_exit;
 
 void	check_and_apply(t_shellcmd *list)
@@ -95,15 +98,29 @@ void	free_finallist(t_shellcmd **command)
 	free(command);
 	command = NULL;
 }
+
+void	controlc(int sig)
+{
+	(void)sig;
+	if (waitpid(0, NULL, WNOHANG))
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
 void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_expand *var)
 {
 	char	*firstcommand;
 	char	**splitedcmd;
 	char	**splitedcmd2;
 
+	rl_catch_signals = 0;
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, controlc);
 		input = readline("cuteshell$> ");
 		if (input == NULL)
 			break ;

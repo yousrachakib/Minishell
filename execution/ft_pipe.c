@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 15:24:02 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:57:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	}
 	if (pid == 0)
 	{
-		dup2(pipfd[1], STDOUT_FILENO);
-		dup2(pipfd[0], STDIN_FILENO);
 		close(pipfd[0]);
-		close(pipfd[1]);
+		dup2(pipfd[1], STDOUT_FILENO);
 		pipe_exec_cmd(cmd, shellenv);
+		// dup2(pipfd[0], STDIN_FILENO);
+		// close(pipfd[1]);
 		exit(0);
 	}
 	ft_close_fd(cmd, pipfd);
