@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 14:38:52 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:38:19 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	*ft_strncpy(char *dest, char *src,int n);
 char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
 void    findredirection(t_env *env,t_shellcmd   *command, 	t_expand	*var);
-void    creat_env_struct(char **environment, t_env **final_list);
+void    creat_env_struct(char **environment, t_env **env_list);
 int		ft_strcmp(char *str1,char *str2);
 void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var);
 char	*ft_itoa(int n);
