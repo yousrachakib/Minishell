@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 18:22:30 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:08:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	{
 		ft_putstr_fd("Minishell : ", 2);
 		perror(cmd->command[1]);
-		free(path_home);
+		// free(path_home);
 		status_exit = 1;
 		return ;
 	}
 	path_home = getcwd(pwd, sizeof(pwd));
 	if (!path_home && errno == ENOENT)
 	{
-		free(path_home);
+		// free(path_home);
 		return (cas_erreur());
 	}
 	else
@@ -78,7 +78,7 @@ char	*ft_home(t_shellcmd *cmd, t_env **env)
 		if (!path_home) 
 		{
 			ft_printf("minishell: %e: HOME not set\n", cmd->command[0]);
-			free(path_home);
+			// free(path_home);
 			status_exit = 1;
 			return (NULL);
 		}

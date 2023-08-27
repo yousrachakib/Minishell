@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/26 18:58:34 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:16:56 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,29 @@ void	free_list(t_cmd **command)
 	free(command);
 	command = NULL;
 }
+void	free_finallist(t_shellcmd **command)
+{
+	t_shellcmd	*next;
+	t_shellcmd	*tmp;
+
+	tmp = *command;
+	while (tmp)
+	{
+		next = tmp;
+		tmp = tmp->next;
+		if (next->command)
+			ft_freearr(next->command);
+		next->command = NULL;
+		free(next);
+	}
+	free(command);
+	command = NULL;
+}
 void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_expand *var)
 {
-	// char	*firstcommand;
-	// char	**splitedcmd;
-	// char	**splitedcmd2;
+	char	*firstcommand;
+	char	**splitedcmd;
+	char	**splitedcmd2;
 
 	while (1)
 	{
@@ -109,40 +127,39 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_
 		}
 		fill_heredoc_var(command);
 		check_and_expand(env,(*command), var);
-		t_cmd *trav = *command;
-		while (trav)
-		{
-			printf("t_cmd: %s \n", trav->input);
-			trav = trav->next;
-		}
-		free_list(command);
-		// firstcommand = join_commands((*command));
-		// // free_list(*command);
-		// splitedcmd = ft_split(firstcommand, '|');
-		// fixing_garbage_value(splitedcmd);
-		// free(firstcommand);
-		// set_nonvalidcommand(splitedcmd);
-		// int i = 0;
-		// while (splitedcmd[i])
+		firstcommand = join_commands((*command));
+		splitedcmd = ft_split(firstcommand, '|');
+		fixing_garbage_value(splitedcmd);
+		set_nonvalidcommand(splitedcmd);
+		// t_cmd *trav = *command;
+		// while (trav)
 		// {
-		// 	splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
-		// 	addback_shellnode(list, create_shellnode(splitedcmd2));
-		// 	i++;
+		// 	printf("t_cmd: %s \n", trav->input);
+		// 	trav = trav->next;
 		// }
+		free(firstcommand);
+		free_list(command);
+		int i = 0;
+		while (splitedcmd[i])
+		{
+			splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
+			addback_shellnode(list, create_shellnode(splitedcmd2));
+			i++;
+		}
 		// ft_freearr(splitedcmd);
 		// ft_freearr(splitedcmd2);
-		// set_backnonvalidcommand(*list);
-		// findredirection(env,*list, var);
-		// t_shellcmd *tmp_list = *list;
-		// while (tmp_list)
-		// {
-		// 	i = 0;
-		// 	while (tmp_list->command[i])
-		// 		printf("|%s|\n", tmp_list->command[i++]);
-		// 	tmp_list = tmp_list->next;
-		// }
-		// tmp_list = *list;
-		// ft_execution(tmp_list, &env);
+		set_backnonvalidcommand(*list);
+		findredirection(env,*list, var);
+		t_shellcmd *tmp_list = *list;
+		while (tmp_list)
+		{
+			i = 0;
+			while (tmp_list->command[i])
+				printf("|%s|\n", tmp_list->command[i++]);
+			tmp_list = tmp_list->next;
+		}
+		tmp_list = *list;
+		ft_execution(tmp_list, &env);
 		// t_shellcmd *trav1 = *list;
 		// i = 0;
 		// while (trav1)
@@ -150,9 +167,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_
 		// 	printf("t_shellcmd: %p %p\n", trav1->command[i], trav1);
 		// 	trav1 = trav1->next;
 		// }
-		// free_finallist(*list);
 		*list = NULL;
-		free(input);
+		// free(input);
 	}
 }
 

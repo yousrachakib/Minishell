@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/25 18:24:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:11:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var)
 		i = 0;
 		while (temp->command[i])
 		{
-			if (temp->command[i][0] == '<' && temp->command[i][1] == '<')
+			if (temp->command[i][0] == '<' && temp->command[i][1] == '<' && temp->command[i + 1])
 			{
 				handle_heredoc(env, list ,temp->command[i + 1], var);
 				remove_redirandfilename(temp->command[i]);

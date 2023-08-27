@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/26 15:39:03 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:59:27 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	newenv = ft_envirenment(shellenv);
 	if(find(cmd->command[0])== 0)
 	{
-		//eccess
 		ft_directory(cmd->command[0], cmd, newenv);
 		return;
 	}
@@ -66,7 +65,7 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 		return ;
 	ft_creefork(s, cmd, newenv);
 	signal(SIGQUIT, sighandler);
-	ft_freearr(spl);
+	// ft_freearr(spl);
 	return ;
 }
 
@@ -85,7 +84,7 @@ char	*ft_check_path(char **spl, char *cmd)
 {
 	char	*s;
 	char	*path;
-
+	
 	if (find(cmd) == 0)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
@@ -96,7 +95,7 @@ char	*ft_check_path(char **spl, char *cmd)
 			return (NULL);
 		}
 	}
-	s = ft_strjoin("/", cmd);
+	s = my_strjoin("/", cmd);
 	path = ft_path(spl, s);
 	if (path == NULL)
 		free(s);
@@ -111,12 +110,12 @@ char	*ft_path(char **spl, char *cmd)
 	i = -1;
 	while (spl[++i])
 	{
-		path = ft_strjoin(spl[i], cmd);
+		path = my_strjoin(spl[i], cmd);
 		if (access(path, F_OK) == 0)
 		{
 			if (access(path, X_OK) == 0) 
 			{
-				free(cmd);
+				// free(cmd);
 				return (path);
 			}
 			else

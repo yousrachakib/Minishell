@@ -5,7 +5,7 @@ READLINE = $(shell brew --prefix readline)
 # I = -I/Users/${USER}/.brew/opt/readline/include
 
 # FLAGS = -Wall -Wextra -Werror  ${I}(READLINE)/include -g -fsanitize=address
-FLAGS =   -I$(READLINE)/include 
+FLAGS =   -I$(READLINE)/include -g -fsanitize=address
 
 NAME = minishell
 SRC = parsing/main.c \
@@ -42,6 +42,7 @@ SRC = parsing/main.c \
 	execution/builtins/ft_pwd.c \
 	execution/utils/ft_strncmp.c\
 	execution/utils/ft_atoi.c\
+	execution/utils/my_strjoin.c\
 	execution/utils/file_utils.c\
 	execution/utils/fonction_utils.c\
 	execution/builtins/ft_echo.c\

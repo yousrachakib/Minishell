@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/19 13:24:29 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:09:05 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 	}
 	if (courrant)
 	{
-		free(courrant->value);
+		// free(courrant->value);
 		courrant->value = key[1];
 	}
 	else

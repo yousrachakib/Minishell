@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/26 18:17:09 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:38:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int		ft_atoi(char *str);
 int		ft_printf(const char *str, ...);
 int		ft_strncmp(const char *first, const char *second, size_t len);
 void	ft_pwd(void);
-char	*ft_strjoin(char  *s1, char  *s2);
+char	*my_strjoin(char *s1, char *s2);
 char    **ft_split(char *s, char c);
 void	**ft_free(char **s);
 void	ft_env (t_env *env, t_shellcmd *cmd);

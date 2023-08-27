@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/26 14:02:37 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:44:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*git_path(t_env *env)
 {
 	while (env)
 	{
-		if (!ft_strncmp(env->key, "PATH", 5))
+		if (env->key && !ft_strncmp(env->key, "PATH", 5))
 		{
 			return (env->value);
 		}

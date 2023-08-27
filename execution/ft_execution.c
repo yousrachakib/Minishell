@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/26 12:16:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:19:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,11 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	current = *shellenv;
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
-	if(cmd == NULL || !cmd->command || !cmd->command[0] || !cmd->command[0][0])
-		return;
 	if (current == NULL)
 		env_null(shellenv);
 	while (cmd->next != NULL)
 	{
+		
 		ft_pipe(cmd, shellenv);
 		cmd = cmd->next;
 	}

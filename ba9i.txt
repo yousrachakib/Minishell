@@ -1,7 +1,5 @@
-seg << ""
-ls <" "
-execve failed should return 1 as exit status
+<< ""
+<< ''
+> ''
 shell lvl
-echo "hola              ok "
-/bin/ls without env
-minishelll doesnt run inside minishell without env
+cat | cat | cat | ls 

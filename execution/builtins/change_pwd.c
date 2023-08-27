@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 19:08:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:08:35 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_oldpwd(t_env *env, char *str)
 	{
 		if (ft_strncmp(env->key, "OLDPWD", 6) == 0)
 		{
-			free(env->value);
+			// free(env->value);
 			env->value = ft_strdup(str);
 		}
 		env = env->next;
