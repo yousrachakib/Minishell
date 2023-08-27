@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 16:22:27 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:12:56 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,11 @@ void	free_finallist(t_shellcmd **command)
 	{
 		next = tmp;
 		tmp = tmp->next;
-		if (next->command)
+		if (next->command && next->command[0])
 			ft_freearr(next->command);
-		next->command = NULL;
-		free(next);
+		if(next)
+			free(next);
+		next = NULL;
 	}
 	free(command);
 	command = NULL;
@@ -110,15 +111,19 @@ void	controlc(int sig)
 		rl_redisplay();
 	}
 }
-void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_expand *var)
+void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 {
 	char	*firstcommand;
 	char	**splitedcmd;
 	char	**splitedcmd2;
-
+	t_shellcmd **list;
+	
 	rl_catch_signals = 0;
 	while (1)
 	{
+		list = ft_calloc(sizeof(t_shellcmd *), 1);
+		if (!list)
+			return ;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, controlc);
 		input = readline("cuteshell$> ");
@@ -148,23 +153,18 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_
 		splitedcmd = ft_split(firstcommand, '|');
 		fixing_garbage_value(splitedcmd);
 		set_nonvalidcommand(splitedcmd);
-		// t_cmd *trav = *command;
-		// while (trav)
-		// {
-		// 	printf("t_cmd: %s \n", trav->input);
-		// 	trav = trav->next;
-		// }
 		free(firstcommand);
-		free_list(command);
+		firstcommand = NULL;
 		int i = 0;
 		while (splitedcmd[i])
 		{
 			splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
 			addback_shellnode(list, create_shellnode(splitedcmd2));
+			ft_freearr(splitedcmd2);
 			i++;
 		}
-		// ft_freearr(splitedcmd);
-		// ft_freearr(splitedcmd2);
+		free_list(command);
+		ft_freearr(splitedcmd);
 		set_backnonvalidcommand(*list);
 		findredirection(env,*list, var);
 		t_shellcmd *tmp_list = *list;
@@ -176,16 +176,10 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_shellcmd **list, t_
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
-		ft_execution(tmp_list, &env);
-		// t_shellcmd *trav1 = *list;
-		// i = 0;
-		// while (trav1)
-		// {
-		// 	printf("t_shellcmd: %p %p\n", trav1->command[i], trav1);
-		// 	trav1 = trav1->next;
-		// }
-		*list = NULL;
-		// free(input);
+		// ft_execution(tmp_list, &env);
+		free_finallist(list);
+		// *list = NULL;
+		free(input);
 	}
 }
 
@@ -194,13 +188,11 @@ int	main(int ac, char **av, char **env)
 	char	*input;
 	t_env	*env_list;
 	t_cmd	*command;
-	t_shellcmd	*finallist;
 	t_expand	var;
 
 	(void)ac;
 	(void)av;
 	status_exit = 0;
-	finallist = NULL;
 	command = NULL;
 	input = NULL;
 	env_list = NULL;
@@ -209,6 +201,6 @@ int	main(int ac, char **av, char **env)
 	// else
 	creat_env_struct(env, &env_list);
 	printf("\033[2J\033[1;1H");
-	ft_readline(input, &command, env_list, &finallist, &var);
+	ft_readline(input, &command, env_list, &var);
 	return (0);
 }

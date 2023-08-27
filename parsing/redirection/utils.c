@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:38:55 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 16:01:13 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:52:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void set_nonvalidcommand(char **command)
                 tmp = copy(command[i]);
                 free(command[i]);
                 command[i] = ft_strdup(tmp);
+                free(tmp);
                 break;
             }
             j++;  

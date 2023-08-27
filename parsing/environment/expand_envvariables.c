@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 14:17:36 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:45:28 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void free_expandstruct(t_expand	*var)
 	if (var->input)
 		free(var->input);
 	var->input = NULL;
-	// if (var->keytosearch)
-	// 	free(var->keytosearch);
-	// var->keytosearch = NULL;
+	if (var->keytosearch)
+		free(var->keytosearch);
+	var->keytosearch = NULL;
 	if (var->temp)
-		// free(var->temp);
+		free(var->temp);
 	var->temp = NULL;
 }
 //$DWEW $DSFD D|$$$|$PATH$$

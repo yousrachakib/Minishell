@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 16:25:09 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:21:21 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ t_shellcmd	*create_shellnode(char **command)
 		return (NULL);
 	while(command[i])
 		i++;
-	node->command = ft_calloc((i + 1) * sizeof(char **), 1);
-	node->command[i] = NULL;
+	node->command = ft_calloc((i + 1) , sizeof(char *));
 	i = 0;
 	while (command[i])
 	{
