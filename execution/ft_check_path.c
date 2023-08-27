@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 14:59:27 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:49:30 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 	{
 		if (execve(s, cmd->command, newenv) == -1)
 		{
+			
 			strerror(errno);
 			status_exit = 1;
+			exit(127);
 		}
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		status_exit =  WEXITSTATUS(status);
-	free(s);
-	ft_freearr(newenv);
+	// free(s);
+	// ft_freearr(newenv);
 }
 
 void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )

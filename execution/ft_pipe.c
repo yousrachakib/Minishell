@@ -6,54 +6,45 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 15:57:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:20:15 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
+void    ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 {
-	int	pipfd[2];
-	int	pid;
+    int    pipfd[2];
+    int    pid;
+    // int status;
 
-	if (pipe(pipfd) == -1)
-	{
-		ft_pipe_erreur();
-		return ;
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		ft_printf("minishell: %e\n", strerror(errno));
-		status_exit = 1;
-		return ;
-	}
-	if(cmd->error_flag == 1)
-		return;
-	else
-	{
-		if (cmd->fd_in != -2 && cmd->fd_in != 0)
-		{
-			close(pipfd[0]);
-			pipfd[0] = cmd->fd_in;
-		}
-		if (cmd->fd_out != -2 && cmd->fd_out != 1)
-		{
-			close(pipfd[1]);
-			pipfd[1] = cmd->fd_out;
-		}
-	}
-	if (pid == 0)
-	{
-		close(pipfd[0]);
-		dup2(pipfd[1], STDOUT_FILENO);
-		pipe_exec_cmd(cmd, shellenv);
-		// dup2(pipfd[0], STDIN_FILENO);
-		// close(pipfd[1]);
-		exit(0);
-	}
-	ft_close_fd(cmd, pipfd);
+    if (pipe(pipfd) == -1)
+    {
+        ft_pipe_erreur();
+        return ;
+    }
+    pid = fork();
+    if (pid == -1)
+    {
+        ft_printf("minishell: %e\n", strerror(errno));
+        status_exit = 1;
+        return ;
+    }
+    if(cmd->error_flag == 1)
+        return;
+    if (pid == 0)
+    {
+        if (cmd->fd_in != -2 && cmd->fd_in != 0)
+            dup2(cmd->fd_in,0);
+        if (cmd->fd_out != -2 && cmd->fd_out != 1)
+            dup2(cmd->fd_out,1);
+        close(pipfd[0]);
+        dup2(pipfd[1], STDOUT_FILENO);
+        close(pipfd[1]);
+        pipe_exec_cmd(cmd, shellenv);
+        exit(0);
+    }
+    ft_close_fd(cmd, pipfd);
 }
 
 void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])

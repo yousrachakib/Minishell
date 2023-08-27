@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:04:33 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 19:08:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:37:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,13 @@ void	ft_freearr(char **s)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if(s[i])
 			free(s[i++]);
 	}
 	if(s)
 		free(s);
-	s = NULL;
 }
 
 void	ft_erreur_access(char *path, char *cmd )
