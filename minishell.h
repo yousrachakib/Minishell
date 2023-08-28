@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 16:22:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:39:15 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <limits.h>
 #include <sys/stat.h>
 # include <signal.h>
+# include <sys/ioctl.h>
 
 extern int	status_exit;
 

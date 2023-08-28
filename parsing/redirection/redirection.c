@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 16:11:59 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:20:54 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 			{
 				if (current->command[i + 1] && current->command[i][0] == '<' && current->command[i][1] != '<')
 				{
+					if (current->fd_in != -2)
+						close(current->fd_in);
 					current->fd_in = open(current->command[i + 1], O_RDONLY);
 					if (current->fd_in == -1)
 					{
@@ -73,6 +75,8 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 				}
 				if (current->command[i + 1] && current->command[i][0] == '>')
 				{ 
+					if (current->fd_out != -2)
+						close(current->fd_out);
 					current->fd_out = open(current->command[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 					remove_redirandfilename(current->command[i]);
 					remove_redirandfilename(current->command[i + 1]);
@@ -85,6 +89,8 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 				}
 				if ((current->command[i + 1] && current->command[i][0] == '>' && current->command[i][1] == '>'))
 				{
+					if (current->fd_out != -2)
+						close(current->fd_out);
 					current->fd_out = open(current->command[i + 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
 					remove_redirandfilename(current->command[i]);
 					remove_redirandfilename(current->command[i + 1]);
@@ -94,6 +100,12 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 						perror("cuteshell ");
 						break;
 					} 
+				}
+				if (current->command[i + 1] == NULL)
+				{
+					current->error_flag = 1;
+					ft_putstr_fd("cuteshell : No such file or directory\n", 2);
+					break ;
 				}
 			}
 			i++;

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 16:29:31 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 17:12:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ char	*creat_filename(void)
 	free(name);
 	return (name2);
 }
-
+void	herdoc_ctrlc(int sig)
+{
+	(void)sig;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	ioctl(0, TIOCSTI, "\4");
+}
 void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 {
 	char	*input;
@@ -32,12 +38,15 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 	char	*filename;
 
 	filename = creat_filename();
+	if (list->fd_out != -2)
+		close(list->fd_out);
 	list->fd_in = open(filename, O_WRONLY | O_CREAT, 0777);
 	if (list->fd_in == -1)
 		ft_putstr_fd("Error file not found", 2);
 	while (1)
 	{
 		input = readline(">");
+		signal(SIGINT, herdoc_ctrlc);
 		if ( input && tofind && ft_strcmp(input, tofind) != 0)
 		{
 			temp = here_doc_expand(env, input, var);
