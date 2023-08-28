@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 20:43:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:09:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	check_and_apply(t_shellcmd *list)
 	while (tmp)
 	{
 		temp = copy2(tmp->command);
+		ft_freearr(tmp->command);
 		tmp->command = temp;
+		// ft_freearr(temp);
 		tmp = tmp->next;
 	}
 }
@@ -91,13 +93,13 @@ void	free_finallist(t_shellcmd **command)
 		next = tmp;
 		tmp = tmp->next;
 		
-		if (next->command && next->command[0])
+		// if (next->command && next->command[0])
 			ft_freearr(next->command);
 		if(next)
-			// free(next);
+			free(next);
 		next = NULL;
 	}
-	// free(command);
+	free(command);
 	command = NULL;
 }
 
@@ -129,7 +131,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		signal(SIGINT, controlc);
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			break ;
+			exit (status_exit);
 		if (verify_emptystring(input) == 1)
 		{
 			free(input);
@@ -159,7 +161,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		int i = 0;
 		while (splitedcmd[i])
 		{
-			splitedcmd2 = ft_split(splitedcmd[i], ' '); // free after
+			splitedcmd2 = ft_split(splitedcmd[i], ' ');
 			addback_shellnode(list, create_shellnode(splitedcmd2));
 			ft_freearr(splitedcmd2);
 			i++;
@@ -177,7 +179,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
-		ft_execution(tmp_list, &env);
+		// ft_execution(tmp_list, &env);
 		free_finallist(list);
 		// *list = NULL;
 		free(input);

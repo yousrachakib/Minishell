@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 19:17:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:22:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-
+void free_expandstruct(t_expand	*var);
 void	free_list(t_cmd **command);
 void	ft_putstr_fd(char *str, int fd);
 int	ft_strlen(char *str);

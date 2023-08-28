@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/24 21:23:46 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:11:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    findredirection(t_env *env, t_shellcmd   *command, 	t_expand	*var)
 					if (current->fd_in == -1)
 					{
 						current->error_flag = 1;
-						perror("cuteshell ");
+						perror("cuteshell :");
 						break;
 					}
 					remove_redirandfilename(current->command[i]);

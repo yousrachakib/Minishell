@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 15:11:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:29:31 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 			free(input);
 		}
 		else
+		{
+			free(input);
 			break ;
+		}
 	}
 	close(list->fd_in);
     list->fd_in = open(filename, O_RDONLY , 0644);
     if (list->fd_in == -1)
         ft_putstr_fd("Error file not found", 2);
+	free(filename);
 }
 
 void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var)
