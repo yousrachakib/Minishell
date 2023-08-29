@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 20:49:30 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:35:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 	char		**newenv;
 
 	newenv = ft_envirenment(shellenv);
-	if(find(cmd->command[0])== 0)
+	if(cmd->command && find(cmd->command[0])== 0)
 	{
 		ft_directory(cmd->command[0], cmd, newenv);
 		return;
@@ -73,7 +73,7 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 
 int	find(char *s)
 {
-	while (*s)
+	while (s && *s)
 	{
 		if (*s == '/')
 			return (0);

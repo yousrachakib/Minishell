@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 16:39:15 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:12:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_expand
 	int		j;
 	int		k;
 	int		end;
+	int		count;
 	int		start;
 	char	*temp;
 	char	*input;
@@ -147,6 +148,13 @@ char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 int	verify_emptystring(char *str);
 void	fill_heredoc_var(t_cmd	**command);
 void	init_expand(t_expand	*var);
+void    startcmparing(t_env *currentenv, t_expand   *var);
+void	dollar_herdoc_case(t_cmd	*currentcmd, t_expand	*var);
+int	check_dolar(char *input);
+void	exit_status_case(t_expand	*var);
+void	expand_loop(t_env *envlist, t_cmd	*currentcmd, t_expand	*var);
+void	expand_partone(t_cmd	*currentcmd, t_env	*envlist, t_expand	*var);
+
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/

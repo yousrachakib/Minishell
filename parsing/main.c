@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 17:17:46 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:46:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,9 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			continue ;
 		}
 		fill_heredoc_var(command);
-		check_and_expand(env,(*command), var);
+		check_and_expand(env, (*command), var);
 		firstcommand = join_commands((*command));
 		splitedcmd = ft_split(firstcommand, '|');
-		fixing_garbage_value(splitedcmd);
 		set_nonvalidcommand(splitedcmd);
 		free(firstcommand);
 		firstcommand = NULL;
@@ -175,13 +174,15 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		{
 			i = 0;
 			while (tmp_list->command[i])
-				printf("|%s|\n", tmp_list->command[i++]);
+			{
+				fixing_garbage_value(tmp_list->command);
+				printf("******|%s|\n", tmp_list->command[i++]);
+			}
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
-		ft_execution(tmp_list, &env);
+		// ft_execution(tmp_list, &env);
 		free_finallist(list);
-		// *list = NULL;
 		free(input);
 	}
 }
@@ -203,7 +204,7 @@ int	main(int ac, char **av, char **env)
 	// 	env_null(&env_list);
 	// else
 	creat_env_struct(env, &env_list);
-	// printf("\033[2J\033[1;1H");
+	printf("\033[2J\033[1;1H");
 	ft_readline(input, &command, env_list, &var);
 	return (0);
 }

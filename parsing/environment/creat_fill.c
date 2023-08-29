@@ -6,16 +6,16 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:49:43 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 15:43:15 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:40:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void update_shelllvl(t_env **env)
+void	update_shelllvl(t_env **env)
 {
 	t_env	*tmp;
-	int i;
+	int		i;
 
 	tmp = *env;
 	i = 0;

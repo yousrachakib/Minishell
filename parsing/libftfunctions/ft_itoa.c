@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 00:18:39 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 20:29:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:36:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	*ft_itoa(int n)
 	int		len;
 	char	*ptr;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
 	if (n == 0)
 		return (ft_strdup("0"));
 	else if (n < 0)

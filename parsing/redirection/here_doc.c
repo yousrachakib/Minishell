@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/28 17:12:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 18:50:22 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ char	*creat_filename(void)
 	free(name);
 	return (name2);
 }
-void	herdoc_ctrlc(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	ioctl(0, TIOCSTI, "\4");
-}
+
 void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 {
 	char	*input;
@@ -46,13 +40,13 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 	while (1)
 	{
 		input = readline(">");
-		signal(SIGINT, herdoc_ctrlc);
-		if ( input && tofind && ft_strcmp(input, tofind) != 0)
+		if (input && tofind && ft_strcmp(input, tofind) != 0)
 		{
 			temp = here_doc_expand(env, input, var);
 			free(input);
 			input = temp;
 			ft_putstr_fd(input, list->fd_in);
+			printf(">>>>>%s<<<<<<\n", input);
 			ft_putstr_fd("\n", list->fd_in);
 			free(input);
 		}
@@ -63,9 +57,9 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 		}
 	}
 	close(list->fd_in);
-    list->fd_in = open(filename, O_RDONLY , 0644);
-    if (list->fd_in == -1)
-        ft_putstr_fd("Error file not found", 2);
+	list->fd_in = open(filename, O_RDONLY, 0644);
+	if (list->fd_in == -1)
+		ft_putstr_fd("Error file not found", 2);
 	free(filename);
 }
 
@@ -80,9 +74,10 @@ void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var)
 		i = 0;
 		while (temp->command[i])
 		{
-			if (temp->command[i][0] == '<' && temp->command[i][1] == '<' && temp->command[i + 1])
+			if (temp->command[i][0] == '<' && \
+			temp->command[i][1] == '<' && temp->command[i + 1])
 			{
-				handle_heredoc(env, list ,temp->command[i + 1], var);
+				handle_heredoc(env, list, temp->command[i + 1], var);
 				remove_redirandfilename(temp->command[i]);
 				remove_redirandfilename(temp->command[i + 1]);
 			}

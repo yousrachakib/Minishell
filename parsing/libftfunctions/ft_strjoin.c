@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:55:10 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/26 20:20:47 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 13:37:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	free(s1);
-	ptr[i + j] = '\0';
 	return (ptr);
 }

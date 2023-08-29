@@ -3,3 +3,25 @@
 > ''
 shell lvl
 cat | cat | cat | ls 
+
+cuteshell$> touch file
+******|touch|
+******|file|
+cuteshell$> chmod 000 file
+******|chmod|
+******|000|
+******|file|
+cuteshell$> ./file
+******|./file|
+cuteshell$> echo $?
+******|echo|
+******|127|
+127 
+cuteshell$> 
+cuteshell$> cat
+******|cat|
+^Ccuteshell$> echo $?
+******|echo|
+******|0|
+0 
+cuteshell$> 
