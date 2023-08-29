@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 20:02:30 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:39:20 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ char *tofind, t_expand *var)
 	char	*filename;
 
 	filename = creat_filename();
-	// if (list->fd_out != -2)
-	// 	close(list->fd_out);
 	list->fd_in = open(filename, O_WRONLY | O_CREAT, 0777);
 	if (list->fd_in == -1)
 		ft_putstr_fd("Error file not found", 2);

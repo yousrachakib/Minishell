@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 14:44:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:48:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	ft_path_erreur(char *cmd)
 	}
 	else if (access(cmd, X_OK))
 	{
-		ft_putstr_fd("permission denied\n", 2);
+		ft_putstr_fd("Minishell :", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(" : permission!! denied\n", 2);
 		status_exit = 126;
+		return;
 	}
 }
 
@@ -41,6 +44,7 @@ void	ft_directory(char *s, t_shellcmd *cmd, char	**newenv)
 	{
 		if (S_ISREG(path_stat.st_mode))
 		{
+			ft_path_erreur(cmd->command[0]);
 			ft_creefork(cmd->command[0], cmd, newenv);
 				return;
 		}

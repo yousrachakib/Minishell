@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 19:45:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:40:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	remove_redirandfilename(char *command)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (command[i])
 	{
 		command[i] = '#';

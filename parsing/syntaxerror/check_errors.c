@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:04:29 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 17:46:54 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:40:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int	redirection_error(t_cmd *list)
 	temp = list;
 	if (temp->next && temp->next->type == t_space)
 		temp = temp->next;
-	if (temp->next && (temp->next->type == t_word || temp->next->type == t_singlequote \
+	if (temp->next && (temp->next->type == t_word || \
+		temp->next->type == t_singlequote \
 		|| temp->next->type == t_doublequote))
 		return (0);
 	else
