@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 18:46:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:18:05 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
-		// ft_execution(tmp_list, &env);
+		ft_execution(tmp_list, &env);
 		free_finallist(list);
 		free(input);
 	}

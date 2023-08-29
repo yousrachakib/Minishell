@@ -33,6 +33,7 @@ SRC = parsing/main.c \
 	parsing/redirection/utils.c \
 	parsing/redirection/here_doc.c \
 	parsing/redirection/here_doc_expand.c \
+	parsing/redirection/normredirection.c \
 	execution/ft_execution.c \
 	execution/ft_pipe.c \
 	execution/builtins/ft_env.c \

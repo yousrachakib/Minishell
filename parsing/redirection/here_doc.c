@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 18:50:22 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:02:30 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,27 @@ char	*creat_filename(void)
 	return (name2);
 }
 
-void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
+void	aplly_partone(t_shellcmd *list, char *input, t_expand *var, t_env *env)
+{
+	char	*temp;
+
+	temp = here_doc_expand(env, input, var);
+	free(input);
+	input = temp;
+	ft_putstr_fd(input, list->fd_in);
+	ft_putstr_fd("\n", list->fd_in);
+	free(input);
+}
+
+void	handle_heredoc(t_env *env, t_shellcmd *list, \
+char *tofind, t_expand *var)
 {
 	char	*input;
-	char	*temp;
 	char	*filename;
 
 	filename = creat_filename();
-	if (list->fd_out != -2)
-		close(list->fd_out);
+	// if (list->fd_out != -2)
+	// 	close(list->fd_out);
 	list->fd_in = open(filename, O_WRONLY | O_CREAT, 0777);
 	if (list->fd_in == -1)
 		ft_putstr_fd("Error file not found", 2);
@@ -41,15 +53,7 @@ void	handle_heredoc(t_env *env, t_shellcmd *list, char *tofind, t_expand *var)
 	{
 		input = readline(">");
 		if (input && tofind && ft_strcmp(input, tofind) != 0)
-		{
-			temp = here_doc_expand(env, input, var);
-			free(input);
-			input = temp;
-			ft_putstr_fd(input, list->fd_in);
-			printf(">>>>>%s<<<<<<\n", input);
-			ft_putstr_fd("\n", list->fd_in);
-			free(input);
-		}
+			aplly_partone(list, input, var, env);
 		else
 		{
 			free(input);

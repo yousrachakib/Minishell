@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 13:12:24 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:46:06 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,11 @@ int	check_dolar(char *input);
 void	exit_status_case(t_expand	*var);
 void	expand_loop(t_env *envlist, t_cmd	*currentcmd, t_expand	*var);
 void	expand_partone(t_cmd	*currentcmd, t_env	*envlist, t_expand	*var);
-
+int	outappnd(t_shellcmd *current, int i);
+int	error_quotation_after_symbole(t_shellcmd *current, int i);
+int	check_redirection_cases(t_shellcmd *current, int i);
+int	output_case(t_shellcmd	*current, int i);
+int	input_case(t_shellcmd	*current, int i);
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/
