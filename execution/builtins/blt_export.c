@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:00:51 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 19:34:46 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:48:11 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,29 @@ int	ft_change_env(char **key, t_env *current, int flag)
 			if (flag == 2 && key[1])
 			{
 				new_value = NULL;
-				if (current->value == NULL)
-					current->value = ft_strdup("");
-				new_value = ft_strjoin(current->value, key[1]);
-				current->value = new_value;
+				ft_change(current, key, new_value);
 			}
 			else
 			{
+				free(current->value);
 				current->value = key[1];
+				free(key[0]);
 			}
 			flag = 1;
+			free(key);
+			break ;
 		}
 		current = current->next;
 	}
 	return (flag);
+}
+
+void	ft_change(t_env *current, char **key, char *new_value)
+{
+	if (current->value == NULL)
+		current->value = ft_strdup("");
+	new_value = ft_strjoin(current->value, key[1]);
+	free(key[1]);
+	current->value = new_value;
+	free(key[0]);
 }

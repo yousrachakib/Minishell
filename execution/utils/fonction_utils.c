@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:04:33 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 20:37:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:14:31 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_envirenment(t_env *shellenv)
 	{
 		key = my_strjoin(shellenv->key, "=");
 		env[i] = my_strjoin(key, shellenv->value);
-		// free(key);
+		free(key);
 		i++;
 		shellenv = shellenv->next;
 	}
@@ -66,18 +66,15 @@ void	ft_freearr(char **s)
 	i = 0;
 	while (s && s[i])
 	{
-		if(s[i])
+		if (s[i])
 			free(s[i++]);
 	}
-	if(s)
+	if (s)
 		free(s);
 }
 
 void	ft_erreur_access(char *path, char *cmd )
 {
 	(void)path;
-	ft_message_erreur("minishell :", cmd + 1, " :command not found \n");
-	status_exit = 126;
-	// free(cmd);
-	// free(path);
+	ft_message_erreur("minishell :", cmd + 1, " :command not found \n", 126);
 }
