@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 20:18:05 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:44:42 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			while (tmp_list->command[i])
 			{
 				fixing_garbage_value(tmp_list->command);
-				printf("******|%s|\n", tmp_list->command[i++]);
+				i++;
+				// printf("******|%s|\n", tmp_list->command[i++]);
 			}
 			tmp_list = tmp_list->next;
 		}
@@ -194,8 +195,13 @@ int	main(int ac, char **av, char **env)
 	t_cmd	*command;
 	t_expand	var;
 
-	(void)ac;
 	(void)av;
+	if ( ac > 1)
+		return (printf("cuteshell: No such file or directory\n"), 1);
+	char *tmp = malloc(0);
+	if (!tmp)
+		return (1);
+	free(tmp);
 	status_exit = 0;
 	command = NULL;
 	input = NULL;

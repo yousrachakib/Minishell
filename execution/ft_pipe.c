@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 16:38:06 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:15:04 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,26 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	ft_close_fd(cmd, pipfd);
 }
 
+char	*pathget(t_shellcmd *cmd, char **newenv, t_env **shellenv)
+{
+	char	*str;
+
+	str = git_path(*shellenv);
+	if (find(cmd->command[0]) == 0)
+	{
+		ft_creefork(cmd->command[0], cmd, newenv);
+		return (NULL);
+	}
+	if (str == NULL)
+	{
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd(" :No such file or directory\n", 2);
+		status_exit = 127;
+		exit(0);
+	}
+	return (str);
+}
+
 void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 {
 	char	*str;
@@ -61,25 +81,7 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	}
 }
 
-char	*pathget(t_shellcmd *cmd, char **newenv, t_env **shellenv)
-{
-	char	*str;
 
-	str = git_path(*shellenv);
-	if (find(cmd->command[0]) == 0)
-	{
-		ft_creefork(cmd->command[0], cmd, newenv);
-		return (NULL);
-	}
-	if (str == NULL)
-	{
-		ft_putstr_fd(cmd->command[0], 2);
-		ft_putstr_fd(" :No such file or directory\n", 2);
-		status_exit = 127;
-		exit(0);
-	}
-	return (str);
-}
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {

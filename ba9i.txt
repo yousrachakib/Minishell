@@ -25,3 +25,9 @@ cuteshell$> cat
 ******|0|
 0 
 cuteshell$> 
+
+
+ls >> tets
+
+ env -i ./minishell
+ 

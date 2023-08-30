@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 19:46:06 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:21:12 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,12 +224,18 @@ void	handler_c(int signo);
 void	ft_file(t_shellcmd *cmd, int pipfd[2]);
 void	ft_close_fd(t_shellcmd *cmd, int pipfd[2]);
 void    ft_directory(char *s, t_shellcmd *cmd, char     **newenv);
-void	ft_message_erreur(char *s1, char *s2, char *s3);
+void	ft_message_erreur(char *s1, char *s2, char *s3, int status);
 void	ft_erreur_access(char *path, char *cmd);
 void	ft_path_erreur(char *cmd);
 char	*ft_home(t_shellcmd *cmd, t_env **env);
 void	ft_pipe_erreur();
 int		find(char *s);
 // void	ft_chech_derectory(char *s, t_shellcmd *cmd, char	**newenv);
+void	direction(t_shellcmd *cmd, char *s, char **newenv);
+void	ft_stat(char *command, t_shellcmd *cmd, char	**newenv);
+int	exit_child(int status);
+char	*ft_direction(t_shellcmd *cmd, char **newenv, t_env *shellenv);
+void	ft_chercher(t_shellcmd *cmd, t_env **env, int j);
+void	ft_change(t_env *current, char **key, char *new_value);
 #endif
 
