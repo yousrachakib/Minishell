@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 20:40:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	statustype(char *str)
 {
 	ft_printf("%e: numeric argument required\n", str);
-	status_exit = 255;
-	return (status_exit);
+	g_j.status_exit = 255;
+	return (g_j.status_exit);
 }
 
 int	ft_atoi(char *str)
@@ -51,5 +51,5 @@ int	ft_atoi(char *str)
 void	ft_pipe_erreur(void)
 {
 	perror("an error with opening the pipe\n");
-	status_exit = 1;
+	g_j.status_exit = 1;
 }

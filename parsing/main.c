@@ -6,16 +6,12 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/30 21:44:42 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:46 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../minishell.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-
-int status_exit;
 
 void	check_and_apply(t_shellcmd *list)
 {
@@ -131,7 +127,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		signal(SIGINT, controlc);
 		input = readline("cuteshell$> ");
 		if (input == NULL)
-			exit (status_exit);
+			exit (g_j.status_exit);
 		if (verify_emptystring(input) == 1)
 		{
 			free(input);
@@ -202,7 +198,7 @@ int	main(int ac, char **av, char **env)
 	if (!tmp)
 		return (1);
 	free(tmp);
-	status_exit = 0;
+	g_j.status_exit = 0;
 	command = NULL;
 	input = NULL;
 	env_list = NULL;

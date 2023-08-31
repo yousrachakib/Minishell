@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:17:30 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 18:39:46 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int	ft_echo(t_shellcmd *cmd)
 		}
 	}
 	ft_print_new_ln(&cmd->command[i], flag);
-	status_exit = 0;
-	return (status_exit);
+	g_j.status_exit = 0;
+	return (g_j.status_exit);
 }

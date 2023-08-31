@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 21:37:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	env_null(t_env **env)
 // 		rl_on_new_line();
 // 		rl_replace_line("", 0);
 // 		rl_redisplay();
-// 		status_exit = 1;
+// 		g_j.status_exit = 1;
 // 	}
 // }
 // changer Makefile 

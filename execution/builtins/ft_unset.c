@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 21:06:29 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_chercher(t_shellcmd *cmd, t_env **env, int j)
 	{
 		ft_printf("minishell: %e: %e: %e\n", cmd->command[0],
 			cmd->command[j], "not a valid identifier");
-		status_exit = 1;
+		g_j.status_exit = 1;
 	}
 	else
 	{

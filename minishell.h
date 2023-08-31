@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/30 21:21:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:16 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,16 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 
-extern int	status_exit;
+// extern int	status_exit;
+
+typedef struct s_zdef
+{
+	int	signal;
+	int	status_exit;
+} t_zdef;
+
+t_zdef g_j;
+
 
 typedef enum s_type
 {

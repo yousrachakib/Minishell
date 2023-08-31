@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 21:15:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	if (pid == -1)
 	{
 		ft_printf("minishell: %e\n", strerror(errno));
-		status_exit = 1;
+		g_j.status_exit = 1;
 		return ;
 	}
 	if (cmd->error_flag == 1)
@@ -54,7 +54,7 @@ char	*pathget(t_shellcmd *cmd, char **newenv, t_env **shellenv)
 	{
 		ft_putstr_fd(cmd->command[0], 2);
 		ft_putstr_fd(" :No such file or directory\n", 2);
-		status_exit = 127;
+		g_j.status_exit = 127;
 		exit(0);
 	}
 	return (str);
@@ -77,7 +77,7 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	if (execve(s, cmd->command, newenv) == -1)
 	{
 		strerror(errno);
-		status_exit = 1;
+		g_j.status_exit = 1;
 	}
 }
 

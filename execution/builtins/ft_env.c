@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:31:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/18 19:28:54 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_env(t_env *env, t_shellcmd *cmd)
 	{
 		ft_printf("%e : %e : %e\n", "env",
 			cmd->command[1], "No such file or directory" );
-		status_exit = 127;
+		g_j.status_exit = 127;
 		return ;
 	}
 	while (env)

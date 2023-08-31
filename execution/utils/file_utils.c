@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 17:42:44 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	ft_path_erreur(char *cmd)
 	if (access(cmd, F_OK))
 	{
 		ft_putstr_fd("command not found\n", 2);
-		status_exit = 127;
+		g_j.status_exit = 127;
 	}
 	else if (access(cmd, X_OK))
 	{
 		ft_putstr_fd("permission denied\n", 2);
-		status_exit = 126;
+		g_j.status_exit = 126;
 	}
 }
 
@@ -31,7 +31,7 @@ void	ft_message_erreur(char *s1, char *s2, char *s3, int status)
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(s2, 2);
 	ft_putstr_fd(s3, 2);
-	status_exit = status;
+	g_j.status_exit = status;
 }
 
 void	ft_directory(char *s, t_shellcmd *cmd, char	**newenv)
@@ -69,7 +69,7 @@ void	ft_stat(char *command, t_shellcmd *cmd, char	**newenv)
 		ft_putstr_fd("Minishell :", 2);
 		ft_putstr_fd(command, 2);
 		ft_putstr_fd(" : permission denied\n", 2);
-		status_exit = 126;
+		g_j.status_exit = 126;
 	}
 	else
 		ft_creefork(command, cmd, newenv);

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:44:54 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 18:34:35 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exit_status_case(t_expand	*var)
 	if (var->input && var->input[var->i] == '$' && var->input[var->i + 1] \
 	&& var->input[var->i + 1] == '?')
 	{
-		tmp = ft_itoa(status_exit);
+		tmp = ft_itoa(g_j.status_exit);
 		if (!tmp)
 			exit(1);
 		indx = 0;
