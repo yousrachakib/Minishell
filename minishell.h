@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:04:38 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:43:03 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,5 +259,6 @@ int	exit_child(int status);
 char	*ft_direction(t_shellcmd *cmd, char **newenv, t_env *shellenv);
 void	ft_chercher(t_shellcmd *cmd, t_env **env, int j);
 void	ft_change(t_env *current, char **key, char *new_value);
+void	check_malloc(void *ptr);
 #endif
 

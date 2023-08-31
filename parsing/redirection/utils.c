@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 21:38:55 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 17:52:24 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:48:37 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char *copy(char *old)
     int j = 0;
     char *new;
     new = ft_calloc(ft_strlen(old) + 1, 3);
+	check_malloc(new);
     while (old[i])
     {
         if (!checkredirection(old[i]))

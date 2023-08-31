@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/26 18:48:40 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:49:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*ft_strdup(char *s1)
 		return (NULL);
 	len = ft_strlen(s1);
 	ptr = ft_calloc(sizeof(char) * (len + 1), 1);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	while (i < len)
 	{
 		ptr[i] = s1[i];
@@ -50,8 +49,7 @@ char	*ft_substr(char *input,int start,int len)
 		ptr = (char *)ft_calloc(sizeof(char) * (ft_strlen(input) + 1), 1);
 	else
 		ptr = (char *)ft_calloc(sizeof(char) * (len + 1), 1);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	while (input[++i])
 	{
 		if (i >= start && j < len)
@@ -75,8 +73,7 @@ t_cmd	**tokenizer(char *input)
 
 	i = 0;
 	command_list = ft_calloc(sizeof(t_cmd *), 1);
-	if (!command_list)
-		return (NULL);
+	check_malloc(command_list);
 	*command_list = NULL;
 	while (input[i])
 	{

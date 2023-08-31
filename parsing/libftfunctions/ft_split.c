@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 21:04:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 13:37:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:46:57 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static	char	*ft_word(char *s, char c, char **word)
 
 	count = ft_count_word(s, c);
 	*word = ft_calloc((count + 1) * sizeof(char), 1);
-	if (!word)
-		return (0);
+	check_malloc(*word);
 	(*word)[count] = 0;
 	i = 0;
 	while (i < count)

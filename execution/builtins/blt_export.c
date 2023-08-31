@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:00:51 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 15:48:11 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 00:28:57 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 	char	**key;
 
 	key = (char **)ft_calloc(3, sizeof(char *));
-	if (!key)
-		return (0);
-	key[2] = NULL;
+	check_malloc(key);
 	if (current->flag == 2)
 	{
 		key[0] = ft_substr(command, 0, j);
@@ -27,10 +25,8 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 	}
 	else if (current->flag != 2)
 		key[0] = ft_substr(command, 0, j);
-	if (command[j] == '=' && current->flag != 2)
+	if (command[j] == '=' && current->flag != 2)	
 		key[1] = ft_substr(command, j + 1, (ft_strlen(command) - j));
-	if (command[j] == '=' && command[j + 1] == '\0')
-		key[1] = ft_strdup("");
 	else if (command[j] == '\0')
 	{
 		key[1] = NULL;

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:20:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:51:28 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	controlc(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		g_j.status_exit = 1;
 	}
 }
 void	free_filelist(void)
@@ -170,8 +171,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		free(firstcommand);
 		firstcommand = NULL;
 		list = ft_calloc(sizeof(t_shellcmd *), 1);
-		if (!list)
-			return ;
+		check_malloc(list);
 		int i = 0;
 		while (splitedcmd[i])
 		{
@@ -195,8 +195,8 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			while (tmp_list->command[i])
 			{
 				fixing_garbage_value(tmp_list->command);
-				// i++;
-				printf("******|%s|\n", tmp_list->command[i++]);
+				i++;
+				// printf("******|%s|\n", tmp_list->command[i++]);
 			}
 			tmp_list = tmp_list->next;
 		}
@@ -208,13 +208,21 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 	}
 }
 
+void	check_malloc(void *ptr)
+{
+	if(!ptr)
+	{
+		ft_putstr_fd("Malloc ERROR\n", 2);
+		exit(1);
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	t_env	*env_list;
 	t_cmd	*command;
 	t_expand	var;
-
 
 	(void)av;
 	if ( ac > 1)

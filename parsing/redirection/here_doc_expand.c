@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:24:57 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 19:55:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:48:09 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ char	*here_doc_expand(t_env *env, char *input, t_expand *var)
 {
 	init_expand(var);
 	var->temp = ft_calloc(ft_strlen(input) + 1, 10000);
+	check_malloc(var->temp);
 	var->input = ft_strdup(input);
-	if (!var->temp)
-		return (NULL);
+	check_malloc(var->input);
 	while (input[var->i])
 	{
 		var->k = 0;

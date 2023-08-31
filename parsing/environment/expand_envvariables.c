@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:23:05 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 13:32:20 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:46:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	check_and_expand(t_env *envlist, t_cmd *commandlist, t_expand	*var)
 	{
 		var->input = ft_strdup(currentcmd->input);
 		var->temp = ft_calloc(100000, 1);
-		if (!var->temp)
-			return ;
+		check_malloc(var->temp);
 		expand_loop(envlist, currentcmd, var);
 		free(currentcmd->input);
 		currentcmd->input = NULL;

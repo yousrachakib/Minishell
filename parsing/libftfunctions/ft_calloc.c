@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:06:27 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 20:37:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:44:47 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*ptr;
 
 	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	ft_bzero(ptr, count * size);
 	return (ptr);
 }

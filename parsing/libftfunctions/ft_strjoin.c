@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:55:10 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 13:37:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:47:15 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	ptr = (char *)ft_calloc(len * sizeof(char), 1);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	i = 0;
 	while (s1[i] != '\0')
 	{

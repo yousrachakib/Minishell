@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   my_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:36:11 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/27 14:38:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:44:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*my_strjoin(char *s1, char *s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	ptr = (char *)malloc(sizeof(char) * (len + 1));
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	i = 0;
 	j = 0;
 	while (s1[i])

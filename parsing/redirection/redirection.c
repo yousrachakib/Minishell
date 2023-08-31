@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:29:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:48:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	**copy2(char **command)
 	while (command[i])
 		i++;
 	tmp = ft_calloc(sizeof(char **), i + 1);
-	if (!tmp)
-		return (NULL);
+	check_malloc(tmp);
 	i = 0;
 	while (command[i])
 	{

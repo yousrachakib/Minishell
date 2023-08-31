@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/27 19:21:21 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:49:07 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_cmd	*create_node(char *splited_input, t_type type)
 	t_cmd	*node;
 
 	node = ft_calloc(sizeof(t_cmd), 1);
-	if (!node)
-		return (NULL);
+	check_malloc(node);
+
 	node->input = splited_input;
 	node->type = type;
 	node->flag_var = 0;
@@ -33,11 +33,11 @@ t_shellcmd	*create_shellnode(char **command)
 	t_shellcmd	*node;
     int i = 0;
 	node = ft_calloc(sizeof(t_shellcmd), 1);
-	if (!node)
-		return (NULL);
+	check_malloc(node);
 	while(command[i])
 		i++;
 	node->command = ft_calloc((i + 1) , sizeof(char *));
+	check_malloc(node->command);
 	i = 0;
 	while (command[i])
 	{

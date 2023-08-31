@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fonction_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 17:04:33 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 17:14:31 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:45:21 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	**ft_envirenment(t_env *shellenv)
 	if (cnt <= 1)
 		return (NULL);
 	env = (char **)ft_calloc(cnt, sizeof(char *));
-	if (!env)
-		return (NULL);
+	check_malloc(env);
 	i = 0;
 	while (shellenv->next != NULL && i < cnt)
 	{
