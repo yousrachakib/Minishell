@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:46 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:20:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,25 @@ void	controlc(int sig)
 		rl_redisplay();
 	}
 }
+void	free_filelist(void)
+{
+	t_file	*next;
+	t_file	*tmp;
+
+	tmp = g_j.k;
+	while (tmp)
+	{
+		next = tmp;
+		tmp = tmp->next;
+		unlink(next->filename);
+		free(next->filename);
+		if(next)
+			free(next);
+		next = NULL;
+	}
+	g_j.k = NULL;
+}
+
 void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 {
 	char	*firstcommand;
@@ -120,9 +139,6 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 	rl_catch_signals = 0;
 	while (1)
 	{
-		list = ft_calloc(sizeof(t_shellcmd *), 1);
-		if (!list)
-			return ;
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, controlc);
 		input = readline("cuteshell$> ");
@@ -153,6 +169,9 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		set_nonvalidcommand(splitedcmd);
 		free(firstcommand);
 		firstcommand = NULL;
+		list = ft_calloc(sizeof(t_shellcmd *), 1);
+		if (!list)
+			return ;
 		int i = 0;
 		while (splitedcmd[i])
 		{
@@ -164,7 +183,11 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		free_list(command);
 		ft_freearr(splitedcmd);
 		set_backnonvalidcommand(*list);
-		findredirection(env,*list, var);
+		if (findredirection(env,*list, var) == 1)
+		{
+			free_finallist(list);
+			continue ;
+		}
 		t_shellcmd *tmp_list = *list;
 		while (tmp_list)
 		{
@@ -172,14 +195,15 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 			while (tmp_list->command[i])
 			{
 				fixing_garbage_value(tmp_list->command);
-				i++;
-				// printf("******|%s|\n", tmp_list->command[i++]);
+				// i++;
+				printf("******|%s|\n", tmp_list->command[i++]);
 			}
 			tmp_list = tmp_list->next;
 		}
 		tmp_list = *list;
 		ft_execution(tmp_list, &env);
 		free_finallist(list);
+		free_filelist();
 		free(input);
 	}
 }
@@ -191,6 +215,7 @@ int	main(int ac, char **av, char **env)
 	t_cmd	*command;
 	t_expand	var;
 
+
 	(void)av;
 	if ( ac > 1)
 		return (printf("cuteshell: No such file or directory\n"), 1);
@@ -199,6 +224,7 @@ int	main(int ac, char **av, char **env)
 		return (1);
 	free(tmp);
 	g_j.status_exit = 0;
+	g_j.k = NULL;
 	command = NULL;
 	input = NULL;
 	env_list = NULL;

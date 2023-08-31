@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:26:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 19:48:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:31:35 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,13 @@ int	outappnd_case(t_shellcmd *current, int i)
 	return (0);
 }
 
-int	error_quotation_after_symbole(t_shellcmd *current, int i)
-{
-	if (current->command[i + 1] == NULL)
-	{
-		current->error_flag = 1;
-		ft_putstr_fd("cuteshell : No such file or directory\n", 2);
-		return (1);
-	}
-	return (0);
-}
-
 int	check_redirection_cases(t_shellcmd *current, int i)
 {
 	if (input_case(current, i) == 1)
 		return (1);
-	if (output_case(current, i) == 1)
-		return (1);
 	if (outappnd_case(current, i) == 1)
 		return (1);
-	if (error_quotation_after_symbole(current, i) == 1)
+	if (output_case(current, i) == 1)
 		return (1);
 	return (0);
 }

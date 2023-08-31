@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:16 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:04:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,17 @@
 
 // extern int	status_exit;
 
+typedef struct s_file
+{
+	char	*filename;
+	struct  s_file *next;
+}	t_file;
+
 typedef struct s_zdef
 {
 	int	signal;
 	int	status_exit;
+	t_file *k;
 } t_zdef;
 
 t_zdef g_j;
@@ -67,6 +74,9 @@ typedef struct s_expand
 	char	*input;
 	char	*keytosearch;
 }	t_expand;
+
+
+
 
 typedef struct s_shellcmd
 {
@@ -132,7 +142,7 @@ char	*ft_strchr(char *s, int c);
 char	*ft_strncpy(char *dest, char *src,int n);
 char *retrieve_value(char *line);
 char	*ft_strdup(char *s1);
-void    findredirection(t_env *env,t_shellcmd   *command, 	t_expand	*var);
+int    findredirection(t_env *env,t_shellcmd   *command, 	t_expand	*var);
 void    creat_env_struct(char **environment, t_env **env_list);
 int		ft_strcmp(char *str1,char *str2);
 void	check_and_expand(t_env  *envlist, t_cmd *commandlist, t_expand	*var);
@@ -152,7 +162,7 @@ t_shellcmd	*create_shellnode(char **command);
 void set_nonvalidcommand(char **command);
 char	**copy2(char **command);
 void	check_and_apply(t_shellcmd *list);
-void	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
+int	find_here_doc(t_env *env, t_shellcmd *list, t_expand *var);
 char    *here_doc_expand(t_env   *env, char *input, t_expand *var);
 int	verify_emptystring(char *str);
 void	fill_heredoc_var(t_cmd	**command);
@@ -168,6 +178,9 @@ int	error_quotation_after_symbole(t_shellcmd *current, int i);
 int	check_redirection_cases(t_shellcmd *current, int i);
 int	output_case(t_shellcmd	*current, int i);
 int	input_case(t_shellcmd	*current, int i);
+void	addback_filenode(t_file **head, t_file *newnode);
+t_file	*create_filenode(char *filename);
+
 /*****************************************************************************/
 /*                              execution                                    */
 /*****************************************************************************/

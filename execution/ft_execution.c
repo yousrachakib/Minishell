@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:19:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 	return (0);
 }
 
+void	handlequit(int sig)
+{
+	(void)sig;
+	printf("^Quit: 3");
+}
+
 void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
 	int		tmp_fd_in;
@@ -75,6 +81,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 		env_null(shellenv);
 	if (cmd == NULL || !cmd->command[0])
 		return ;
+	signal(SIGQUIT, handlequit);
 	while (cmd->next != NULL)
 	{
 		ft_pipe(cmd, shellenv);

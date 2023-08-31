@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 20:40:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:29:41 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,21 @@ int	output_case(t_shellcmd	*current, int i)
 	return (0);
 }
 
-void	findredirection(t_env *env, t_shellcmd *command, t_expand	*var)
+int	findredirection(t_env *env, t_shellcmd *command, t_expand	*var)
 {
 	t_shellcmd	*current;
 	int			i;
 
-	find_here_doc(env, command, var);
+	if (find_here_doc(env, command, var) == 1)
+		return (1);
 	current = command;
 	while (current)
 	{
 		i = 0;
+		g_j.signal = 0;
 		while (current->command[i])
 		{
-			if (current->command[i][0] == '>' || \
-			current->command[i][0] == '<' || (current->command[i][0] == '>' && \
-			current->command[i][1] == '>'))
+			if ((current->command[i][0] == '>' || current->command[i][0] == '<' || (current->command[i][0] == '>' && current->command[i][1] == '>') )&& (current->command[i + 1]))
 				if (check_redirection_cases(current, i) == 1)
 					break ;
 			i++;
@@ -109,4 +109,5 @@ void	findredirection(t_env *env, t_shellcmd *command, t_expand	*var)
 		current = current->next;
 	}
 	check_and_apply(command);
+	return (0);
 }
