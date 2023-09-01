@@ -1,0 +1,111 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   norm_main.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/01 14:25:27 by yochakib          #+#    #+#             */
+/*   Updated: 2023/09/01 17:41:33 by yochakib         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+void	check_malloc(void *ptr)
+{
+	if(!ptr)
+	{
+		ft_putstr_fd("Malloc ERROR\n", 2);
+		exit(1);
+	}
+}
+
+void	controlc(int sig)
+{
+	(void)sig;
+	if (waitpid(0, NULL, WNOHANG))
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	g_j.status_exit = 1;
+}
+
+void	free_filelist(void)
+{
+	t_file	*next;
+	t_file	*tmp;
+
+	tmp = g_j.k;
+	while (tmp)
+	{
+		next = tmp;
+		tmp = tmp->next;
+		unlink(next->filename);
+		free(next->filename);
+		if (next)
+			free(next);
+		next = NULL;
+	}
+	g_j.k = NULL;
+}
+
+char	**step_one(t_cmd **command, t_env	*env, t_expand *var)
+{
+	char	*firstcommand;
+	char	**splitedcmd;
+
+	fill_heredoc_var(command);
+	check_and_expand(env, (*command), var);
+	firstcommand = join_commands((*command));
+	splitedcmd = ft_split(firstcommand, '|');
+	set_nonvalidcommand(splitedcmd);
+	free(firstcommand);
+	return (splitedcmd);
+}
+void	step_two(t_shellcmd	**list)
+{
+	t_shellcmd	*tmp_list;
+	int			i;
+
+	tmp_list = *list;
+	while (tmp_list)
+	{
+		i = 0;
+		while (tmp_list->command[i++])
+			fixing_garbage_value(tmp_list->command);
+		tmp_list = tmp_list->next;
+	}
+}
+
+void	step_three(t_shellcmd **list, t_env **env, char *input)
+{
+	t_shellcmd	*tmp_list;
+
+	tmp_list = *list;
+	ft_execution(tmp_list, env);
+	free_finallist(list);
+	free_filelist();
+	free(input);
+}
+
+void	step_four(char **splitedcmd, t_shellcmd **list, t_cmd **command)
+{
+	int			i;
+	char		**splitedcmd2;
+
+	i = 0;
+	while (splitedcmd[i])
+	{
+		splitedcmd2 = ft_split(splitedcmd[i], ' ');
+		addback_shellnode(list, create_shellnode(splitedcmd2));
+		ft_freearr(splitedcmd2);
+		i++;
+	}
+	free_list(command);
+	ft_freearr(splitedcmd);
+	set_backnonvalidcommand(*list);
+}

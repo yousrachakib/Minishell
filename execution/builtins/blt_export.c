@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:00:51 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 12:30:18 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:07:37 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 	else if (command[j] == '\0')
 	{
 		key[1] = NULL;
-		current->flag = 0;
+		if (current->flag != 3)
+			current->flag = 0;
 	}
 	return (key);
 }
@@ -50,8 +51,10 @@ int	ft_change_env(char **key, t_env *current, int flag)
 			}
 			else
 			{
-				free(current->value);
-				current->value = key[1];
+				if (flag != 3)
+					free(current->value);
+				if (flag != 3)
+					current->value = key[1];
 				free(key[0]);
 			}
 			flag = 1;

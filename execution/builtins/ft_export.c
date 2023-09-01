@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 00:29:40 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:03:03 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ int	modifier_env(t_env **env, char *command)
 		}
 		j++;
 	}
+	if (!command[j])
+		current->flag = 3;
 	key = check_plusegal_cmd(current, command, j);
 	if (ft_change_env(key, current, current->flag) == 1)
 		return (0);

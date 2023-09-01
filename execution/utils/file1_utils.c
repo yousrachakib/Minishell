@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file1_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:23:48 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/30 17:43:07 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:59:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	find(char *s)
 
 void	ft_file(t_shellcmd *cmd, int pipfd[2])
 {
+	close(pipfd[0]);
+	dup2(pipfd[1], STDOUT_FILENO);
+	close(pipfd[1]);
 	if (cmd->fd_in != -2 && cmd->fd_in != 0)
 		dup2(cmd->fd_in, 0);
 	if (cmd->fd_out != -2 && cmd->fd_out != 1)
 		dup2(cmd->fd_out, 1);
-	close(pipfd[0]);
-	dup2(pipfd[1], STDOUT_FILENO);
-	close(pipfd[1]);
 }
 
 void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:14:15 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:49:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	aplly_partone(t_shellcmd *list, char *input, t_expand *var, t_env *env)
 	ft_putstr_fd("\n", list->fd_in);
 	free(input);
 }
+
 void	signalher(int sig)
 {
 	(void)sig;
@@ -57,29 +58,18 @@ void	signalher(int sig)
 int	handle_heredoc(t_env *env, t_shellcmd *list, \
 char *tofind, t_expand *var)
 {
-	char	*input;
 	char	*filename;
 
 	filename = creat_filename();
 	if (list->fd_in != -2)
 		close(list->fd_in);
-	list->fd_in = open(filename, O_WRONLY | O_CREAT|O_APPEND, 0777);
+	list->fd_in = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (list->fd_in == -1)
 		return (ft_putstr_fd("Error file not found", 2), free(filename), 2);
 	signal(SIGINT, signalher);
-	while (1)
-	{
-		input = readline(">");
-		if (input && tofind && ft_strcmp(input, tofind) != 0)
-			aplly_partone(list, input, var, env);
-		else
-		{
-			free(input);
-			break ;
-		}
-	}
+	herdoc_loop(list, tofind, var, env);
 	if (g_j.signal == 1)
-		return (free(filename), 1);
+		return (close(list->fd_in), free(filename), 1);
 	close(list->fd_in);
 	if (list->fd_in != -2)
 		close(list->fd_in);

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:26:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:31:35 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:03:32 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,22 @@ int	check_redirection_cases(t_shellcmd *current, int i)
 	if (output_case(current, i) == 1)
 		return (1);
 	return (0);
+}
+
+void	herdoc_loop(t_shellcmd *list, char *tofind, \
+t_expand *var, t_env	*env)
+{
+	char	*input;
+
+	while (1)
+	{
+		input = readline(">");
+		if (input && tofind && ft_strcmp(input, tofind) != 0)
+			aplly_partone(list, input, var, env);
+		else
+		{
+			free(input);
+			break ;
+		}
+	}
 }

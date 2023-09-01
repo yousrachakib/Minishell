@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 12:53:55 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:01:49 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	t_env	*current;
 	int		i;
 
+	g_j.status_exit = 0;
 	i = 0;
 	current = *shellenv;
 	tmp_fd_in = dup(0);
@@ -80,7 +81,11 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	signal(SIGQUIT, handlequit);
 	while (cmd->next != NULL)
 	{
-		ft_pipe(cmd, shellenv);
+		if (ft_pipe(cmd, shellenv))
+		{
+			cmd->error_flag = 1;
+			break ;
+		}
 		cmd = cmd->next;
 	}
 	suite_execution(cmd, shellenv);
@@ -111,13 +116,8 @@ void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 void	env_null(t_env **env)
 {
 	t_env	*current; 
-	char	*key[0];
-	char	*valeur[0];
 
-	current = *env;
-	valeur[0] = "";
-	key[0] = "";
-	current = create_envnode(ft_strdup(key[0]), ft_strdup(valeur[0]));
+	current = create_envnode(ft_strdup(""), ft_strdup(""));
 	addback_envnode(env, current);
 	current->flag_env = 5;
 }

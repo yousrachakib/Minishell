@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:49:48 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:22:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strdup(char *s1)
 	return (ptr);
 }
 
-char	*ft_substr(char *input,int start,int len)
+char	*ft_substr(char *input, int start, int len)
 {
 	int		i;
 	int		j;

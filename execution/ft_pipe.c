@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 12:29:38 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:12:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
+int	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 {
 	int	pipfd[2];
 	int	pid;
@@ -20,17 +20,17 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	if (pipe(pipfd) == -1)
 	{
 		ft_pipe_erreur();
-		return ;
+		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
 		ft_printf("minishell: %e\n", strerror(errno));
 		g_j.status_exit = 1;
-		return ;
+		return (1);
 	}
 	if (cmd->error_flag == 1)
-		return ;
+		return (1);
 	if (pid == 0)
 	{
 		ft_file(cmd, pipfd);
@@ -38,6 +38,7 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 		exit(0);
 	}
 	ft_close_fd(cmd, pipfd);
+	return (0);
 }
 
 char	*pathget(t_shellcmd *cmd, char **newenv, t_env **shellenv)

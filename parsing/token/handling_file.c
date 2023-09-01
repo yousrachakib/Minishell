@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/29 13:23:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:22:46 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	handle_singleq(char *input, int *i, t_cmd **head)
 	if (input[j] == '\'')
 	{
 		j++;
-		while (input[j] !='\'')
+		while (input[j] != '\'')
 			j++;
 	}
 	res = ft_substr(input, ((*i) + 1), j - (*i) - 1);
@@ -106,7 +106,7 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	if (input[j] == '\"')
 	{
 		j++;
-		while (input[j] !='\"')
+		while (input[j] != '\"')
 			j++;
 	}
 	res = ft_substr(input, ((*i) + 1), j - (*i) - 1);

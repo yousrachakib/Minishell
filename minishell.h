@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 13:50:03 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:42:00 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,19 @@ int		output_case(t_shellcmd	*current, int i);
 int		input_case(t_shellcmd	*current, int i);
 void	addback_filenode(t_file **head, t_file *newnode);
 t_file	*create_filenode(char *filename);
+void	herdoc_loop(t_shellcmd *list, char *tofind, \
+t_expand *var, t_env	*env);
 t_shellcmd	*create_shellnode(char **command);
+void	aplly_partone(t_shellcmd *list, char *input, t_expand *var, t_env *env);
+void	controlc(int sig);
+char	**step_one(t_cmd **command, t_env	*env, t_expand *var);
+void	free_filelist(void);
+void	step_two(t_shellcmd	**list);
+void	step_three(t_shellcmd **list, t_env **env, char *input);
+void	step_four(char **splitedcmd, t_shellcmd **list, t_cmd **command);
+void	fixing_garbage_value(char **cmd);
+void	free_finallist(t_shellcmd **command);
+void	set_backnonvalidcommand(t_shellcmd *list);
 
 /*****************************************************************************/
 /*                              execution                                    */
@@ -221,7 +233,7 @@ int		countnodes(t_env *head);
 void	sighandler(int sig);
 void	ft_freearr(char **s);
 int		ft_change_env(char **key, t_env *current, int flag);
-void	ft_pipe(t_shellcmd *cmd, t_env **shellenv);
+int		ft_pipe(t_shellcmd *cmd, t_env **shellenv);
 void	ft_getpath(t_shellcmd *cmd, t_env **shellenv);
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv);
 int		checkkeyexport(char *str);

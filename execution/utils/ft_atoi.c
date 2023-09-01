@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 12:30:51 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:58:22 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int	statustype(char *str)
 
 int	ft_atoi(char *str)
 {
-	int			i;
-	int			sign;
-	long long	res;
-	long long	save;
+	int					i;
+	int					sign;
+	unsigned long long	res;
 
 	i = 0;
 	sign = 1;
@@ -39,9 +38,9 @@ int	ft_atoi(char *str)
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
-		save = res;
 		res = (res * 10) + (str[i] - 48);
-		if (res / 10 != save)
+		if ((res > 9223372036854775807U && sign == 1)
+			|| (sign == -1 && res > 9223372036854775808U))
 			return (statustype(str));
 		i++;
 	}

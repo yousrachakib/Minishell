@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:07:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_creefork(char *s, t_shellcmd *cmd, char **newenv)
 	if (pid == -1)
 	{
 		ft_putstr_fd("Erreur lors de fork()\n", 2);
-		exit(EXIT_FAILURE);
+		g_j.status_exit = 1;
+		return ;
 	}
 	else if (pid == 0)
 	{

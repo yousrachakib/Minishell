@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 21:50:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:58:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_exit(t_shellcmd *cmd)
 		exit (0);
 	while (cmd->command[1][++i])
 	{
-		if (ft_isalpha(cmd->command[1][i]))
+		if (!ft_isdigit(cmd->command[1][i]))
 		{
 			ft_printf("%e :%e : %e : %e", "minishell", cmd->command[0],
 				cmd->command[1], "numeric argument required\n");

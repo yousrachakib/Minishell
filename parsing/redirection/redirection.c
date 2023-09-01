@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 23:28:58 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:48:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:10:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ int	findredirection(t_env *env, t_shellcmd *command, t_expand	*var)
 		g_j.signal = 0;
 		while (current->command[i])
 		{
-			if ((current->command[i][0] == '>' || current->command[i][0] == '<' || (current->command[i][0] == '>' && current->command[i][1] == '>') )&& (current->command[i + 1]))
+			if ((current->command[i][0] == '>' || current->command[i][0] == '<' \
+			|| (current->command[i][0] == '>' && \
+			current->command[i][1] == '>')) && (current->command[i + 1]))
 				if (check_redirection_cases(current, i) == 1)
 					break ;
 			i++;
