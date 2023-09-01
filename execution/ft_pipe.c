@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 12:29:38 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 		g_j.status_exit = 1;
 	}
 }
-
-
 
 void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 {

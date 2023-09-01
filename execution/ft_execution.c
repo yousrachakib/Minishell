@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 23:19:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 12:53:55 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,15 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 	return (0);
 }
 
-void	handlequit(int sig)
-{
-	(void)sig;
-	printf("^Quit: 3");
-}
-
 void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
 	int		tmp_fd_in;
 	int		tmp_fd_out;
 	int		status;
 	t_env	*current;
+	int		i;
 
+	i = 0;
 	current = *shellenv;
 	tmp_fd_in = dup(0);
 	tmp_fd_out = dup(1);
@@ -88,11 +84,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 		cmd = cmd->next;
 	}
 	suite_execution(cmd, shellenv);
-	dup2(tmp_fd_in, 0);
-	close(tmp_fd_in);
-	dup2(tmp_fd_out, 1);
-	close(tmp_fd_out);
-	int i = 0;
+	dup_close(tmp_fd_in, tmp_fd_out);
 	while (wait(&status) != -1)
 		i++;
 }
@@ -129,34 +121,3 @@ void	env_null(t_env **env)
 	addback_envnode(env, current);
 	current->flag_env = 5;
 }
-
-/*parsing*/ 
-
-// seg ===== > ls << asdas
-
-//********//
-
-// dans cette cas (ls < lkj > out et cat < evhvhds)
-// if (tmp_list->fd_in == -2 || tmp_list->fd_out == -2)
-			//return ;
-//*******//
-//ajouter dans partier parsing
-// main ===> 
-// current->hanlder_c = 0;
-// signal(SIGINT, handler_c);
-// void handler_c(int signo)
-// {
-// 	t_env var;
-// 	(void)signo;
-// 	if(!(var.hanlder_c))
-// 		return;
-// 	if (signo == SIGINT)
-// 	{
-// 		ft_putstr_fd("\n",1);
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 		g_j.status_exit = 1;
-// 	}
-// }
-// changer Makefile 

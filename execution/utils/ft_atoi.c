@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 12:30:51 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ void	ft_pipe_erreur(void)
 {
 	perror("an error with opening the pipe\n");
 	g_j.status_exit = 1;
+}
+
+void	handlequit(int sig)
+{
+	(void)sig;
+	printf("^Quit: 3");
+}
+
+void	dup_close(int tmp_fd_in, int tmp_fd_out)
+{
+	dup2(tmp_fd_in, 0);
+	close(tmp_fd_in);
+	dup2(tmp_fd_out, 1);
+	close(tmp_fd_out);
 }
