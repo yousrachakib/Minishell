@@ -11,6 +11,8 @@ NAME = minishell
 SRC = parsing/main.c \
 	parsing/utils_minishell.c \
 	parsing/norm_main.c \
+	parsing/lastnormfile.c \
+	parsing/anothernormfile.c \
 	parsing/syntaxerror/check_errors.c \
 	parsing/syntaxerror/print_errorfunctions.c \
 	parsing/syntaxerror/syntaxerror.c \

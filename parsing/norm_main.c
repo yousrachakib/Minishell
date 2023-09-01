@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 14:25:27 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 17:41:33 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:47:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_malloc(void *ptr)
 {
-	if(!ptr)
+	if (!ptr)
 	{
 		ft_putstr_fd("Malloc ERROR\n", 2);
 		exit(1);
@@ -66,20 +66,6 @@ char	**step_one(t_cmd **command, t_env	*env, t_expand *var)
 	free(firstcommand);
 	return (splitedcmd);
 }
-void	step_two(t_shellcmd	**list)
-{
-	t_shellcmd	*tmp_list;
-	int			i;
-
-	tmp_list = *list;
-	while (tmp_list)
-	{
-		i = 0;
-		while (tmp_list->command[i++])
-			fixing_garbage_value(tmp_list->command);
-		tmp_list = tmp_list->next;
-	}
-}
 
 void	step_three(t_shellcmd **list, t_env **env, char *input)
 {
@@ -90,22 +76,4 @@ void	step_three(t_shellcmd **list, t_env **env, char *input)
 	free_finallist(list);
 	free_filelist();
 	free(input);
-}
-
-void	step_four(char **splitedcmd, t_shellcmd **list, t_cmd **command)
-{
-	int			i;
-	char		**splitedcmd2;
-
-	i = 0;
-	while (splitedcmd[i])
-	{
-		splitedcmd2 = ft_split(splitedcmd[i], ' ');
-		addback_shellnode(list, create_shellnode(splitedcmd2));
-		ft_freearr(splitedcmd2);
-		i++;
-	}
-	free_list(command);
-	ft_freearr(splitedcmd);
-	set_backnonvalidcommand(*list);
 }

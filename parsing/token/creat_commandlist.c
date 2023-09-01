@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 17:24:52 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 14:21:32 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:51:25 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_cmd	*create_node(char *splited_input, t_type type)
 
 	node = ft_calloc(sizeof(t_cmd), 1);
 	check_malloc(node);
-
 	node->input = splited_input;
 	node->type = type;
 	node->flag_var = 0;

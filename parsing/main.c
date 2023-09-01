@@ -6,27 +6,11 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 17:41:44 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:49:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
-
-void	check_and_apply(t_shellcmd *list)
-{
-	t_shellcmd	*tmp;
-	char		**temp;
-
-	tmp = list;
-	while (tmp)
-	{
-		temp = copy2(tmp->command);
-		ft_freearr(tmp->command);
-		tmp->command = temp;
-		tmp = tmp->next;
-	}
-}
 
 void	set_backnonvalidcommand(t_shellcmd *list)
 {
@@ -100,65 +84,18 @@ void	free_finallist(t_shellcmd **command)
 	command = NULL;
 }
 
-void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
-{
-	char		**splitedcmd;
-	t_shellcmd	**list;
-
-	rl_catch_signals = 0;
-	while (1)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, controlc);
-		input = readline("Minishell$> ");
-		if (input == NULL)
-			exit (g_j.status_exit);
-		if (verify_emptystring(input) == 1)
-		{
-			free(input);
-			continue ;
-		}
-		add_history(input);
-		command = tokenizer(input);
-		if (!command)
-		{
-			free(input);
-			continue ;
-		}
-		if (syntaxerror(command) == 1)
-		{
-			free_list(command);
-			free(input);
-			continue ;
-		}
-		splitedcmd = step_one(command, env, var);
-		list = ft_calloc(sizeof(t_shellcmd *), 1);
-		check_malloc(list);
-		step_four(splitedcmd, list, command);
-		if (findredirection(env,*list, var) == 1)
-		{
-			free_finallist(list);
-			free_filelist();
-			free(input);
-			g_j.signal = 0;
-			continue ;
-		}
-		step_two(list);
-		step_three(list, &env, input);
-	}
-}
-
 int	main(int ac, char **av, char **env)
 {
-	char	*input;
-	t_env	*env_list;
-	t_cmd	*command;
+	char		*input;
+	t_env		*env_list;
+	t_cmd		*command;
 	t_expand	var;
+	char		*tmp;
 
 	(void)av;
-	if ( ac > 1)
-		return (printf("cuteshell: No such file or directory\n"), 1);
-	char *tmp = malloc(0);
+	if (ac > 1)
+		return (printf("Minishell: No such file or directory\n"), 1);
+	tmp = malloc(0);
 	if (!tmp)
 		return (1);
 	free(tmp);
@@ -167,9 +104,6 @@ int	main(int ac, char **av, char **env)
 	command = NULL;
 	input = NULL;
 	env_list = NULL;
-	// if(!*env)
-	// 	env_null(&env_list);
-	// else
 	creat_env_struct(env, &env_list);
 	printf("\033[2J\033[1;1H");
 	ft_readline(input, &command, env_list, &var);

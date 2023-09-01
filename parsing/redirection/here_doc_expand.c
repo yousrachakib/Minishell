@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:24:57 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 16:48:17 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:51:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ char	*here_doc_expand(t_env *env, char *input, t_expand *var)
 		if (var->input[var->i])
 			var->i++;
 	}
-	free(var->input);// TODO: check this
+	free(var->input);
 	return (var->temp);
 }

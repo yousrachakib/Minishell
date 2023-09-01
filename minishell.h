@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 17:42:00 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:45:38 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,14 @@ void	step_four(char **splitedcmd, t_shellcmd **list, t_cmd **command);
 void	fixing_garbage_value(char **cmd);
 void	free_finallist(t_shellcmd **command);
 void	set_backnonvalidcommand(t_shellcmd *list);
+void	signal_step(void);
+void	ctrl_d(char *input);
+int		emptyline_step(char *input);
+int		syntaxerror_step(t_cmd **command, char *input);
+int		redirection_step(t_env *env, t_shellcmd **list, \
+t_expand *var, char *input);
+int		test_fail(t_cmd **command, char *input);
+void 	do_twosteps(t_shellcmd **list, t_env *env, char *input);
 
 /*****************************************************************************/
 /*                              execution                                    */
