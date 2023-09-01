@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 19:45:38 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:21:01 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,4 +270,8 @@ void	ft_change(t_env *current, char **key, char *new_value);
 void	check_malloc(void *ptr);
 void	dup_close(int tmp_fd_in, int tmp_fd_out);
 void	handlequit(int sig);
+void	ft_check_k(t_shellcmd *cmd);
+void	suite_change(char **key, t_env *current, int flag);
+void	ft_add(t_env *env, t_env	*tmp_env);
+void check_export(t_env	*current, char *command);
 #endif

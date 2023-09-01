@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blt_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:00:51 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 18:07:37 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 20:45:53 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,11 @@ char	**check_plusegal_cmd(t_env *current, char *command, int j)
 
 int	ft_change_env(char **key, t_env *current, int flag)
 {
-	char	*new_value;
-
 	while (current)
 	{
 		if (!ft_strncmp(key[0], current->key, ft_strlen(key[0]) + 1))
 		{
-			if (flag == 2 && key[1])
-			{
-				new_value = NULL;
-				ft_change(current, key, new_value);
-			}
-			else
-			{
-				if (flag != 3)
-					free(current->value);
-				if (flag != 3)
-					current->value = key[1];
-				free(key[0]);
-			}
+			suite_change(key, current, flag);
 			flag = 1;
 			free(key);
 			break ;
@@ -74,4 +60,23 @@ void	ft_change(t_env *current, char **key, char *new_value)
 	free(key[1]);
 	current->value = new_value;
 	free(key[0]);
+}
+
+void	suite_change(char **key, t_env *current, int flag)
+{
+	char	*new_value;
+
+	if (flag == 2 && key[1])
+	{
+		new_value = NULL;
+		ft_change(current, key, new_value);
+	}
+	else
+	{
+		if (flag != 3)
+			free(current->value);
+		if (flag != 3)
+			current->value = key[1];
+		free(key[0]);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 19:01:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:16:40 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
 	int		tmp_fd_in;
 	int		tmp_fd_out;
-	int		status;
 	t_env	*current;
 	int		i;
 
@@ -76,9 +75,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	tmp_fd_out = dup(1);
 	if (current == NULL)
 		env_null(shellenv);
-	if (cmd == NULL || !cmd->command[0])
-		return ;
-	signal(SIGQUIT, handlequit);
+	ft_check_k(cmd);
 	while (cmd->next != NULL)
 	{
 		if (ft_pipe(cmd, shellenv))
@@ -90,8 +87,6 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 	}
 	suite_execution(cmd, shellenv);
 	dup_close(tmp_fd_in, tmp_fd_out);
-	while (wait(&status) != -1)
-		i++;
 }
 
 void	suite_execution(t_shellcmd *cmd, t_env **shellenv)

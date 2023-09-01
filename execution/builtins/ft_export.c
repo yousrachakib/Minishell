@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 18:03:03 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:32:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	modifier_env(t_env **env, char *command)
 	current = *env;
 	current->flag = 0;
 	j = 0;
-	while (command[j] != '\0')
+	while (command[j++] != '\0')
 	{
 		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
 		{
@@ -127,7 +127,6 @@ int	modifier_env(t_env **env, char *command)
 				current->flag = 2;
 			break ;
 		}
-		j++;
 	}
 	if (!command[j])
 		current->flag = 3;
