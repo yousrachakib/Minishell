@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lastnormfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:46:18 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 19:50:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:08:35 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 		step_four(splitedcmd, list, command);
 		if (redirection_step(env, list, var, input) == 1)
 			continue ;
-		do_twosteps(list, env, input);
+		do_twosteps(list, &env, input);
 	}
 }
 

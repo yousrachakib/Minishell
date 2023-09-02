@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 17:09:21 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:04:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_stat(char *command, t_shellcmd *cmd, char	**newenv)
 		ft_putstr_fd(command, 2);
 		ft_putstr_fd(" : permission denied\n", 2);
 		g_j.status_exit = 126;
+		ft_freearr(newenv);
 	}
 	else
 		ft_creefork(command, cmd, newenv);

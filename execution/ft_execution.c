@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 21:16:40 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:56:06 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,20 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 
 void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
-	int		tmp_fd_in;
-	int		tmp_fd_out;
+	int		tmp_fd[2];
 	t_env	*current;
 	int		i;
 
 	g_j.status_exit = 0;
 	i = 0;
 	current = *shellenv;
-	tmp_fd_in = dup(0);
-	tmp_fd_out = dup(1);
+	tmp_fd[0] = dup(0);
+	tmp_fd[1] = dup(1);
 	if (current == NULL)
 		env_null(shellenv);
-	ft_check_k(cmd);
+	if (cmd == NULL || !cmd->command[0])
+		return ;
+	signal(SIGQUIT, handlequit);
 	while (cmd->next != NULL)
 	{
 		if (ft_pipe(cmd, shellenv))
@@ -86,7 +87,7 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 		cmd = cmd->next;
 	}
 	suite_execution(cmd, shellenv);
-	dup_close(tmp_fd_in, tmp_fd_out);
+	dup_close(tmp_fd[0], tmp_fd[1]);
 }
 
 void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
@@ -110,7 +111,7 @@ void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 
 void	env_null(t_env **env)
 {
-	t_env	*current; 
+	t_env	*current;
 
 	current = create_envnode(ft_strdup(""), ft_strdup(""));
 	addback_envnode(env, current);

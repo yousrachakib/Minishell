@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 09:18:46 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 17:10:06 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:31:20 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ void	ft_chercher(t_shellcmd *cmd, t_env **env, int j)
 	{
 		s = cmd->command[j];
 		curr = *env;
-		while (curr && ft_strncmp(curr->key, s, ft_strlen(curr->key) + 1))
+		while (curr)
 		{
-			if (curr->next == NULL)
+			if (ft_strncmp(curr->key, s, ft_strlen(curr->key) + 1) == 0)
+			{
+				ft_bltunset(curr, env);
 				return ;
+			}
 			curr = curr->next;
 		}
-		ft_bltunset(curr, env);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 21:42:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:10:35 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int			syntaxerror_step(t_cmd **command, char *input);
 int			redirection_step(t_env *env, t_shellcmd **list, \
 t_expand	*var, char *input);
 int			test_fail(t_cmd **command, char *input);
-void		do_twosteps(t_shellcmd **list, t_env *env, char *input);
+void		do_twosteps(t_shellcmd **list, t_env **env, char *input);
 
 /*****************************************************************************/
 /*                              execution                                    */
