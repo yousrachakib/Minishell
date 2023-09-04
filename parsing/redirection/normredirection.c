@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:26:46 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 14:03:32 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/04 13:28:54 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_expand *var, t_env	*env)
 
 	while (1)
 	{
-		input = readline(">");
+		input = readline("> ");
 		if (input && tofind && ft_strcmp(input, tofind) != 0)
 			aplly_partone(list, input, var, env);
 		else
