@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 20:40:05 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:33:45 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 int	statustype(char *str)
 {
 	ft_printf("%e: numeric argument required\n", str);
-	status_exit = 255;
-	return (status_exit);
+	g_j.status_exit = 255;
+	return (g_j.status_exit);
 }
 
 int	ft_atoi(char *str)
 {
-	int			i;
-	int			sign;
-	long long	res;
-	long long	save;
+	int					i;
+	int					sign;
+	unsigned long long	res;
 
 	i = 0;
 	sign = 1;
@@ -39,9 +38,9 @@ int	ft_atoi(char *str)
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
-		save = res;
 		res = (res * 10) + (str[i] - 48);
-		if (res / 10 != save)
+		if ((res > 9223372036854775807U && sign == 1)
+			|| (sign == -1 && res > 9223372036854775808U))
 			return (statustype(str));
 		i++;
 	}
@@ -51,5 +50,25 @@ int	ft_atoi(char *str)
 void	ft_pipe_erreur(void)
 {
 	perror("an error with opening the pipe\n");
-	status_exit = 1;
+	g_j.status_exit = 1;
+}
+
+void	handlequit(int sig)
+{
+	(void)sig;
+	printf("^Quit: 3");
+}
+
+void	dup_close(int tmp_fd_in, int tmp_fd_out)
+{
+	int	status;
+	int	i;
+
+	i = 0;
+	dup2(tmp_fd_in, 0);
+	close(tmp_fd_in);
+	dup2(tmp_fd_out, 1);
+	close(tmp_fd_out);
+	while (wait(&status) != -1)
+		i++;
 }

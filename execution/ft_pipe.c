@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:08:22 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/26 15:00:48 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:12:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
+int	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 {
 	int	pipfd[2];
 	int	pid;
@@ -20,53 +20,45 @@ void	ft_pipe(t_shellcmd *cmd, t_env **shellenv)
 	if (pipe(pipfd) == -1)
 	{
 		ft_pipe_erreur();
-		return ;
+		return (1);
 	}
 	pid = fork();
 	if (pid == -1)
 	{
 		ft_printf("minishell: %e\n", strerror(errno));
-		status_exit = 1;
-		return ;
+		g_j.status_exit = 1;
+		return (1);
 	}
-	ft_file(cmd, pipfd);
+	if (cmd->error_flag == 1)
+		return (1);
 	if (pid == 0)
 	{
-		close(pipfd[0]);
-		dup2(pipfd[1], STDOUT_FILENO);
-		close(pipfd[1]);
+		ft_file(cmd, pipfd);
 		pipe_exec_cmd(cmd, shellenv);
 		exit(0);
 	}
 	ft_close_fd(cmd, pipfd);
+	return (0);
 }
 
-void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])
+char	*pathget(t_shellcmd *cmd, char **newenv, t_env **shellenv)
 {
-	close(cmd->fd_in);
-	close(cmd->fd_out);
-	close(pipfd[1]);
-	dup2(pipfd[0], STDIN_FILENO);
-	close(pipfd[0]);
-}
+	char	*str;
 
-void	ft_file(t_shellcmd *cmd, int pipfd[2])
-{
-	if(cmd->error_flag == 1)
-		return;
-	else
+	str = git_path(*shellenv);
+	if (find(cmd->command[0]) == 0)
 	{
-		if (cmd->fd_in != -2 && cmd->fd_in != 0)
-		{
-			close(pipfd[0]);
-			pipfd[0] = cmd->fd_in;
-		}
-		if (cmd->fd_out != -2 && cmd->fd_out != 1)
-		{
-			close(pipfd[1]);
-			pipfd[1] = cmd->fd_out;
-		}
+		ft_creefork(cmd->command[0], cmd, newenv);
+		return (NULL);
 	}
+	if (str == NULL)
+	{
+		ft_putstr_fd(cmd->command[0], 2);
+		ft_putstr_fd(" :No such file or directory\n", 2);
+		g_j.status_exit = 127;
+		exit(0);
+	}
+	return (str);
 }
 
 void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
@@ -75,30 +67,18 @@ void	ft_getpath(t_shellcmd *cmd, t_env **shellenv)
 	char	**spl;
 	char	*s;
 	char	**newenv;
-	int		i;
 
 	newenv = ft_envirenment(*shellenv);
-	i = 0;
-	str = git_path(*shellenv);
-	if(find(cmd->command[0])== 0)
-	{
-		ft_creefork(cmd->command[0], cmd, newenv);
-		return;
-	}
+	str = pathget(cmd, newenv, shellenv);
 	if (str == NULL)
-	{
-		ft_putstr_fd(cmd->command[0], 2);
-		ft_putstr_fd(" :No such file or directory\n", 2);
-		status_exit = 127;
-		exit(0);
-	}
+		return ;
 	spl = ft_split(str, ':');
-	s = ft_check_path(spl, cmd->command[i]);
+	s = ft_check_path(spl, cmd->command[0]);
 	signal(SIGQUIT, sighandler);
 	if (execve(s, cmd->command, newenv) == -1)
 	{
 		strerror(errno);
-		status_exit = 1;
+		g_j.status_exit = 1;
 	}
 }
 
@@ -107,5 +87,7 @@ void	pipe_exec_cmd(t_shellcmd *cmd, t_env **shellenv)
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else
+	{
 		ft_getpath(cmd, shellenv);
+	}
 }

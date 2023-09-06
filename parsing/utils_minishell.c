@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 18:22:00 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:12:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:50:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ int	is_whitespace(char c)
 
 int	verify_emptystring(char *str)
 {
-	int i  = 0;
+	int	i;
+
+	i = 0;
 	while (str[i] && is_whitespace(str[i]) == 1)
 		i++;
 	if (str[i] == '\0')
 		return (1);
 	return (0);
-	
 }
 
 int	check_quotes(char *input)
@@ -68,8 +69,9 @@ void	word_case(char *input, int *i, t_cmd **head)
 	res = ft_substr(input, (*i), (j - (*i)));
 	if (!res)
 		return ;
-	node = create_node(res, t_word);
+	node = create_node(ft_strdup(res), t_word);
 	(*i) += j - (*i);
+	free(res);
 	addback_node(head, node);
 }
 

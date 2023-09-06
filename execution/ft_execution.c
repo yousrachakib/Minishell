@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/26 12:16:23 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:53:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,35 +63,36 @@ int	ft_exec_builtins(t_shellcmd *cmd, t_env **env)
 
 void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
-	int		tmp_fd_in;
-	int		tmp_fd_out;
-	int		status;
+	int		tmp_fd[2];
 	t_env	*current;
+	int		i;
 
+	i = 0;
 	current = *shellenv;
-	tmp_fd_in = dup(0);
-	tmp_fd_out = dup(1);
-	if(cmd == NULL || !cmd->command || !cmd->command[0] || !cmd->command[0][0])
-		return;
+	tmp_fd[0] = dup(0);
+	tmp_fd[1] = dup(1);
 	if (current == NULL)
 		env_null(shellenv);
+	if (cmd == NULL)
+		return ;
+	signal(SIGQUIT, handlequit);
 	while (cmd->next != NULL)
 	{
-		ft_pipe(cmd, shellenv);
+		if (ft_pipe(cmd, shellenv))
+		{
+			cmd->error_flag = 1;
+			break ;
+		}
 		cmd = cmd->next;
 	}
 	suite_execution(cmd, shellenv);
-	dup2(tmp_fd_in, 0);
-	close(tmp_fd_in);
-	dup2(tmp_fd_out, 1);
-	close(tmp_fd_out);
-	while (wait(&status) != -1);
+	dup_close(tmp_fd[0], tmp_fd[1]);
 }
 
 void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 {
 	if (cmd->error_flag == 1)
-		return;
+		return ;
 	else
 	{
 		if (cmd->fd_in != -2)
@@ -107,45 +108,9 @@ void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 
 void	env_null(t_env **env)
 {
-	t_env	*current; 
-	char	*key[0];
-	char	*valeur[0];
+	t_env	*current;
 
-	current = *env;
-	valeur[0] = "";
-	key[0] = "";
-	current = create_envnode(ft_strdup(key[0]), ft_strdup(valeur[0]));
+	current = create_envnode(ft_strdup(""), ft_strdup(""));
 	addback_envnode(env, current);
 	current->flag_env = 5;
 }
-
-/*parsing*/ 
-
-// seg ===== > ls << asdas
-
-//********//
-
-// dans cette cas (ls < lkj > out et cat < evhvhds)
-// if (tmp_list->fd_in == -2 || tmp_list->fd_out == -2)
-			//return ;
-//*******//
-//ajouter dans partier parsing
-// main ===> 
-// current->hanlder_c = 0;
-// signal(SIGINT, handler_c);
-// void handler_c(int signo)
-// {
-// 	t_env var;
-// 	(void)signo;
-// 	if(!(var.hanlder_c))
-// 		return;
-// 	if (signo == SIGINT)
-// 	{
-// 		ft_putstr_fd("\n",1);
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 		status_exit = 1;
-// 	}
-// }
-// changer Makefile 

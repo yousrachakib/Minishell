@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/16 19:08:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:51:45 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,26 @@
 
 void	ft_oldpwd(t_env *env, char *str)
 {
+	t_env	*tmp;
+
+	tmp = env;
 	while (env)
 	{
-		if (ft_strncmp(env->key, "OLDPWD", 6) == 0)
+		if (ft_strncmp(env->key, "PWD", 4) == 0)
 		{
-			free(env->value);
-			env->value = ft_strdup(str);
+			str = env->value;
+			break ;
 		}
 		env = env->next;
+	}
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->key, "OLDPWD", 6) == 0)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(str);
+		}
+		tmp = tmp->next;
 	}
 }
 
@@ -31,14 +43,15 @@ void	change_pwd(t_shellcmd *cmd, t_env *env)
 	char	pwd[1024];
 
 	(void)cmd;
+	str = NULL;
+	ft_oldpwd(env, str);
 	while (env)
 	{
 		if (ft_strncmp(env->key, "PWD", 4) == 0)
 		{
-			str = env->value;
-			env->value = ft_strdup(getcwd(pwd, sizeof(pwd)));
+			free(env->value);
+			env->value = getcwd(g_j.m, sizeof(pwd));
 		}
 		env = env->next;
 	}
-	ft_oldpwd(env, str);
 }

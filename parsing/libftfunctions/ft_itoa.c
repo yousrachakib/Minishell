@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 00:18:39 by yochakib          #+#    #+#             */
-/*   Updated: 2023/07/28 20:29:58 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:46:44 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ char	*ft_itoa(int n)
 	int		len;
 	char	*ptr;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
 	if (n == 0)
 		return (ft_strdup("0"));
 	else if (n < 0)
@@ -51,8 +49,7 @@ char	*ft_itoa(int n)
 		n = n * (-1);
 		len = ft_count(n) + 1;
 		ptr = ft_calloc(sizeof(char) * len + 1, 1);
-		if (!ptr)
-			return (0);
+		check_malloc(ptr);
 		ft_copy(ptr, n, len);
 		ptr[0] = '-';
 		return (ptr);
@@ -61,8 +58,7 @@ char	*ft_itoa(int n)
 	{
 		len = ft_count(n);
 		ptr = ft_calloc(sizeof(char) * len + 1, 1);
-		if (!ptr)
-			return (0);
+		check_malloc(ptr);
 		ft_copy(ptr, n, len);
 		return (ptr);
 	}

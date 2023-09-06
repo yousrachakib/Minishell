@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:06:27 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/11 18:06:30 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:08:46 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	do_twosteps(t_shellcmd **list, t_env **env, char *input)
+{
+	step_two(list);
+	step_three(list, env, input);
+}
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -31,8 +37,7 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*ptr;
 
 	ptr = malloc(count * size);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	ft_bzero(ptr, count * size);
 	return (ptr);
 }

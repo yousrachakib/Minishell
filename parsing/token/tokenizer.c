@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 21:03:32 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/14 21:35:04 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:22:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ char	*ft_strdup(char *s1)
 		return (NULL);
 	len = ft_strlen(s1);
 	ptr = ft_calloc(sizeof(char) * (len + 1), 1);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	while (i < len)
 	{
 		ptr[i] = s1[i];
@@ -34,7 +33,7 @@ char	*ft_strdup(char *s1)
 	return (ptr);
 }
 
-char	*ft_substr(char *input,int start,int len)
+char	*ft_substr(char *input, int start, int len)
 {
 	int		i;
 	int		j;
@@ -50,8 +49,7 @@ char	*ft_substr(char *input,int start,int len)
 		ptr = (char *)ft_calloc(sizeof(char) * (ft_strlen(input) + 1), 1);
 	else
 		ptr = (char *)ft_calloc(sizeof(char) * (len + 1), 1);
-	if (!ptr)
-		return (NULL);
+	check_malloc(ptr);
 	while (input[++i])
 	{
 		if (i >= start && j < len)
@@ -75,8 +73,7 @@ t_cmd	**tokenizer(char *input)
 
 	i = 0;
 	command_list = ft_calloc(sizeof(t_cmd *), 1);
-	if (!command_list)
-		return (NULL);
+	check_malloc(command_list);
 	*command_list = NULL;
 	while (input[i])
 	{
@@ -87,7 +84,10 @@ t_cmd	**tokenizer(char *input)
 		else if (input[i] && (input[i] == '\"' || input[i] == '\''))
 		{
 			if (quotation_case(input, &i, command_list) == 1)
+			{
+				free_list(command_list);
 				return (NULL);
+			}
 		}
 		else
 			word_case(input, &i, command_list);

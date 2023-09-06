@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 19:27:55 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/07/21 16:05:27 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:43:43 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ static	char	*alloc_words(char *s, int start, int finish)
 
 	i = 0;
 	word = (char *) malloc(sizeof(*s) * (finish - start) + 1);
-	if (!word)
-		return (NULL);
+	check_malloc(word);
 	while (s[i] && start < finish)
 	{
 		word[i] = s[start];
@@ -102,8 +101,7 @@ char	**ft_split(char *s, char c)
 	spl.index = -1;
 	spl.count = ft_word_count((char *)s, c);
 	spl.ptr = malloc(sizeof(char *) * (spl.count + 1));
-	if (!spl.ptr)
-		return (NULL);
+	check_malloc(spl.ptr);
 	fill_str(&spl, (char *)s, c);
 	return (spl.ptr);
 }

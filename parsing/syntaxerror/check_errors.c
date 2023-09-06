@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 20:04:29 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/15 18:29:55 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:22:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	firstcheck(t_cmd *temp)
 	if (temp->next == NULL)
 	{
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
-		status_exit = 258;
+		g_j.status_exit = 258;
 		return (1);
 	}
 	return (0);
@@ -48,7 +48,7 @@ int	begin_end_oflist(t_cmd *list)
 		if (temp->previous == NULL)
 		{
 			ft_putstr_fd("syntax error near unexpected token\n", 2);
-			status_exit = 258;
+			g_j.status_exit = 258;
 			return (1);
 		}
 	}
@@ -69,7 +69,7 @@ int	pipe_error_secondcase(t_cmd *list)
 	else
 	{
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
-		status_exit = 258;
+		g_j.status_exit = 258;
 	}
 	return (1);
 }
@@ -84,7 +84,7 @@ int	pipe_error_firstcase(t_cmd *list)
 	if (temp->next->type == t_pipe)
 	{
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
-		status_exit = 258;
+		g_j.status_exit = 258;
 		return (1);
 	}
 	return (0);
@@ -97,13 +97,14 @@ int	redirection_error(t_cmd *list)
 	temp = list;
 	if (temp->next && temp->next->type == t_space)
 		temp = temp->next;
-	if (temp->next && (temp->next->type == t_word || temp->next->type == t_singlequote \
+	if (temp->next && (temp->next->type == t_word || \
+		temp->next->type == t_singlequote \
 		|| temp->next->type == t_doublequote))
 		return (0);
 	else
 	{
 		ft_putstr_fd("syntax error near unexpected token\n", 2);
-		status_exit = 258;
+		g_j.status_exit = 258;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/21 18:22:30 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:41:28 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cas_erreur(void)
 	ft_putstr_fd("cd: error retrieving current directory: getcwd: ", 2);
 	ft_putstr_fd("cannot access parent directories: ", 2);
 	ft_putstr_fd("No such file or directory\n", 2);
-	status_exit = 1;
+	g_j.status_exit = 0;
 	return ;
 }
 
@@ -51,12 +51,12 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	i = chdir(path_home);
 	if (i < 0)
 	{
-		ft_putstr_fd("Minishell : ", 2);
 		perror(cmd->command[1]);
 		free(path_home);
-		status_exit = 1;
+		g_j.status_exit = 1;
 		return ;
 	}
+	free(path_home);
 	path_home = getcwd(pwd, sizeof(pwd));
 	if (!path_home && errno == ENOENT)
 	{
@@ -65,7 +65,7 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 	}
 	else
 		change_pwd(cmd, *env);
-	status_exit = 0;
+	g_j.status_exit = 0;
 }
 
 char	*ft_home(t_shellcmd *cmd, t_env **env)
@@ -79,7 +79,7 @@ char	*ft_home(t_shellcmd *cmd, t_env **env)
 		{
 			ft_printf("minishell: %e: HOME not set\n", cmd->command[0]);
 			free(path_home);
-			status_exit = 1;
+			g_j.status_exit = 1;
 			return (NULL);
 		}
 	}

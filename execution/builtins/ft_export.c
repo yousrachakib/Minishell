@@ -6,7 +6,7 @@
 /*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 12:08:07 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/08/19 13:24:29 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:32:07 by mben-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_export(t_shellcmd *cmd, t_env **env)
 		{
 			ft_printf("%e: %e: %e\n", cmd->command[0],
 				cmd->command[i], "not a valid identifier");
-			status_exit = 1;
+			g_j.status_exit = 1;
 		}
 		else
 		{
@@ -98,6 +98,7 @@ void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 	if (courrant)
 	{
 		free(courrant->value);
+		free(key[0]);
 		courrant->value = key[1];
 	}
 	else
@@ -105,6 +106,7 @@ void	ajouter_keyvaleur(t_env **env, char *str, char **key)
 		courrant = create_envnode(key[0], key[1]);
 		addback_envnode(env, courrant);
 	}
+	free(key);
 }
 
 int	modifier_env(t_env **env, char *command)
@@ -117,7 +119,7 @@ int	modifier_env(t_env **env, char *command)
 	current = *env;
 	current->flag = 0;
 	j = 0;
-	while (command[j] != '\0')
+	while (command[j++] != '\0')
 	{
 		if ((command[j] == '+' && command[j + 1] == '=') || command[j] == '=')
 		{
@@ -125,8 +127,9 @@ int	modifier_env(t_env **env, char *command)
 				current->flag = 2;
 			break ;
 		}
-		j++;
 	}
+	if (!command[j])
+		current->flag = 3;
 	key = check_plusegal_cmd(current, command, j);
 	if (ft_change_env(key, current, current->flag) == 1)
 		return (0);
