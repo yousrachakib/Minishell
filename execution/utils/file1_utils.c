@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:23:48 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 16:59:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:07:43 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	exit_child(int status)
 {
-	if (WIFSTOPPED(status))
-		return (128 + WSTOPSIG(status));
 	if (WIFSIGNALED(status))
 	{
 		printf("\n");
@@ -43,9 +41,15 @@ void	ft_file(t_shellcmd *cmd, int pipfd[2])
 	dup2(pipfd[1], STDOUT_FILENO);
 	close(pipfd[1]);
 	if (cmd->fd_in != -2 && cmd->fd_in != 0)
+	{
 		dup2(cmd->fd_in, 0);
+		close(cmd->fd_in);
+	}
 	if (cmd->fd_out != -2 && cmd->fd_out != 1)
+	{
 		dup2(cmd->fd_out, 1);
+		close(cmd->fd_out);
+	}
 }
 
 void	ft_close_fd(t_shellcmd *cmd, int pipfd[2])

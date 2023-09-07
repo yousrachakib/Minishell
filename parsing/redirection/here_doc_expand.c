@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 22:24:57 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 19:51:14 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/04 13:35:45 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	check_one(t_expand	*var, t_env	*env)
 			(var->end - var->start + 1));
 		currentenv = env;
 		search(currentenv, var->keytosearch, var);
+		if (var->keytosearch)
+			free(var->keytosearch);
+		var->keytosearch = NULL;
 		var->i -= 1;
 	}
 }

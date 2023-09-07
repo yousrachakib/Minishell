@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:10:31 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 19:49:53 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:07:29 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int	main(int ac, char **av, char **env)
 	char		*tmp;
 
 	(void)av;
-	if (ac > 1)
-		return (printf("Minishell: No such file or directory\n"), 1);
+	if (ac > 1 || isatty(STDIN_FILENO) == 0)
+		return (ft_putstr_fd("Minishell: No such file or directory\n", 2), 1);
 	tmp = malloc(0);
 	if (!tmp)
 		return (1);

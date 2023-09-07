@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 12:27:35 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/06 19:41:28 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:48:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	cas_erreur(void)
+void    cas_erreur(void)
 {
 	ft_putstr_fd("cd: error retrieving current directory: getcwd: ", 2);
 	ft_putstr_fd("cannot access parent directories: ", 2);
 	ft_putstr_fd("No such file or directory\n", 2);
-	g_j.status_exit = 0;
+	g_j.status_exit = 1;
 	return ;
 }
 
-char	*ft_path_home(t_env *env)
+char    *ft_path_home(t_env *env)
 {
-	t_env	*current;
+	t_env    *current;
 
 	current = env;
 	while (current)
@@ -39,15 +39,18 @@ char	*ft_path_home(t_env *env)
 	return (NULL);
 }
 
-void	ft_cd(t_shellcmd *cmd, t_env **env)
+void    ft_cd(t_shellcmd *cmd, t_env **env)
 {
-	char	*path_home;
-	int		i; 
-	char	pwd[1024];
+	char    *path_home;
+	int        i; 
+	char    pwd[1024];
+	char    oldpwd[1024];
 
 	path_home = ft_home(cmd, env);
 	if (!path_home)
 		return ;
+	char *old = getcwd(oldpwd, sizeof(oldpwd));
+	ft_oldpwd(*env, old);
 	i = chdir(path_home);
 	if (i < 0)
 	{
@@ -64,11 +67,11 @@ void	ft_cd(t_shellcmd *cmd, t_env **env)
 		return (cas_erreur());
 	}
 	else
-		change_pwd(cmd, *env);
+		change_pwd(cmd, *env, path_home);
 	g_j.status_exit = 0;
 }
 
-char	*ft_home(t_shellcmd *cmd, t_env **env)
+char    *ft_home(t_shellcmd *cmd, t_env **env)
 {
 	char	*path_home;
 

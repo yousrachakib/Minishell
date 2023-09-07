@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lastnormfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 19:46:18 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/02 16:08:35 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:10:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	ft_readline(char *input, t_cmd	**command, t_env *env, t_expand *var)
 	char		**splitedcmd;
 	t_shellcmd	**list;
 
-	rl_catch_signals = 0;
 	while (1)
 	{
+		rl_catch_signals = 0;
 		signal_step();
 		input = readline("Minishell$> ");
 		ctrl_d(input);

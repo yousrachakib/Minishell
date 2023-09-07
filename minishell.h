@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:11:09 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/06 18:54:33 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:38:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_zdef
 {
 	int		signal;
 	int		status_exit;
-	char	*m;
 	t_file	*k;
 }	t_zdef;
 
@@ -230,7 +229,7 @@ char		*git_path(t_env *env);
 char		*ft_check_path(char **spl, char *cmd);
 char		*ft_path(char **spl, char *cmd);
 void		ft_cd(t_shellcmd *cmd, t_env **env);
-void		change_pwd(t_shellcmd *cmd, t_env *env);
+void		change_pwd(t_shellcmd *cmd, t_env *env, char *path);
 void		ft_oldpwd(t_env *env, char *str);
 void		ft_unset(t_shellcmd *cmd, t_env **env);
 void		ft_export(t_shellcmd *cmd, t_env **env);

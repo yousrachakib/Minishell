@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 21:04:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/08/31 23:46:57 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:59:22 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static	int	ft_count_split(char *s, char c)
 			i++;
 		count++;
 	}
+	if (s[0] == '\0')
+		return (1);
 	return (count);
 }
 

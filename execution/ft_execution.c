@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 21:34:10 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/06 20:53:46 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:13:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,14 @@ void	ft_execution(t_shellcmd *cmd, t_env **shellenv )
 {
 	int		tmp_fd[2];
 	t_env	*current;
-	int		i;
 
-	i = 0;
+	g_j.status_exit = 0;
 	current = *shellenv;
 	tmp_fd[0] = dup(0);
 	tmp_fd[1] = dup(1);
 	if (current == NULL)
 		env_null(shellenv);
-	if (cmd == NULL)
+	if (cmd == NULL || !cmd->command[0])
 		return ;
 	signal(SIGQUIT, handlequit);
 	while (cmd->next != NULL)
@@ -96,10 +95,18 @@ void	suite_execution(t_shellcmd *cmd, t_env **shellenv)
 	else
 	{
 		if (cmd->fd_in != -2)
+		{
 			dup2(cmd->fd_in, 0);
+			close(cmd->fd_in);
+		}
 		if (cmd->fd_out != -2)
+		{
 			dup2(cmd->fd_out, 1);
+			close(cmd->fd_out);
+		}
 	}
+	if (cmd->command[0] == NULL)
+		return ;
 	if (cmd->command && ft_chercher_builtins(cmd, *shellenv) != 0)
 		ft_exec_builtins(cmd, shellenv);
 	else

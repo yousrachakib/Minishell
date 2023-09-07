@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:39:25 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/06 21:55:25 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:52:33 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ int	handle_singleq(char *input, int *i, t_cmd **head)
 	j = *i;
 	if (check_quotes(input + (*i)))
 	{
-		printf("syntaxError : verify quotations\n");
+		ft_putstr_fd("syntaxError : verify quotations\n", 2);
 		return (1);
 	}
-    else if (input[j] && input[j] == '\'' && input[j + 1] && input[j + 1] == '\'' )
-    {
+	else if (input[j] && input[j] == '\'' && input[j + 1] && input[j + 1] == '\'' )
+	{
         res = ft_strdup(" \'\'");
         node = create_node(ft_strdup(res), t_doublequote);
         free(res);
@@ -110,19 +110,19 @@ int	handle_doubleq(char *input, int *i, t_cmd **head)
 	j = *i;
 	if (check_quotes(input + (*i)))
 	{
-		printf("syntaxError : verify quotations\n");
+		ft_putstr_fd("syntaxError : verify quotations\n", 2);
 		return (1);
 	}
-    else if (input[j] && input[j] == '\"' && input[j + 1] && input[j + 1] == '\"' )
-    {
-        res = ft_strdup(" \"\"");
-        node = create_node(ft_strdup(res), t_doublequote);
-        free(res);
-        node->flag_var = 2;
-        (*i) = j + 2;
-        addback_node(head, node);
-        return(0);
-    }
+	// else if (input[j] && input[j] == '\"' && input[j + 1] && input[j + 1] == '\"' )
+	// {
+    //     res = ft_strdup(" \"\"");
+    //     node = create_node(ft_strdup(res), t_doublequote);
+    //     free(res);
+    //     node->flag_var = 2;
+    //     (*i) = j + 2;
+    //     addback_node(head, node);
+    //     return(0);
+    // }
 	if (input[j] == '\"')
 	{
 		j++;

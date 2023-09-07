@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 08:28:15 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/06 21:48:20 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:27:46 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	ft_exec_path(t_shellcmd *cmd, t_env *shellenv )
 char	*ft_direction(t_shellcmd *cmd, char **newenv, t_env *shellenv)
 {
 	char	*str;
+
 	if (find(cmd->command[0]) == 0)
 	{
 		ft_directory(cmd->command[0], cmd, newenv);
@@ -111,7 +112,7 @@ char	*ft_path(char **spl, char *cmd)
 	char	*path;
 
 	i = -1;
-	while (spl[++i])
+	while (spl[++i] && cmd[1])
 	{
 		path = my_strjoin(spl[i], cmd);
 		if (access(path, F_OK) == 0)

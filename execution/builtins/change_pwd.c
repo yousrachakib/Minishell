@@ -3,55 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   change_pwd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:25:02 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/06 19:51:45 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:34:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_oldpwd(t_env *env, char *str)
+void    ft_oldpwd(t_env *env, char *str)
 {
-	t_env	*tmp;
+	t_env *tmp;
 
-	tmp = env;
 	while (env)
 	{
-		if (ft_strncmp(env->key, "PWD", 4) == 0)
+		if (ft_strncmp(env->key, "OLDPWD", 6) == 0)
 		{
-			str = env->value;
-			break ;
+			env->value = ft_strdup(str);
+			return ;
 		}
+		if (env->next == NULL)
+			tmp = env;
 		env = env->next;
 	}
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->key, "OLDPWD", 6) == 0)
-		{
-			free(tmp->value);
-			tmp->value = ft_strdup(str);
-		}
-		tmp = tmp->next;
-	}
+	addback_envnode(&tmp, create_envnode(ft_strdup("OLDPWD"), ft_strdup(str)));
 }
 
-void	change_pwd(t_shellcmd *cmd, t_env *env)
+void    change_pwd(t_shellcmd *cmd, t_env *env, char *path)
 {
-	char	*str;
-	char	pwd[1024];
-
+	t_env *trav;
 	(void)cmd;
-	str = NULL;
-	ft_oldpwd(env, str);
+
 	while (env)
 	{
 		if (ft_strncmp(env->key, "PWD", 4) == 0)
 		{
 			free(env->value);
-			env->value = getcwd(g_j.m, sizeof(pwd));
+			env->value = ft_strdup(path);
+			return ;
 		}
+		if (env->next == NULL)
+			trav = env;
 		env = env->next;
 	}
+	addback_envnode(&trav, create_envnode(ft_strdup("PWD"), ft_strdup(path)));
 }

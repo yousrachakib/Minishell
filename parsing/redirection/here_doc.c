@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 18:07:37 by yochakib          #+#    #+#             */
-/*   Updated: 2023/09/01 16:49:29 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:45:56 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	signalher(int sig)
 	(void)sig;
 	ioctl(0, TIOCSTI, "\4");
 	g_j.signal = 1;
+	g_j.status_exit = 1;
 }
 
 int	handle_heredoc(t_env *env, t_shellcmd *list, \
@@ -67,7 +68,7 @@ char *tofind, t_expand *var)
 	if (list->fd_in == -1)
 		return (ft_putstr_fd("Error file not found", 2), free(filename), 2);
 	signal(SIGINT, signalher);
-	herdoc_loop(list, tofind, var, env);
+	herdoc_loop(list, tofind, var, env); 
 	if (g_j.signal == 1)
 		return (close(list->fd_in), free(filename), 1);
 	close(list->fd_in);

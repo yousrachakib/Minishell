@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mben-sal <mben-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 20:56:54 by mben-sal          #+#    #+#             */
-/*   Updated: 2023/09/01 21:33:45 by mben-sal         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:10:18 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_pipe_erreur(void)
 void	handlequit(int sig)
 {
 	(void)sig;
-	printf("^Quit: 3");
+	printf("Quit: 3");
 }
 
 void	dup_close(int tmp_fd_in, int tmp_fd_out)
